@@ -652,13 +652,16 @@ body {
     border-radius: 6px;
     font-size: 11px;
     font-weight: 600;
+    white-space: nowrap;
     z-index: 999999;
     opacity: 0;
-    transition: opacity 0.2s;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .action-btn:hover .btn-text {
     opacity: 1;
+    visibility: visible;
 }
 
 /* Tooltip arrow */
