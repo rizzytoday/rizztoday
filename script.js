@@ -21,9 +21,6 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 60000);
 
-
-// Removed dead code - no .emoji elements exist in the HTML
-
 // ASCII Rose Art from Image - Cursor responsive
 const asciiCanvas = document.getElementById('asciiCanvas');
 const asciiRose = document.getElementById('asciiRose');

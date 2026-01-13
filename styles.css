@@ -616,14 +616,14 @@ body {
     color: rgba(0, 0, 0, 0.8);
 }
 
-.wheel-btn:active {
-    transform: scale(0.9);
-}
-
 .wheel-btn.menu {
     top: 6px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.wheel-btn.menu:active {
+    transform: translateX(-50%) scale(0.9);
 }
 
 .wheel-btn.prev {
@@ -632,16 +632,28 @@ body {
     transform: translateY(-50%);
 }
 
+.wheel-btn.prev:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
 .wheel-btn.next {
     right: 6px;
     top: 50%;
     transform: translateY(-50%);
 }
 
+.wheel-btn.next:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
 .wheel-btn.playpause {
     bottom: 6px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.wheel-btn.playpause:active {
+    transform: translateX(-50%) scale(0.9);
 }
 
 .wheel-btn svg {
