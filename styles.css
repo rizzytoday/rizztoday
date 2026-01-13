@@ -657,14 +657,15 @@ body {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: all 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.15);
+    display: block;
 }
 
 .action-btn:hover .btn-text {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* Tooltip arrow */
