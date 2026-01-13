@@ -777,6 +777,45 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), inset 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
+/* Rabbit and Hole */
+.rabbit-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 80px;
+    height: 100px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.rabbit-hole {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 30px;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #000 70%);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+.rabbit {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 48px;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.rabbit-container:hover .rabbit {
+    transform: translateX(-50%) translateY(60px) scale(0.3);
+    opacity: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .folder {
