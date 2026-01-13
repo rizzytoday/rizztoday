@@ -21,66 +21,6 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 60000);
 
-// Draggable Folder with Reset and Open Animation
-const folder = document.getElementById('folder');
-if (folder) {
-    const folderIcon = folder.querySelector('.folder-icon');
-    let isDragging = false;
-    let startX, startY, initialX, initialY;
-    const originalLeft = '40%';
-    const originalTop = '35%';
-    let resetTimeout;
-
-    // Folder open/close animation handled by CSS
-
-    folder.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.popup-icon')) return; // Don't drag when clicking icons
-
-        isDragging = true;
-        folder.style.cursor = 'grabbing';
-
-        const rect = folder.getBoundingClientRect();
-        startX = e.clientX;
-        startY = e.clientY;
-        initialX = rect.left;
-        initialY = rect.top;
-
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
-
-        folder.style.left = `${initialX + deltaX}px`;
-        folder.style.top = `${initialY + deltaY}px`;
-        folder.style.transform = 'translate(0, 0)';
-
-        // Clear existing timeout
-        if (resetTimeout) clearTimeout(resetTimeout);
-
-        // Set timeout to reset position after 2 seconds of no movement
-        resetTimeout = setTimeout(() => {
-            folder.style.transition = 'all 0.5s ease';
-            folder.style.left = originalLeft;
-            folder.style.top = originalTop;
-            folder.style.transform = 'translate(-50%, -50%)';
-
-            setTimeout(() => {
-                folder.style.transition = '';
-            }, 500);
-        }, 2000);
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            folder.style.cursor = 'grab';
-        }
-    });
-}
 
 // Removed dead code - no .emoji elements exist in the HTML
 
