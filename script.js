@@ -327,10 +327,22 @@ if (cardsToggleBtn && cardsStack) {
 const projectCards = document.querySelectorAll('.project-card');
 projectCards.forEach(card => {
     card.addEventListener('click', function() {
-        // Get all cards and their current indices
         const allCards = Array.from(projectCards);
 
-        // Cycle: each card moves to the next position in order
+        // Find the back card (highest index) - it will pop to front
+        const backCard = allCards.find(c => parseInt(c.getAttribute('data-index')) === allCards.length - 1);
+
+        // Add popping animation to back card
+        if (backCard) {
+            backCard.classList.add('popping');
+
+            // Remove animation class after it completes
+            setTimeout(() => {
+                backCard.classList.remove('popping');
+            }, 700);
+        }
+
+        // Cycle: each card moves to the next position
         allCards.forEach(c => {
             const currentIndex = parseInt(c.getAttribute('data-index'));
             const newIndex = (currentIndex + 1) % allCards.length;

@@ -465,6 +465,30 @@ body {
     line-height: 1;
 }
 
+.action-btn-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:hover .action-btn-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 
 /* Name and Tagline at Bottom */
 .name-tagline {
@@ -731,7 +755,7 @@ body {
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.08);
 }
@@ -754,6 +778,27 @@ body {
 .project-card[data-index="3"] {
     transform: translate(-36px, 24px) rotate(-6deg);
     z-index: 1;
+}
+
+.project-card.popping {
+    animation: card-pop-to-front 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes card-pop-to-front {
+    0% {
+        transform: translate(-36px, 24px) rotate(-6deg);
+        z-index: 1;
+    }
+    40% {
+        transform: translate(20px, -60px) rotate(35deg) scale(1.1);
+        z-index: 10;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        z-index: 4;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .card-content {
