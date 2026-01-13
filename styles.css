@@ -649,20 +649,22 @@ body {
     font-weight: 600;
     letter-spacing: -0.01em;
     white-space: nowrap;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgb(255, 255, 255);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease 0.1s, visibility 0.2s ease 0.1s, transform 0.2s ease 0.1s;
+    transition: opacity 0.2s ease 0.05s, visibility 0.2s ease 0.05s, transform 0.2s ease 0.05s;
     pointer-events: none;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    z-index: 1000;
+    z-index: 10000;
+    display: block;
 }
 
 .action-btn:hover .btn-text {
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateX(-50%) translateY(0) !important;
+    display: block !important;
 }
 
 /* Tooltip arrow */
