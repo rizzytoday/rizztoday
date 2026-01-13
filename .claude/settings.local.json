@@ -10,7 +10,9 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push)",
-      "Bash(killall:*)"
+      "Bash(killall:*)",
+      "WebFetch(domain:rizzy.today)",
+      "WebFetch(domain:rizztoday.vercel.app)"
     ]
   }
 }

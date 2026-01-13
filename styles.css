@@ -656,7 +656,7 @@ body {
     font-weight: 600 !important;
     white-space: nowrap !important;
     z-index: 999999 !important;
-    opacity: 0 !important;
+    opacity: 0;
     pointer-events: none !important;
     transition: opacity 0.2s !important;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8) !important;
