@@ -29,7 +29,6 @@ const imageCanvas = document.getElementById('imageCanvas');
 if (asciiCanvas && asciiRose && imageCanvas) {
     const ctx = imageCanvas.getContext('2d');
     const img = new Image();
-    img.src = 'rizzyrose.png';
 
     // ASCII characters from darkest to brightest
     const asciiChars = ' .:-=+*#%@';
@@ -43,6 +42,22 @@ if (asciiCanvas && asciiRose && imageCanvas) {
     const asciiWidth = 120;
     const asciiHeight = 80;
 
+    // Show placeholder immediately on load
+    let placeholder = '';
+    for (let y = 0; y < asciiHeight; y++) {
+        for (let x = 0; x < asciiWidth; x++) {
+            placeholder += ' ';
+        }
+        placeholder += '\n';
+    }
+    asciiCanvas.textContent = placeholder;
+
+    // Start animation immediately (will show subtle animation even before image loads)
+    animate();
+
+    // Load image
+    img.src = 'rizzyrose.png';
+
     img.onload = () => {
         // Set canvas size
         imageCanvas.width = asciiWidth;
@@ -53,9 +68,6 @@ if (asciiCanvas && asciiRose && imageCanvas) {
 
         // Get image data
         imageData = ctx.getImageData(0, 0, asciiWidth, asciiHeight);
-
-        // Start animation
-        animate();
     };
 
     // Track mouse position
@@ -329,19 +341,6 @@ projectCards.forEach(card => {
     card.addEventListener('click', function() {
         const allCards = Array.from(projectCards);
 
-        // Find the back card (highest index) - it will pop to front
-        const backCard = allCards.find(c => parseInt(c.getAttribute('data-index')) === allCards.length - 1);
-
-        // Add popping animation to back card
-        if (backCard) {
-            backCard.classList.add('popping');
-
-            // Remove animation class after it completes
-            setTimeout(() => {
-                backCard.classList.remove('popping');
-            }, 700);
-        }
-
         // Cycle: each card moves to the next position
         allCards.forEach(c => {
             const currentIndex = parseInt(c.getAttribute('data-index'));
@@ -364,4 +363,26 @@ if (cardsToggleBtn && cardsStack) {
     });
 
     observer.observe(cardsStack, { attributes: true, attributeFilter: ['class'] });
+}
+
+// Action Button Tooltips
+const actionTooltip = document.getElementById('actionTooltip');
+const actionBtns = document.querySelectorAll('.action-btn[data-tooltip]');
+
+if (actionTooltip && actionBtns.length > 0) {
+    actionBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            const text = btn.getAttribute('data-tooltip');
+            const rect = btn.getBoundingClientRect();
+            actionTooltip.textContent = text;
+            actionTooltip.style.left = (rect.left + rect.width / 2) + 'px';
+            actionTooltip.style.top = (rect.top - 50) + 'px';
+            actionTooltip.style.transform = 'translateX(-50%)';
+            actionTooltip.classList.add('visible');
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            actionTooltip.classList.remove('visible');
+        });
+    });
 }

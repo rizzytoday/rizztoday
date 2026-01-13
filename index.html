@@ -22,7 +22,6 @@
                 <div class="rose-emoji">🌹</div>
             </div>
             <div class="nav-links">
-                <a href="https://x.com/tebrizzy" target="_blank" rel="noopener" class="nav-link">Twitter</a>
                 <a href="./archive" class="nav-link archive">Archive</a>
             </div>
         </div>
@@ -43,13 +42,16 @@
                 </svg>
                 <span class="notification-badge">1</span>
                 <div class="notification-card">
-                    <div class="notification-header">
-                        <img src="rizzypfp.jpg" alt="Profile" class="notification-pfp">
-                        <span class="notification-app">Rizzy Rose</span>
-                        <span class="notification-time">now</span>
+                    <div class="notification-section-title">Recently</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <img src="rizzypfp.jpg" alt="Profile" class="notification-pfp">
+                            <span class="notification-app">Rizzy Rose</span>
+                            <span class="notification-time">now</span>
+                        </div>
+                        <div class="notification-title">I Just Build My Website in 3 prompt</div>
+                        <div class="notification-message">It took 1 month to make the original on Framer btw</div>
                     </div>
-                    <div class="notification-title">I Just Build My Website in 3 prompt</div>
-                    <div class="notification-message">It took 1 month to make the original on Framer btw</div>
                 </div>
             </div>
             <div class="time-date">
@@ -76,17 +78,14 @@
                     
                     <!-- Action Buttons - Show on Hover Above Button -->
                     <div class="action-buttons">
-                        <a href="#" class="action-btn">
+                        <a href="#" class="action-btn" data-tooltip="Book a call">
                             <span class="btn-emoji">🗓️</span>
-                            <span class="action-btn-tooltip">Book a call</span>
                         </a>
-                        <a href="https://x.com/tebrizzy" target="_blank" rel="noopener" class="action-btn">
+                        <a href="https://x.com/tebrizzy" target="_blank" rel="noopener" class="action-btn" data-tooltip="Twitter">
                             <span class="btn-emoji">🔗</span>
-                            <span class="action-btn-tooltip">Twitter</span>
                         </a>
-                        <a href="#" class="action-btn">
+                        <a href="#" class="action-btn" data-tooltip="Discord">
                             <span class="btn-emoji">📞</span>
-                            <span class="action-btn-tooltip">Discord</span>
                         </a>
                     </div>
                 </button>
@@ -106,6 +105,7 @@
                 <rect x="7" y="9" width="10" height="2" fill="white"/>
                 <rect x="7" y="13" width="6" height="2" fill="white"/>
             </svg>
+            <span class="hover-title">Works</span>
         </button>
 
         <!-- Project Cards Stack -->
@@ -164,6 +164,11 @@
             <div class="ipod-body">
                 <div class="ipod-screen" id="ipodScreen">
                     <div class="song-title" id="songTitle">No Track</div>
+                    <div class="equalizer">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
                 </div>
                 <div class="click-wheel">
                     <div class="wheel-ring">
@@ -193,7 +198,30 @@
             </div>
             <audio id="ipodAudio"></audio>
         </div>
+
+        <!-- Yellow Sticky Note -->
+        <div class="sticky-note">
+            <div class="sticky-item">
+                <input type="checkbox" id="todo1">
+                <label for="todo1">learn blender</label>
+            </div>
+            <div class="sticky-item">
+                <input type="checkbox" id="todo2" checked>
+                <label for="todo2">finish website</label>
+            </div>
+            <div class="sticky-item">
+                <input type="checkbox" id="todo3">
+                <label for="todo3">call mom</label>
+            </div>
+            <div class="sticky-item">
+                <input type="checkbox" id="todo4" checked>
+                <label for="todo4">drink water</label>
+            </div>
+        </div>
     </div>
+
+    <!-- Tooltip for action buttons -->
+    <div id="actionTooltip" class="action-tooltip-js"></div>
 
     <script src="script.js"></script>
 </body>
