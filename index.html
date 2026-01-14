@@ -91,7 +91,13 @@
                         </a>
                     </div>
                 </button>
-                
+
+                <!-- Guestbook Button -->
+                <div class="guestbook-btn" id="guestbookBtn">
+                    <span class="guestbook-icon">✉</span>
+                    <span class="hover-title">leave a note</span>
+                </div>
+
                 <!-- Name and Tagline at Bottom -->
                 <div class="name-tagline">
                     <h1 class="name">Rizzy Rose</h1>
@@ -199,6 +205,14 @@
                 </div>
             </div>
             <audio id="ipodAudio"></audio>
+            <!-- iPod Cable -->
+            <svg class="ipod-cable" viewBox="0 0 60 200" fill="none">
+                <path d="M30 0 L30 40 Q30 60 40 80 Q55 110 35 140 Q20 165 30 200"
+                      stroke="rgba(255,255,255,0.6)"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      fill="none"/>
+            </svg>
         </div>
 
         <!-- Yellow Sticky Note -->
@@ -224,6 +238,31 @@
 
     <!-- Tooltip for action buttons -->
     <div id="actionTooltip" class="action-tooltip-js"></div>
+
+    <!-- Guestbook Panels -->
+    <div class="guestbook-overlay" id="guestbookOverlay"></div>
+
+    <!-- Input Panel - appears above button -->
+    <div class="guestbook-input-panel" id="guestbookInputPanel">
+        <input type="text" id="guestName" placeholder="your name" maxlength="30">
+        <textarea id="guestMessage" placeholder="your message..." maxlength="240"></textarea>
+        <div class="guestbook-footer">
+            <span class="char-count"><span id="charCount">0</span>/240</span>
+            <button id="guestSubmit">send</button>
+        </div>
+    </div>
+
+    <!-- Comments Panel - appears to the right -->
+    <div class="guestbook-comments-panel" id="guestbookShoutoutsPanel">
+        <div class="comments-title">Comments</div>
+        <div class="guestbook-messages" id="guestbookMessages">
+            <!-- Messages load here -->
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script src="script.js"></script>
 </body>
