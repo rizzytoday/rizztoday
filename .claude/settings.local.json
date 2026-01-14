@@ -12,7 +12,27 @@
       "Bash(git push)",
       "Bash(killall:*)",
       "WebFetch(domain:rizzy.today)",
-      "WebFetch(domain:rizztoday.vercel.app)"
+      "WebFetch(domain:rizztoday.vercel.app)",
+      "WebFetch(domain:x.com)",
+      "Bash(brew install:*)",
+      "Bash(ls:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(ffprobe:*)",
+      "WebFetch(domain:cdsassets.apple.com)",
+      "Bash(git rm:*)",
+      "Bash(git reset:*)",
+      "Bash(claude mcp add:*)",
+      "mcp__figma-desktop__get_design_context",
+      "mcp__figma-desktop__get_screenshot",
+      "Bash(git push:*)",
+      "Bash(ipconfig getifaddr:*)",
+      "Bash(npm install:*)",
+      "Bash(afplay:*)",
+      "Bash(pkill:*)",
+      "Bash(node -e:*)",
+      "Bash(npx vercel:*)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(sips:*)"
     ]
   }
 }

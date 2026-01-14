@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "firebase": "^12.7.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.35.0",
+    "sharp": "^0.34.5"
+  }
+}
