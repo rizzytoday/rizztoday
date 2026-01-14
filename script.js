@@ -449,3 +449,159 @@ document.addEventListener('click', (e) => {
         wave.remove();
     }, 600);
 });
+
+// ===== GUESTBOOK =====
+// Firebase config
+const firebaseConfig = {
+    apiKey: "AIzaSyAnQKWdREyUYXZKlVweg5HBZx0-vcMZs0g",
+    authDomain: "rizztoday.firebaseapp.com",
+    projectId: "rizztoday",
+    storageBucket: "rizztoday.firebasestorage.app",
+    messagingSenderId: "806144736906",
+    appId: "1:806144736906:web:5074b4e0bc78e39a7cb773"
+};
+
+// Initialize Firebase (only if config is set)
+let db = null;
+if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+}
+
+// Guestbook elements
+const guestbookBtn = document.getElementById('guestbookBtn');
+const guestbookInputPanel = document.getElementById('guestbookInputPanel');
+const guestbookShoutoutsPanel = document.getElementById('guestbookShoutoutsPanel');
+const guestbookOverlay = document.getElementById('guestbookOverlay');
+const guestNameInput = document.getElementById('guestName');
+const guestMessageInput = document.getElementById('guestMessage');
+const guestSubmitBtn = document.getElementById('guestSubmit');
+const charCountEl = document.getElementById('charCount');
+const messagesContainer = document.getElementById('guestbookMessages');
+
+if (guestbookBtn && guestbookInputPanel && guestbookShoutoutsPanel) {
+    // Toggle panels
+    guestbookBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        guestbookInputPanel.classList.toggle('active');
+        guestbookShoutoutsPanel.classList.toggle('active');
+        if (guestbookOverlay) guestbookOverlay.classList.toggle('active');
+        if (guestbookInputPanel.classList.contains('active')) {
+            loadGuestbookMessages();
+        }
+    });
+
+    // Close on overlay click
+    if (guestbookOverlay) {
+        guestbookOverlay.addEventListener('click', () => {
+            guestbookInputPanel.classList.remove('active');
+            guestbookShoutoutsPanel.classList.remove('active');
+            guestbookOverlay.classList.remove('active');
+        });
+    }
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (!guestbookBtn.contains(e.target) &&
+            !guestbookInputPanel.contains(e.target) &&
+            !guestbookShoutoutsPanel.contains(e.target)) {
+            guestbookInputPanel.classList.remove('active');
+            guestbookShoutoutsPanel.classList.remove('active');
+            if (guestbookOverlay) guestbookOverlay.classList.remove('active');
+        }
+    });
+}
+
+// Character count
+if (guestMessageInput && charCountEl) {
+    guestMessageInput.addEventListener('input', () => {
+        charCountEl.textContent = guestMessageInput.value.length;
+    });
+}
+
+// Submit message
+if (guestSubmitBtn) {
+    guestSubmitBtn.addEventListener('click', async () => {
+        const name = guestNameInput?.value.trim();
+        const message = guestMessageInput?.value.trim();
+
+        if (!name || !message) return;
+        if (!db) {
+            console.log('Firebase not configured');
+            return;
+        }
+
+        try {
+            await db.collection('guestbook').add({
+                name: name,
+                message: message,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            guestNameInput.value = '';
+            guestMessageInput.value = '';
+            charCountEl.textContent = '0';
+            loadGuestbookMessages();
+        } catch (error) {
+            console.error('Error adding message:', error);
+        }
+    });
+}
+
+// Load messages
+async function loadGuestbookMessages() {
+    if (!messagesContainer) return;
+
+    if (!db) {
+        messagesContainer.innerHTML = '<div class="no-messages">guestbook coming soon...</div>';
+        return;
+    }
+
+    try {
+        const snapshot = await db.collection('guestbook')
+            .orderBy('timestamp', 'desc')
+            .limit(20)
+            .get();
+
+        if (snapshot.empty) {
+            messagesContainer.innerHTML = '<div class="no-messages">be the first to leave a note!</div>';
+            return;
+        }
+
+        messagesContainer.innerHTML = '';
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const time = data.timestamp ? formatTime(data.timestamp.toDate()) : '';
+            messagesContainer.innerHTML += `
+                <div class="guest-message">
+                    <div class="guest-name">${escapeHtml(data.name)}</div>
+                    <div class="guest-text">${escapeHtml(data.message)}</div>
+                    ${time ? `<div class="guest-time">${time}</div>` : ''}
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error('Error loading messages:', error);
+        messagesContainer.innerHTML = '<div class="no-messages">error loading messages</div>';
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatTime(date) {
+    const now = new Date();
+    const diff = now - date;
+    const mins = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    if (days < 7) return `${days}d ago`;
+    return date.toLocaleDateString();
+}

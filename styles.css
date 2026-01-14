@@ -784,6 +784,18 @@ body {
     height: 10px;
 }
 
+/* iPod Cable */
+.ipod-cable {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
 /* Cards Toggle Button */
 .cards-toggle-btn {
     position: fixed;
@@ -1253,22 +1265,23 @@ body {
         visibility: hidden;
     }
 
-    /* Center notification card on mobile */
+    /* Position notification card below navbar on mobile */
     .notification-card {
         position: fixed;
-        top: 50%;
+        top: 44px;
         left: 50%;
         right: auto;
-        transform: translate(-50%, -50%) scale(0.9);
-        transform-origin: center;
+        transform: translateX(-50%) scaleY(0.3) scaleX(0.8);
+        transform-origin: top center;
         width: min(320px, 90vw);
         z-index: 9999;
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .notification-card.active {
         opacity: 1;
         visibility: visible;
-        transform: translate(-50%, -50%) scale(1);
+        transform: translateX(-50%) scaleY(1) scaleX(1);
     }
 }
 
@@ -1286,6 +1299,281 @@ body {
 
 .notification-overlay.active {
     display: block;
+}
+
+/* Guestbook Button */
+.guestbook-btn {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 47px;
+    height: 47px;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.guestbook-btn:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.guestbook-btn:active {
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+}
+
+.guestbook-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guestbook-btn .hover-title {
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-4px);
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100;
+}
+
+.guestbook-btn:hover .hover-title {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Guestbook Overlay */
+.guestbook-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 99;
+}
+
+.guestbook-overlay.active {
+    display: block;
+}
+
+/* Guestbook Input Panel - above the button */
+.guestbook-input-panel {
+    position: fixed;
+    left: 20px;
+    bottom: 70px;
+    width: 200px;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 101;
+}
+
+.guestbook-input-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Comments Panel - Apple Messages style */
+.guestbook-comments-panel {
+    position: fixed;
+    left: 240px;
+    bottom: 70px;
+    width: 200px;
+    max-height: 260px;
+    background: rgba(28, 28, 30, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: 0.05s;
+    z-index: 101;
+    overflow: hidden;
+}
+
+.guestbook-comments-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+.comments-title {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Guestbook Form Inputs */
+.guestbook-input-panel input,
+.guestbook-input-panel textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    padding: 8px 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-family: 'Inter Tight', sans-serif;
+    margin-bottom: 8px;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.guestbook-input-panel input:focus,
+.guestbook-input-panel textarea:focus {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.guestbook-input-panel input::placeholder,
+.guestbook-input-panel textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.guestbook-input-panel textarea {
+    height: 50px;
+}
+
+.guestbook-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.char-count {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: 'Inter Tight', sans-serif;
+}
+
+#guestSubmit {
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 9px;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#guestSubmit:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Guestbook Messages - Apple Messages style */
+.guestbook-messages {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.guestbook-messages::-webkit-scrollbar {
+    width: 3px;
+}
+
+.guestbook-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.guestbook-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+/* iMessage-style bubble */
+.guest-message {
+    padding: 8px 12px;
+    background: rgba(58, 58, 60, 0.9);
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    max-width: 100%;
+    position: relative;
+}
+
+.guest-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2px;
+    font-family: 'Inter Tight', sans-serif;
+}
+
+.guest-text {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.35;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter Tight', sans-serif;
+    word-wrap: break-word;
+}
+
+.guest-time {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+    font-family: 'Inter Tight', sans-serif;
+}
+
+.no-messages {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    padding: 30px 10px;
+    font-family: 'Inter Tight', sans-serif;
 }
 
 /* Yellow Sticky Note */
