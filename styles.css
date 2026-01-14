@@ -1107,6 +1107,63 @@ body {
         right: 10px;
         transform: scale(0.8);
     }
+
+    /* Guestbook - stack panels vertically on tablet/mobile */
+    .guestbook-btn {
+        left: 15px;
+        bottom: 15px;
+    }
+
+    .guestbook-input-panel {
+        width: 200px !important;
+        left: 15px !important;
+        bottom: 75px !important;
+    }
+
+    .guestbook-comments-panel {
+        left: 15px !important;
+        right: auto !important;
+        bottom: 250px !important;
+        top: auto !important;
+        width: 130px !important;
+        max-height: 100px !important;
+        padding: 8px !important;
+        transform: none !important;
+    }
+
+    .guestbook-comments-panel.active {
+        transform: scale(1) !important;
+    }
+
+    .guestbook-comments-panel .comments-title {
+        font-size: 10px;
+        margin-bottom: 6px;
+        padding-bottom: 4px;
+    }
+
+    .guestbook-comments-panel .guest-message {
+        padding: 5px 6px;
+        border-radius: 8px;
+    }
+
+    .guestbook-comments-panel .guest-name {
+        font-size: 8px;
+    }
+
+    .guestbook-comments-panel .guest-text {
+        font-size: 8px;
+        line-height: 1.2;
+    }
+
+    .guestbook-comments-panel .guest-time {
+        font-size: 7px;
+        margin-top: 2px;
+    }
+
+    .guestbook-comments-panel .guestbook-messages {
+        gap: 3px;
+        max-height: 58px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1196,6 +1253,59 @@ body {
 
     .piano-container {
         transform: scale(0.7);
+    }
+
+    /* Guestbook - smaller phones */
+    .guestbook-btn {
+        left: 12px;
+        bottom: 12px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .guestbook-input-panel {
+        width: min(180px, 48vw);
+        left: 12px;
+        bottom: 65px;
+    }
+
+    .guestbook-comments-panel {
+        left: 12px !important;
+        bottom: 230px !important;
+        top: auto !important;
+        width: 130px !important;
+        max-height: 90px;
+        padding: 6px;
+    }
+
+    .guestbook-comments-panel .comments-title {
+        font-size: 9px;
+        margin-bottom: 5px;
+        padding-bottom: 3px;
+    }
+
+    .guestbook-comments-panel .guest-message {
+        padding: 4px 5px;
+        border-radius: 6px;
+    }
+
+    .guestbook-comments-panel .guest-name {
+        font-size: 7px;
+    }
+
+    .guestbook-comments-panel .guest-text {
+        font-size: 7px;
+        line-height: 1.2;
+    }
+
+    .guestbook-comments-panel .guest-time {
+        font-size: 6px;
+        margin-top: 1px;
+    }
+
+    .guestbook-comments-panel .guestbook-messages {
+        gap: 3px;
+        max-height: 58px;
     }
 }
 
@@ -1418,14 +1528,14 @@ body {
     position: fixed;
     left: 240px;
     bottom: 70px;
-    width: 200px;
-    max-height: 260px;
+    width: 130px;
+    max-height: 110px;
     background: rgba(28, 28, 30, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: 14px;
+    border-radius: 10px;
+    padding: 8px;
     opacity: 0;
     visibility: hidden;
     transform: translateX(-10px) scale(0.95);
@@ -1443,11 +1553,11 @@ body {
 
 .comments-title {
     font-family: 'Inter Tight', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 12px;
-    padding-bottom: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -1515,11 +1625,11 @@ body {
 
 /* Guestbook Messages - Apple Messages style */
 .guestbook-messages {
-    max-height: 180px;
+    max-height: 58px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 3px;
 }
 
 .guestbook-messages::-webkit-scrollbar {
@@ -1537,34 +1647,47 @@ body {
 
 /* iMessage-style bubble */
 .guest-message {
-    padding: 8px 12px;
-    background: rgba(58, 58, 60, 0.9);
-    border-radius: 16px;
+    padding: 4px 7px;
+    background: rgba(58, 58, 60, 0.95);
+    border-radius: 12px;
     border-bottom-left-radius: 4px;
     max-width: 100%;
     position: relative;
+    margin-left: 6px;
+}
+
+.guest-message::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background: rgba(58, 58, 60, 0.95);
+    border-bottom-left-radius: 10px;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
 .guest-name {
-    font-size: 10px;
+    font-size: 7px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1px;
     font-family: 'Inter Tight', sans-serif;
 }
 
 .guest-text {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.35;
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.2;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter Tight', sans-serif;
     word-wrap: break-word;
 }
 
 .guest-time {
-    font-size: 9px;
-    color: rgba(255, 255, 255, 0.35);
-    margin-top: 4px;
+    font-size: 6px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 1px;
     font-family: 'Inter Tight', sans-serif;
 }
 
