@@ -188,6 +188,7 @@ if (statusBtn) {
 const actionButtons = document.querySelectorAll('.action-btn');
 actionButtons.forEach(button => {
     button.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent toggling status button when clicking action buttons
         // Create ripple effect
         const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
@@ -392,11 +393,13 @@ if (cardsToggleBtn && cardsStack) {
 
         // Show tooltip every time cards open
         if (!wasActive && cardsStack.classList.contains('active')) {
-            // Position tooltip left-aligned above the cards
+            // Position tooltip ABOVE cards, right-aligned
             setTimeout(() => {
                 const stackRect = cardsStack.getBoundingClientRect();
-                cardsInstructionTooltip.style.left = stackRect.left + 'px';
-                cardsInstructionTooltip.style.top = (stackRect.top - 20) + 'px';
+                const tooltipWidth = cardsInstructionTooltip.offsetWidth || 120;
+                // Position above cards, right edge aligned with cards right edge
+                cardsInstructionTooltip.style.left = (stackRect.right - tooltipWidth) + 'px';
+                cardsInstructionTooltip.style.top = (stackRect.top - 25) + 'px';
                 cardsInstructionTooltip.style.transform = 'none';
                 cardsInstructionTooltip.classList.add('visible');
             }, 100);
@@ -459,12 +462,13 @@ if (cardsToggleBtn && cardsStack) {
     observer.observe(cardsStack, { attributes: true, attributeFilter: ['class'] });
 }
 
-// Action Button Tooltips
+// Action Button Tooltips (desktop only)
 const actionTooltip = document.getElementById('actionTooltip');
 const actionBtns = document.querySelectorAll('.action-btn[data-tooltip]');
 
 if (actionTooltip && actionBtns.length > 0) {
     actionBtns.forEach(btn => {
+        // Desktop: show on hover
         btn.addEventListener('mouseenter', () => {
             const text = btn.getAttribute('data-tooltip');
             const rect = btn.getBoundingClientRect();
@@ -478,6 +482,7 @@ if (actionTooltip && actionBtns.length > 0) {
         btn.addEventListener('mouseleave', () => {
             actionTooltip.classList.remove('visible');
         });
+
     });
 }
 
