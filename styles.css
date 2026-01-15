@@ -464,6 +464,11 @@ body {
     overflow: visible;
 }
 
+/* Hide action button titles on desktop - show only on mobile */
+.action-btn .hover-title {
+    display: none;
+}
+
 .status-btn:hover .action-btn {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -491,6 +496,11 @@ body {
 .btn-emoji {
     font-size: 18px;
     line-height: 1;
+}
+
+/* Hide labels on desktop */
+.btn-label {
+    display: none;
 }
 
 /* Action Button Tooltips - JavaScript powered */
@@ -872,7 +882,7 @@ body {
     border: none;
     color: rgba(255, 255, 255, 0.6);
     font-family: 'Inter', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
     padding: 0;
     white-space: nowrap;
@@ -890,7 +900,7 @@ body {
 .cards-stack {
     position: fixed;
     top: 140px;
-    left: 80px;
+    left: 100px;
     width: 240px;
     height: 140px;
     z-index: 50;
@@ -1092,7 +1102,7 @@ body {
     .cards-stack {
         width: 200px;
         height: 120px;
-        left: 35px;
+        left: 50px;
         top: 130px;
     }
 
@@ -1197,13 +1207,13 @@ body {
         display: none;
     }
 
-    /* ASCII rose - smaller on phone */
+    /* ASCII rose - bigger on phone */
     .ascii-rose {
-        transform: translate(-50%, -50%) scale(0.55);
+        transform: translate(-50%, -50%) scale(0.75);
     }
 
     .ascii-rose pre {
-        font-size: 5px;
+        font-size: 6px;
     }
 
     /* Name tagline */
@@ -1226,7 +1236,7 @@ body {
     .cards-stack {
         width: 180px;
         height: 110px;
-        left: 25px;
+        left: 40px;
         top: 115px;
     }
 
@@ -1284,6 +1294,10 @@ body {
         height: 42px;
     }
 
+    .guestbook-icon {
+        font-size: 18px;
+    }
+
     .guestbook-input-panel {
         width: min(180px, 48vw);
         left: 12px;
@@ -1332,43 +1346,39 @@ body {
 
 /* Touch device hover title fix - always visible on mobile */
 @media (hover: none) {
-    /* Cards toggle button - show label inline */
+    /* Cards toggle button - show label inline, stable layout */
     .cards-toggle-btn {
-        width: auto;
-        padding: 10px 16px;
+        width: auto !important;
+        min-width: 100px;
+        height: 44px !important;
+        padding: 0 16px !important;
         gap: 8px;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .cards-toggle-btn svg {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
     }
 
     .cards-toggle-btn .hover-title {
-        position: static;
-        opacity: 1;
-        transform: none;
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
         padding: 0;
         background: none;
         border: none;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 500;
+        line-height: 44px;
+        white-space: nowrap;
     }
 
-    /* Action buttons - show labels inline */
-    .action-btn {
-        width: auto;
-        padding: 8px 12px;
-        gap: 6px;
-    }
-
-    .action-btn .hover-title {
-        position: static;
-        opacity: 1;
-        transform: none;
-        padding: 0;
-        background: none;
-        border: none;
-        font-size: 12px;
-        font-weight: 500;
-    }
-
-    /* Action buttons hidden by default on touch - shown via JS toggle */
+    /* Action buttons - show labels as tooltips above icons on mobile */
     .status-btn .action-buttons {
         opacity: 0;
         transform: translateX(-50%) translateY(8px) scale(0.9);
@@ -1377,6 +1387,26 @@ body {
     .status-btn .action-btn {
         opacity: 0;
         transform: scale(0.6) translateY(12px);
+        position: relative;
+    }
+
+    .status-btn .action-btn .btn-label {
+        display: block !important;
+        position: absolute;
+        bottom: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0d0201;
+        border: 1px solid #474040;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 9px;
+        font-weight: 500;
+        color: white;
+        white-space: nowrap;
+        z-index: 100;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     /* Show action buttons when status button has .actions-visible class */
@@ -1405,7 +1435,7 @@ body {
         transform: translateX(-50%) scaleY(0.3) scaleX(0.8);
         transform-origin: top center;
         width: min(320px, 90vw);
-        z-index: 9999;
+        z-index: 10000;
         transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
@@ -1437,9 +1467,6 @@ body {
     position: fixed;
     left: 20px;
     bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 47px;
     height: 47px;
     padding: 0;
@@ -1453,6 +1480,9 @@ body {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .guestbook-btn:hover {
@@ -1468,8 +1498,9 @@ body {
 }
 
 .guestbook-icon {
-    font-size: 30px;
+    font-size: 26px;
     line-height: 1;
+    display: block;
 }
 
 .guestbook-btn .hover-title {
@@ -1793,9 +1824,30 @@ body {
     color: #666;
 }
 
-/* Responsive - hide on smaller screens */
+/* Responsive - sticky note on mobile at top right */
 @media (max-width: 900px) {
     .sticky-note {
-        display: none;
+        right: 8px;
+        top: 80px;
+        bottom: auto;
+        transform: scale(0.8) rotate(2deg);
+        transform-origin: top right;
+        padding: 18px 20px;
+        min-width: 140px;
+        z-index: 60;
+    }
+
+    .sticky-item label {
+        font-size: 18px;
+    }
+
+    .sticky-item input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .sticky-item {
+        gap: 10px;
+        margin-bottom: 8px;
     }
 }
