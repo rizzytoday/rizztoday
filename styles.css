@@ -2804,11 +2804,26 @@ body {
 /* Verified Checkmarks */
 .verified-check {
     display: inline-block;
-    margin-left: 4px;
+    margin-left: 3px;
     vertical-align: middle;
+    position: relative;
+    top: -1px;
 }
 .verified-check.red { color: #E32020; }
 .verified-check.orange { color: #F59E0B; }
+
+/* Company Badges */
+.company-badge {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    border-radius: 3px;
+    object-fit: cover;
+}
 
 /* Responsive - sticky note on mobile at top right */
 @media (max-width: 900px) {
