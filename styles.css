@@ -1003,7 +1003,6 @@ body {
     border-radius: 12px;
     padding: 14px 16px;
     position: relative;
-    margin-bottom: 16px;
 }
 
 .testimonial-quote::before {
@@ -1033,6 +1032,9 @@ body {
     align-items: center;
     justify-content: center;
     gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .testimonial-arrow {
