@@ -2071,16 +2071,16 @@ body {
 
     /* About toggle button */
     .about-toggle-btn {
-        left: 60px;
-        top: 50px;
+        left: 15px;
+        top: 95px;
         width: 40px;
         height: 40px;
     }
 
-    /* Testimonials toggle button - same row */
+    /* Testimonials toggle button - column layout */
     .testimonials-toggle-btn {
-        left: 105px;
-        top: 50px;
+        left: 15px;
+        top: 140px;
         right: auto;
         width: 40px;
         height: 40px;
@@ -2223,9 +2223,13 @@ body {
         flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
-        left: 215px !important;
+        left: 15px !important;
         right: auto !important;
-        top: 50px !important;
+        top: 150px !important;
+    }
+
+    .testimonials-toggle-btn .hover-title {
+        font-size: 12px;
     }
 
     .testimonials-toggle-btn svg {
@@ -2262,6 +2266,10 @@ body {
         top: 50px !important;
     }
 
+    .cards-toggle-btn .hover-title {
+        font-size: 12px;
+    }
+
     .cards-toggle-btn svg {
         flex-shrink: 0;
         width: 20px;
@@ -2292,8 +2300,12 @@ body {
         flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
-        left: 120px !important;
-        top: 50px !important;
+        left: 15px !important;
+        top: 100px !important;
+    }
+
+    .about-toggle-btn .hover-title {
+        font-size: 12px;
     }
 
     .about-toggle-btn svg {
@@ -2326,7 +2338,8 @@ body {
     }
 
     .about-card {
-        top: 110px !important;
+        top: 160px !important;
+        left: 15px !important;
     }
 
     /* Action buttons - show labels as tooltips above icons on mobile */
@@ -2803,24 +2816,22 @@ body {
 
 /* Verified Checkmarks */
 .verified-check {
-    display: inline-block;
-    margin-left: 3px;
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
     vertical-align: middle;
-    position: relative;
-    top: -1px;
 }
 .verified-check.red { color: #E32020; }
 .verified-check.orange { color: #F59E0B; }
 
 /* Company Badges */
 .company-badge {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
     margin-left: 4px;
     vertical-align: middle;
-    position: relative;
-    top: -1px;
     border-radius: 3px;
     object-fit: cover;
 }
