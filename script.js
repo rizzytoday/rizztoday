@@ -850,11 +850,25 @@ const projectCounter = document.getElementById('projectCounter');
 const targetCount = 19;
 
 if (projectCounter) {
-    let isAnimating = false;
+    let hasCountedUp = false;
+
+    function glitchLoop() {
+        // Glitch effect: try to go to 20, fall back to 19, repeat forever
+        projectCounter.textContent = '20';
+        projectCounter.classList.add('glitch');
+
+        setTimeout(() => {
+            projectCounter.textContent = '19';
+            projectCounter.classList.remove('glitch');
+
+            // Wait then glitch again
+            setTimeout(glitchLoop, 1500);
+        }, 200);
+    }
 
     function animateCounter() {
-        if (isAnimating) return;
-        isAnimating = true;
+        if (hasCountedUp) return;
+        hasCountedUp = true;
 
         let current = 0;
         const duration = 2800; // 2.8 seconds for slower count
@@ -867,22 +881,8 @@ if (projectCounter) {
             if (current >= targetCount) {
                 clearInterval(countUp);
 
-                // Glitch effect: try to go to 20, fall back to 19, then loop
-                setTimeout(() => {
-                    projectCounter.textContent = '20';
-                    projectCounter.classList.add('glitch');
-
-                    setTimeout(() => {
-                        projectCounter.textContent = '19';
-                        projectCounter.classList.remove('glitch');
-
-                        // Wait a bit then restart the loop
-                        setTimeout(() => {
-                            isAnimating = false;
-                            animateCounter();
-                        }, 1500);
-                    }, 200);
-                }, 300);
+                // Start the infinite glitch loop after initial count
+                setTimeout(glitchLoop, 300);
             }
         }, stepTime);
     }
