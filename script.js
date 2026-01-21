@@ -850,11 +850,11 @@ const projectCounter = document.getElementById('projectCounter');
 const targetCount = 19;
 
 if (projectCounter) {
-    let hasAnimated = false;
+    let isAnimating = false;
 
     function animateCounter() {
-        if (hasAnimated) return;
-        hasAnimated = true;
+        if (isAnimating) return;
+        isAnimating = true;
 
         let current = 0;
         const duration = 2800; // 2.8 seconds for slower count
@@ -867,7 +867,7 @@ if (projectCounter) {
             if (current >= targetCount) {
                 clearInterval(countUp);
 
-                // Glitch effect: try to go to 20, fall back to 19
+                // Glitch effect: try to go to 20, fall back to 19, then loop
                 setTimeout(() => {
                     projectCounter.textContent = '20';
                     projectCounter.classList.add('glitch');
@@ -875,6 +875,12 @@ if (projectCounter) {
                     setTimeout(() => {
                         projectCounter.textContent = '19';
                         projectCounter.classList.remove('glitch');
+
+                        // Wait a bit then restart the loop
+                        setTimeout(() => {
+                            isAnimating = false;
+                            animateCounter();
+                        }, 1500);
                     }, 200);
                 }, 300);
             }
