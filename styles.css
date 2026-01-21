@@ -1967,6 +1967,12 @@ body {
         gap: 3px;
         max-height: 58px;
     }
+
+    /* Darker overlay on mobile */
+    .notification-overlay.active,
+    .guestbook-overlay.active {
+        background: rgba(0, 0, 0, 0.7);
+    }
 }
 
 @media (max-width: 480px) {
@@ -2057,16 +2063,25 @@ body {
 
     /* Cards toggle button */
     .cards-toggle-btn {
-        left: 25px;
-        top: 55px;
+        left: 15px;
+        top: 50px;
         width: 40px;
         height: 40px;
     }
 
     /* About toggle button */
     .about-toggle-btn {
-        left: 25px;
-        top: 95px;
+        left: 60px;
+        top: 50px;
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Testimonials toggle button - same row */
+    .testimonials-toggle-btn {
+        left: 105px;
+        top: 50px;
+        right: auto;
         width: 40px;
         height: 40px;
     }
@@ -2201,13 +2216,16 @@ body {
     /* Testimonials toggle button - show label inline */
     .testimonials-toggle-btn {
         width: auto !important;
-        min-width: 100px;
+        min-width: 90px;
         height: 44px !important;
-        padding: 0 16px !important;
-        gap: 8px;
+        padding: 0 14px !important;
+        gap: 6px;
         flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
+        left: 215px !important;
+        right: auto !important;
+        top: 50px !important;
     }
 
     .testimonials-toggle-btn svg {
@@ -2233,13 +2251,15 @@ body {
     /* Cards toggle button - show label inline, stable layout */
     .cards-toggle-btn {
         width: auto !important;
-        min-width: 100px;
+        min-width: 90px;
         height: 44px !important;
-        padding: 0 16px !important;
-        gap: 8px;
+        padding: 0 14px !important;
+        gap: 6px;
         flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
+        left: 15px !important;
+        top: 50px !important;
     }
 
     .cards-toggle-btn svg {
@@ -2265,14 +2285,15 @@ body {
     /* About toggle button - show label inline, stable layout */
     .about-toggle-btn {
         width: auto !important;
-        min-width: 100px;
+        min-width: 90px;
         height: 44px !important;
-        padding: 0 16px !important;
-        gap: 8px;
+        padding: 0 14px !important;
+        gap: 6px;
         flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
-        top: 140px !important;
+        left: 120px !important;
+        top: 50px !important;
     }
 
     .about-toggle-btn svg {
@@ -2305,7 +2326,7 @@ body {
     }
 
     .about-card {
-        top: 200px !important;
+        top: 110px !important;
     }
 
     /* Action buttons - show labels as tooltips above icons on mobile */
@@ -2779,6 +2800,15 @@ body {
     text-decoration-color: rgba(102, 102, 102, 0.6);
     color: #666;
 }
+
+/* Verified Checkmarks */
+.verified-check {
+    display: inline-block;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+.verified-check.red { color: #E32020; }
+.verified-check.orange { color: #F59E0B; }
 
 /* Responsive - sticky note on mobile at top right */
 @media (max-width: 900px) {
