@@ -605,7 +605,7 @@ body {
     object-fit: contain;
     filter: brightness(0) invert(1);
     opacity: 0.7;
-    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease, drop-shadow 0.3s ease;
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
 .client-logos img.logo-radiants {
@@ -613,14 +613,24 @@ body {
 }
 
 .client-logos img:hover {
-    filter: none drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    filter: none;
     opacity: 1;
     transform: scale(1.15);
 }
 
+/* Hydex - cyan glow */
+.client-logos img.logo-hydex:hover {
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.7));
+}
+
+/* Radiants - yellow #FCE184 */
 .client-logos img.logo-radiants:hover {
-    filter: brightness(0) saturate(100%) invert(89%) sepia(25%) saturate(748%) hue-rotate(332deg) brightness(103%) contrast(98%) drop-shadow(0 0 8px rgba(252, 225, 132, 0.7));
-    opacity: 1;
+    filter: brightness(0) saturate(100%) invert(89%) sepia(25%) saturate(748%) hue-rotate(332deg) brightness(103%) contrast(98%) drop-shadow(0 0 8px rgba(252, 225, 132, 0.8));
+}
+
+/* Solana - purple glow */
+.client-logos img.logo-solana:hover {
+    filter: drop-shadow(0 0 8px rgba(153, 69, 255, 0.7));
 }
 
 /* Project Stats */
@@ -628,11 +638,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     margin-top: 10px;
     padding-top: 10px;
     font-family: 'Inter Tight', sans-serif;
-    font-size: 10px;
+    font-size: 8px;
     color: rgba(255, 255, 255, 0.4);
     position: relative;
 }
@@ -643,7 +653,7 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 140px;
+    width: 180px;
     height: 1px;
     background: rgba(255, 255, 255, 0.15);
 }
