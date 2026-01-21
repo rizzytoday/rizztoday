@@ -184,9 +184,9 @@ body {
     padding: 0;
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.9) translateY(-8px);
+    transform: scale(0.85) translateY(-10px);
     transform-origin: top right;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 1001;
     cursor: pointer;
 }
@@ -417,7 +417,7 @@ body {
     position: absolute;
     bottom: calc(100% + 2px);
     left: 50%;
-    transform: translateX(-50%) translateY(8px) scale(0.9);
+    transform: translateX(-50%) scale(0.85) translateY(-10px);
     transform-origin: bottom center;
     display: flex;
     flex-direction: row;
@@ -425,7 +425,7 @@ body {
     z-index: 10;
     pointer-events: all;
     opacity: 0;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     padding-bottom: 8px;
     overflow: visible;
 }
@@ -433,7 +433,7 @@ body {
 .status-btn:hover .action-buttons,
 .action-buttons:hover {
     opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translateX(-50%) scale(1) translateY(0);
 }
 
 .action-btn {
@@ -452,11 +452,11 @@ body {
     font-family: 'Inter Tight', sans-serif;
     font-size: 12px;
     font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
     white-space: nowrap;
     opacity: 0;
-    transform: scale(0.6) translateY(12px);
+    transform: scale(0.85) translateY(-10px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     position: relative;
     width: 36px;
@@ -471,7 +471,7 @@ body {
 
 .status-btn:hover .action-btn {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0) !important;
 }
 
 .status-btn:hover .action-btn:nth-child(1) {
@@ -1149,21 +1149,26 @@ body {
         width: 200px !important;
         left: 15px !important;
         bottom: 75px !important;
+        transform-origin: bottom left !important;
+    }
+
+    .guestbook-input-panel.active {
+        transform: scale(1) translateY(0) !important;
     }
 
     .guestbook-comments-panel {
         left: 15px !important;
         right: auto !important;
-        bottom: 250px !important;
+        bottom: 265px !important;
         top: auto !important;
         width: 130px !important;
         max-height: 100px !important;
         padding: 8px !important;
-        transform: none !important;
+        transform-origin: bottom left !important;
     }
 
     .guestbook-comments-panel.active {
-        transform: scale(1) !important;
+        transform: scale(1) translateY(0) !important;
     }
 
     .guestbook-comments-panel .comments-title {
@@ -1298,18 +1303,18 @@ body {
     }
 
     .guestbook-input-panel {
-        width: min(180px, 48vw);
-        left: 12px;
-        bottom: 65px;
+        width: min(180px, 48vw) !important;
+        left: 12px !important;
+        bottom: 65px !important;
     }
 
     .guestbook-comments-panel {
         left: 12px !important;
-        bottom: 230px !important;
+        bottom: 245px !important;
         top: auto !important;
         width: 130px !important;
-        max-height: 90px;
-        padding: 6px;
+        max-height: 90px !important;
+        padding: 6px !important;
     }
 
     .guestbook-comments-panel .comments-title {
@@ -1379,12 +1384,12 @@ body {
     /* Action buttons - show labels as tooltips above icons on mobile */
     .status-btn .action-buttons {
         opacity: 0;
-        transform: translateX(-50%) translateY(8px) scale(0.9);
+        transform: translateX(-50%) scale(0.85) translateY(-10px);
     }
 
     .status-btn .action-btn {
         opacity: 0;
-        transform: scale(0.6) translateY(12px);
+        transform: scale(0.85) translateY(-10px);
         position: relative;
     }
 
@@ -1410,12 +1415,12 @@ body {
     /* Show action buttons when status button has .actions-visible class */
     .status-btn.actions-visible .action-buttons {
         opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1);
+        transform: translateX(-50%) scale(1) translateY(0);
     }
 
     .status-btn.actions-visible .action-btn {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(1) translateY(0) !important;
     }
 
     /* Disable hover on touch for notification, use click toggle */
@@ -1430,7 +1435,7 @@ body {
         top: 44px;
         left: 50%;
         right: auto;
-        transform: translateX(-50%) scaleY(0.3) scaleX(0.8);
+        transform: translateX(-50%) scale(0.85) translateY(-10px);
         transform-origin: top center;
         width: min(320px, 90vw);
         z-index: 10000;
@@ -1440,7 +1445,7 @@ body {
     .notification-card.active {
         opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) scaleY(1) scaleX(1);
+        transform: translateX(-50%) scale(1) translateY(0);
     }
 }
 
@@ -1557,15 +1562,16 @@ body {
     padding: 12px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px) scale(0.95);
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scale(0.85) translateY(-10px);
+    transform-origin: bottom left;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 101;
 }
 
 .guestbook-input-panel.active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0) scale(1);
+    transform: scale(1) translateY(0);
 }
 
 /* Comments Panel - Apple Messages style */
@@ -1583,9 +1589,10 @@ body {
     padding: 8px;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-10px) scale(0.95);
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transition-delay: 0.05s;
+    transform: scale(0.85) translateY(-10px);
+    transform-origin: bottom left;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: 0.08s;
     z-index: 101;
     overflow: hidden;
 }
@@ -1593,7 +1600,7 @@ body {
 .guestbook-comments-panel.active {
     opacity: 1;
     visibility: visible;
-    transform: translateX(0) scale(1);
+    transform: scale(1) translateY(0);
 }
 
 .comments-title {
