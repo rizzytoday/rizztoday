@@ -622,10 +622,12 @@ async function loadGuestbookMessages() {
             const data = doc.data();
             const time = data.timestamp ? formatTime(data.timestamp.toDate()) : '';
             messagesContainer.innerHTML += `
-                <div class="guest-message">
+                <div class="guest-message-wrapper">
                     <div class="guest-name">${escapeHtml(data.name)}</div>
-                    <div class="guest-text">${escapeHtml(data.message)}</div>
-                    ${time ? `<div class="guest-time">${time}</div>` : ''}
+                    <div class="guest-message">
+                        <div class="guest-text">${escapeHtml(data.message)}</div>
+                        ${time ? `<div class="guest-time">${time}</div>` : ''}
+                    </div>
                 </div>
             `;
         });

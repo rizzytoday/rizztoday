@@ -32,7 +32,17 @@
       "Bash(node -e:*)",
       "Bash(npx vercel:*)",
       "WebFetch(domain:www.figma.com)",
-      "Bash(sips:*)"
+      "Bash(sips:*)",
+      "Bash(npx firebase deploy:*)",
+      "Bash(firebase deploy:*)",
+      "Bash(vercel:*)",
+      "Bash(cursor:*)",
+      "Bash(tree:*)",
+      "Bash(openssl s_client:*)",
+      "Bash(openssl x509:*)",
+      "Bash(dig:*)",
+      "Bash(whois:*)",
+      "WebFetch(domain:www.rizzy.today)"
     ]
   }
 }

@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Editor - rizzy.today</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1a1a1a;
+            --bg-elevated: #222;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+            --text-primary: #fff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --framer-red: rgb(227, 32, 32);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Layout */
+        .app {
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            grid-template-rows: 56px 1fr;
+            height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--framer-red);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .header-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+            background: none;
+        }
+
+        .header-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .header-tab.active {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--bg-elevated);
+            border-color: var(--border-hover);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* Sidebar - Component List */
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .component-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .component-item {
+            padding: 12px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+        }
+
+        .component-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .component-item.active {
+            background: var(--bg-tertiary);
+            border-color: var(--accent);
+        }
+
+        .component-item-name {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .component-item-selector {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .component-category {
+            padding: 8px 14px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        .component-category:first-child {
+            margin-top: 0;
+        }
+
+        /* Preview Area */
+        .preview-area {
+            background: var(--bg-tertiary);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .preview-toolbar {
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preview-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .preview-bg-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 2px;
+        }
+
+        .preview-bg-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .preview-bg-btn:first-child {
+            background: #1a1a1a;
+        }
+
+        .preview-bg-btn:last-child {
+            background: #f5f5f5;
+        }
+
+        .preview-bg-btn.active {
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .preview-container {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: rgb(59, 3, 3);
+            transition: background 0.3s;
+        }
+
+        .preview-container.light-bg {
+            background: #f5f5f5;
+        }
+
+        .preview-frame {
+            background: transparent;
+            border-radius: 12px;
+            padding: 40px;
+            min-width: 300px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Properties Panel */
+        .properties-panel {
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .properties-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .properties-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .properties-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .property-section {
+            margin-bottom: 24px;
+        }
+
+        .property-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-row {
+            margin-bottom: 12px;
+        }
+
+        .property-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .property-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .property-input {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.15s;
+        }
+
+        .property-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .property-input:hover {
+            border-color: var(--border-hover);
+        }
+
+        /* Slider */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .slider-value {
+            width: 50px;
+            padding: 6px 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+        }
+
+        /* Color Picker */
+        .color-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .color-swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .color-swatch input[type="color"] {
+            width: 50px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            margin: -7px;
+        }
+
+        .color-input {
+            flex: 1;
+        }
+
+        /* Auto Layout Section */
+        .auto-layout-section {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .direction-toggles {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .direction-btn {
+            flex: 1;
+            height: 36px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            color: var(--text-secondary);
+        }
+
+        .direction-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .direction-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Size Controls */
+        .size-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .size-input-group {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .size-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            width: 14px;
+        }
+
+        .size-input {
+            flex: 1;
+            padding: 8px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .size-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* 9-Point Alignment Grid */
+        .alignment-section {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .alignment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            width: 72px;
+            height: 72px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 6px;
+            flex-shrink: 0;
+        }
+
+        .align-point {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .align-point:hover {
+            border-color: var(--accent);
+        }
+
+        .align-point.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .align-point .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        .align-point.active .dot {
+            background: white;
+        }
+
+        .gap-controls {
+            flex: 1;
+        }
+
+        .gap-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .gap-icon {
+            color: var(--text-muted);
+            width: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Padding Controls - Horizontal/Vertical */
+        .padding-section {
+            display: flex;
+            gap: 8px;
+        }
+
+        .padding-group {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .padding-icon {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .padding-input {
+            flex: 1;
+            padding: 8px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .padding-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Clip Content */
+        .clip-content-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-wrapper input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .checkbox-wrapper label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        /* Legacy spacing grid for other controls */
+        .spacing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .spacing-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .spacing-item label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* CSS Output */
+        .css-output {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .css-output pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .css-output .property-name {
+            color: #9cdcfe;
+        }
+
+        .css-output .property-value-code {
+            color: #ce9178;
+        }
+
+        /* New Component Panel */
+        .new-component-panel {
+            display: none;
+        }
+
+        .new-component-panel.active {
+            display: block;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .template-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .template-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .template-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .template-name {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Figma Paste */
+        .figma-paste {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .figma-paste-area {
+            background: var(--bg-tertiary);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .figma-paste-area:hover {
+            border-color: var(--accent);
+        }
+
+        .figma-paste-area.active {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .figma-paste-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .figma-paste-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-color: var(--success);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .empty-state-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Quick Edit Row */
+        .quick-edit-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .quick-edit-row .property-input {
+            width: 100%;
+        }
+
+        /* Unit Toggle */
+        .unit-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            padding: 2px;
+        }
+
+        .unit-btn {
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 500;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.15s;
+        }
+
+        .unit-btn.active {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="14" height="16" viewBox="0 0 22 24" fill="none">
+                            <path d="M 22 4 L 22 6.667 L 22 9.333 L 16.5 9.333 L 11 9.333 L 11 4 Z M 11 9.333 L 15.469 9.333 L 22 20 L 22 20 L 19.25 20 L 15.469 14.667 L 15.469 20 L 11 20 Z" fill="white"/>
+                        </svg>
+                    </div>
+                    Component Editor
+                </div>
+                <div class="header-tabs">
+                    <button class="header-tab active" data-tab="edit">Edit</button>
+                    <button class="header-tab" data-tab="create">Create New</button>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn" id="resetBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                    </svg>
+                    Reset
+                </button>
+                <button class="btn btn-primary" id="exportBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Export All
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">Components</div>
+            <div class="component-list" id="componentList">
+                <!-- Components will be populated here -->
+            </div>
+        </aside>
+
+        <!-- Preview Area -->
+        <main class="preview-area">
+            <div class="preview-toolbar">
+                <span class="preview-title" id="previewTitle">Select a component</span>
+                <div class="preview-controls">
+                    <div class="preview-bg-toggle">
+                        <button class="preview-bg-btn active" data-bg="dark" title="Dark background"></button>
+                        <button class="preview-bg-btn" data-bg="light" title="Light background"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-container" id="previewContainer">
+                <div class="preview-frame" id="previewFrame">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18"/>
+                                <path d="M9 21V9"/>
+                            </svg>
+                        </div>
+                        <div class="empty-state-text">Select a component to edit</div>
+                        <div class="empty-state-hint">Choose from the sidebar or create a new one</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Properties Panel -->
+        <aside class="properties-panel">
+            <div class="properties-header">
+                <span class="properties-title">Properties</span>
+                <button class="btn copy-btn" id="copyBtn">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                    Copy CSS
+                </button>
+            </div>
+            <div class="properties-content" id="propertiesContent">
+                <!-- Edit Panel -->
+                <div id="editPanel">
+                    <!-- Auto Layout Section -->
+                    <div class="property-section">
+                        <div class="property-section-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M9 3v18"/>
+                                <path d="M15 3v18"/>
+                            </svg>
+                            Auto layout
+                        </div>
+                        <div class="auto-layout-section">
+                            <!-- Direction Toggles -->
+                            <div class="direction-toggles">
+                                <button class="direction-btn" data-direction="row" title="Horizontal">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="4" y="8" width="5" height="8" rx="1"/>
+                                        <rect x="10" y="8" width="5" height="8" rx="1"/>
+                                        <rect x="16" y="8" width="5" height="8" rx="1"/>
+                                    </svg>
+                                </button>
+                                <button class="direction-btn active" data-direction="column" title="Vertical">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="8" y="4" width="8" height="5" rx="1"/>
+                                        <rect x="8" y="10" width="8" height="5" rx="1"/>
+                                        <rect x="8" y="16" width="8" height="5" rx="1"/>
+                                    </svg>
+                                </button>
+                                <button class="direction-btn" data-direction="wrap" title="Wrap">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="4" y="4" width="5" height="5" rx="1"/>
+                                        <rect x="10" y="4" width="5" height="5" rx="1"/>
+                                        <rect x="16" y="4" width="5" height="5" rx="1"/>
+                                        <rect x="4" y="10" width="5" height="5" rx="1"/>
+                                        <rect x="10" y="10" width="5" height="5" rx="1"/>
+                                    </svg>
+                                </button>
+                                <button class="direction-btn" data-direction="none" title="No layout">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="6" y="6" width="12" height="12" rx="2"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- Size Controls -->
+                            <div class="size-row">
+                                <div class="size-input-group">
+                                    <span class="size-label">W</span>
+                                    <input type="text" class="size-input" id="widthInput" value="auto" placeholder="auto">
+                                </div>
+                                <div class="size-input-group">
+                                    <span class="size-label">H</span>
+                                    <input type="text" class="size-input" id="heightInput" value="auto" placeholder="auto">
+                                </div>
+                            </div>
+
+                            <!-- Alignment Grid + Gap -->
+                            <div class="alignment-section">
+                                <div class="alignment-grid" id="alignmentGrid">
+                                    <button class="align-point" data-align="start-start"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="start-center"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="start-end"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="center-start"><span class="dot"></span></button>
+                                    <button class="align-point active" data-align="center-center"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="center-end"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="end-start"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="end-center"><span class="dot"></span></button>
+                                    <button class="align-point" data-align="end-end"><span class="dot"></span></button>
+                                </div>
+                                <div class="gap-controls">
+                                    <div class="gap-row">
+                                        <span class="gap-icon">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M8 6v12M16 6v12"/>
+                                            </svg>
+                                        </span>
+                                        <input type="text" class="size-input" id="gapInput" value="8" placeholder="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Horizontal/Vertical Padding -->
+                            <div class="padding-section">
+                                <div class="padding-group">
+                                    <span class="padding-icon" title="Horizontal padding">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 12H3M21 12l-4-4m4 4l-4 4M3 12l4-4m-4 4l4 4"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" class="padding-input" id="paddingXInput" value="14" placeholder="0">
+                                </div>
+                                <div class="padding-group">
+                                    <span class="padding-icon" title="Vertical padding">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 3v18M12 3l-4 4m4-4l4 4M12 21l-4-4m4 4l4-4"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" class="padding-input" id="paddingYInput" value="8" placeholder="0">
+                                </div>
+                            </div>
+
+                            <!-- Clip Content -->
+                            <div class="clip-content-row">
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" id="clipContent">
+                                    <label for="clipContent">Clip content</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Border Radius (separate control) -->
+                        <div class="property-row">
+                            <div class="property-label">Border Radius</div>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="radiusSlider" min="0" max="50" value="10">
+                                <input type="text" class="slider-value" id="radiusValue" value="10px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colors Section -->
+                    <div class="property-section">
+                        <div class="property-section-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="6"/>
+                                <circle cx="12" cy="12" r="2"/>
+                            </svg>
+                            Appearance
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Background</div>
+                            <div class="color-row">
+                                <div class="color-swatch" id="bgColorSwatch">
+                                    <input type="color" id="bgColorPicker" value="#000000">
+                                </div>
+                                <input type="text" class="property-input color-input" id="bgColorInput" value="rgba(0, 0, 0, 0.7)">
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Text Color</div>
+                            <div class="color-row">
+                                <div class="color-swatch" id="textColorSwatch">
+                                    <input type="color" id="textColorPicker" value="#ffffff">
+                                </div>
+                                <input type="text" class="property-input color-input" id="textColorInput" value="#ffffff">
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Border Color</div>
+                            <div class="color-row">
+                                <div class="color-swatch" id="borderColorSwatch">
+                                    <input type="color" id="borderColorPicker" value="#333333">
+                                </div>
+                                <input type="text" class="property-input color-input" id="borderColorInput" value="rgba(255, 255, 255, 0.15)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typography Section -->
+                    <div class="property-section">
+                        <div class="property-section-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 7 4 4 20 4 20 7"/>
+                                <line x1="9" y1="20" x2="15" y2="20"/>
+                                <line x1="12" y1="4" x2="12" y2="20"/>
+                            </svg>
+                            Typography
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Font Size</div>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="fontSizeSlider" min="8" max="48" value="13">
+                                <input type="text" class="slider-value" id="fontSizeValue" value="13px">
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Font Weight</div>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="fontWeightSlider" min="100" max="900" step="100" value="500">
+                                <input type="text" class="slider-value" id="fontWeightValue" value="500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Effects Section -->
+                    <div class="property-section">
+                        <div class="property-section-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                            </svg>
+                            Effects
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Box Shadow</div>
+                            <input type="text" class="property-input" id="boxShadowInput" value="0 2px 8px rgba(0, 0, 0, 0.25)">
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Backdrop Blur</div>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="blurSlider" min="0" max="40" value="20">
+                                <input type="text" class="slider-value" id="blurValue" value="20px">
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <div class="property-label">Opacity</div>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="opacitySlider" min="0" max="100" value="100">
+                                <input type="text" class="slider-value" id="opacityValue" value="100%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CSS Output -->
+                    <div class="property-section">
+                        <div class="property-section-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                            CSS Output
+                        </div>
+                        <div class="css-output" id="cssOutput">
+                            <pre id="cssCode">/* Select a component to see CSS */</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create New Panel -->
+                <div id="createPanel" class="new-component-panel">
+                    <div class="property-section">
+                        <div class="property-section-title">Templates</div>
+                        <div class="template-grid">
+                            <div class="template-card" data-template="button">
+                                <div class="template-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="8" width="18" height="8" rx="2"/>
+                                    </svg>
+                                </div>
+                                <div class="template-name">Button</div>
+                            </div>
+                            <div class="template-card" data-template="card">
+                                <div class="template-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        <line x1="3" y1="9" x2="21" y2="9"/>
+                                    </svg>
+                                </div>
+                                <div class="template-name">Card</div>
+                            </div>
+                            <div class="template-card" data-template="badge">
+                                <div class="template-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="6" y="9" width="12" height="6" rx="3"/>
+                                    </svg>
+                                </div>
+                                <div class="template-name">Badge</div>
+                            </div>
+                            <div class="template-card" data-template="input">
+                                <div class="template-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="7" width="18" height="10" rx="2"/>
+                                        <line x1="7" y1="12" x2="7" y2="12"/>
+                                    </svg>
+                                </div>
+                                <div class="template-name">Input</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="figma-paste">
+                        <div class="property-section-title">Paste from Figma</div>
+                        <div class="figma-paste-area" id="figmaPasteArea">
+                            <div class="figma-paste-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 17.5A2.5 2.5 0 0 0 7.5 20h2.5a2.5 2.5 0 0 0 2.5-2.5v-2.5H7.5A2.5 2.5 0 0 0 5 17.5z"/>
+                                    <path d="M12.5 15H10V10h2.5a2.5 2.5 0 0 0 0-5H10v5"/>
+                                    <path d="M5 12.5A2.5 2.5 0 0 0 7.5 15H10V10H7.5A2.5 2.5 0 0 0 5 12.5z"/>
+                                    <path d="M5 7.5A2.5 2.5 0 0 0 7.5 10H10V5H7.5A2.5 2.5 0 0 0 5 7.5z"/>
+                                    <circle cx="17" cy="12" r="2.5"/>
+                                </svg>
+                            </div>
+                            <div class="figma-paste-text">Paste Figma CSS (Cmd+V)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Component definitions based on the site's actual components
+        const components = [
+            {
+                category: 'Navigation',
+                items: [
+                    { name: 'Menu Bar', selector: '.menu-bar', preview: 'menu-bar' },
+                    { name: 'Nav Link', selector: '.nav-link', preview: 'nav-link' }
+                ]
+            },
+            {
+                category: 'Buttons',
+                items: [
+                    { name: 'Status Button', selector: '.status-btn', preview: 'status-btn' },
+                    { name: 'Action Button', selector: '.action-btn', preview: 'action-btn' },
+                    { name: 'Guestbook Button', selector: '.guestbook-btn', preview: 'guestbook-btn' },
+                    { name: 'Cards Toggle', selector: '.cards-toggle-btn', preview: 'cards-toggle-btn' }
+                ]
+            },
+            {
+                category: 'Cards',
+                items: [
+                    { name: 'Project Card', selector: '.project-card', preview: 'project-card' },
+                    { name: 'Notification Card', selector: '.notification-card', preview: 'notification-card' },
+                    { name: 'Sticky Note', selector: '.sticky-note', preview: 'sticky-note' }
+                ]
+            },
+            {
+                category: 'Media',
+                items: [
+                    { name: 'iPod Player', selector: '.ipod-nano', preview: 'ipod-nano' },
+                    { name: 'iPod Screen', selector: '.ipod-screen', preview: 'ipod-screen' }
+                ]
+            },
+            {
+                category: 'Inputs',
+                items: [
+                    { name: 'Guestbook Input', selector: '.guestbook-input-panel input', preview: 'guestbook-input' },
+                    { name: 'Guestbook Textarea', selector: '.guestbook-input-panel textarea', preview: 'guestbook-textarea' }
+                ]
+            },
+            {
+                category: 'Typography',
+                items: [
+                    { name: 'Name Title', selector: '.name', preview: 'name-title' },
+                    { name: 'Tagline', selector: '.tagline', preview: 'tagline' },
+                    { name: 'Hover Title', selector: '.hover-title', preview: 'hover-title' }
+                ]
+            }
+        ];
+
+        // Current state
+        let currentComponent = null;
+        let currentStyles = {};
+        let originalCSS = '';
+
+        // DOM Elements
+        const componentList = document.getElementById('componentList');
+        const previewFrame = document.getElementById('previewFrame');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewContainer = document.getElementById('previewContainer');
+        const cssCode = document.getElementById('cssCode');
+        const copyBtn = document.getElementById('copyBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Slider and input mappings
+        const styleControls = {
+            padding: { slider: 'paddingSlider', value: 'paddingValue', prop: 'padding', unit: 'px' },
+            margin: { slider: 'marginSlider', value: 'marginValue', prop: 'margin', unit: 'px' },
+            gap: { slider: 'gapSlider', value: 'gapValue', prop: 'gap', unit: 'px' },
+            borderRadius: { slider: 'radiusSlider', value: 'radiusValue', prop: 'border-radius', unit: 'px' },
+            fontSize: { slider: 'fontSizeSlider', value: 'fontSizeValue', prop: 'font-size', unit: 'px' },
+            fontWeight: { slider: 'fontWeightSlider', value: 'fontWeightValue', prop: 'font-weight', unit: '' },
+            blur: { slider: 'blurSlider', value: 'blurValue', prop: 'backdrop-filter', unit: 'px', transform: v => `blur(${v}px)` },
+            opacity: { slider: 'opacitySlider', value: 'opacityValue', prop: 'opacity', unit: '%', transform: v => v / 100 }
+        };
+
+        // Initialize component list
+        function initComponentList() {
+            componentList.innerHTML = '';
+            components.forEach(category => {
+                const categoryEl = document.createElement('div');
+                categoryEl.className = 'component-category';
+                categoryEl.textContent = category.category;
+                componentList.appendChild(categoryEl);
+
+                category.items.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'component-item';
+                    itemEl.innerHTML = `
+                        <div class="component-item-name">${item.name}</div>
+                        <div class="component-item-selector">${item.selector}</div>
+                    `;
+                    itemEl.addEventListener('click', () => selectComponent(item));
+                    componentList.appendChild(itemEl);
+                });
+            });
+        }
+
+        // Select a component
+        function selectComponent(component) {
+            currentComponent = component;
+
+            // Update active state
+            document.querySelectorAll('.component-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update preview title
+            previewTitle.textContent = component.name;
+
+            // Load styles FIRST (before rendering)
+            loadComponentStyles(component);
+
+            // Then render preview with loaded styles
+            renderPreview(component);
+
+            // Update CSS output
+            updateCSSOutput();
+        }
+
+        // Render preview based on component type
+        function renderPreview(component) {
+            let html = '';
+
+            switch(component.preview) {
+                case 'status-btn':
+                    html = `
+                        <button class="preview-component status-btn" style="${getStyleString()}">
+                            <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: #ff8c00; box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);"></span>
+                            <span class="status-text">working rn</span>
+                        </button>
+                    `;
+                    break;
+                case 'action-btn':
+                    html = `
+                        <a class="preview-component action-btn" style="${getStyleString()}">
+                            <span class="btn-emoji">📅</span>
+                        </a>
+                    `;
+                    break;
+                case 'guestbook-btn':
+                    html = `
+                        <div class="preview-component guestbook-btn" style="${getStyleString()}">
+                            <span style="font-size: 26px;">✉</span>
+                        </div>
+                    `;
+                    break;
+                case 'cards-toggle-btn':
+                    html = `
+                        <button class="preview-component cards-toggle-btn" style="${getStyleString()}">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="5" width="18" height="14" rx="2" stroke="white" stroke-width="2"/>
+                                <rect x="7" y="9" width="10" height="2" fill="white"/>
+                                <rect x="7" y="13" width="6" height="2" fill="white"/>
+                            </svg>
+                        </button>
+                    `;
+                    break;
+                case 'project-card':
+                    html = `
+                        <div class="preview-component project-card" style="${getStyleString()}; width: 240px; height: 140px;">
+                            <div style="width: 100%; height: 110px; background: #f8f8f8; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px;">Preview Image</div>
+                            <div style="padding: 6px 10px; background: rgba(255,255,255,0.95); font-size: 11px; font-weight: 600; color: #1a1a1a;">Project Title</div>
+                        </div>
+                    `;
+                    break;
+                case 'notification-card':
+                    html = `
+                        <div class="preview-component notification-card" style="${getStyleString()}; width: 280px;">
+                            <div style="color: rgba(255,255,255,0.6); font-size: 13px; margin-bottom: 10px;">Recently</div>
+                            <div style="background: rgba(30,30,30,0.95); border-radius: 12px; padding: 14px;">
+                                <div style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9);">Notification Title</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;">Notification message here</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'sticky-note':
+                    html = `
+                        <div class="preview-component sticky-note" style="${getStyleString()}; background: #fff740; color: #333; transform: rotate(2deg);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                <input type="checkbox" style="width: 16px; height: 16px;">
+                                <label style="font-family: cursive; font-size: 18px;">todo item</label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" checked style="width: 16px; height: 16px;">
+                                <label style="font-family: cursive; font-size: 18px; text-decoration: line-through; color: #666;">done item</label>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'ipod-nano':
+                    html = `
+                        <div class="preview-component ipod-nano" style="${getStyleString()};">
+                            <div style="width: 120px; height: 200px; background: linear-gradient(180deg, #8a8a8a 0%, #6a6a6a 50%, #5a5a5a 100%); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 10px;">
+                                <div style="width: 100%; height: 70px; background: linear-gradient(180deg, #4a9eff 0%, #2a7adf 100%); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px;">Now Playing</div>
+                                <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                                    <div style="width: 90px; height: 90px; background: linear-gradient(145deg, #4a4a4a, #3a3a3a); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <div style="width: 32px; height: 32px; background: linear-gradient(145deg, #7a7a7a, #5a5a5a); border-radius: 50%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'ipod-screen':
+                    html = `
+                        <div class="preview-component ipod-screen" style="${getStyleString()}; width: 100px; height: 70px; background: linear-gradient(180deg, #4a9eff 0%, #2a7adf 100%); border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div style="font-size: 10px; color: white; font-weight: 600;">Song Title</div>
+                            <div style="display: flex; gap: 2px; margin-top: 6px;">
+                                <span style="width: 3px; height: 8px; background: white; border-radius: 1px;"></span>
+                                <span style="width: 3px; height: 14px; background: white; border-radius: 1px;"></span>
+                                <span style="width: 3px; height: 6px; background: white; border-radius: 1px;"></span>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'guestbook-input':
+                    html = `
+                        <input type="text" class="preview-component" style="${getStyleString()}; width: 200px;" placeholder="your name">
+                    `;
+                    break;
+                case 'guestbook-textarea':
+                    html = `
+                        <textarea class="preview-component" style="${getStyleString()}; width: 200px; height: 80px; resize: none;" placeholder="your message..."></textarea>
+                    `;
+                    break;
+                case 'name-title':
+                    html = `
+                        <h1 class="preview-component" style="${getStyleString()}; font-family: 'Urbanist', sans-serif; font-style: italic;">Rizzy Rose</h1>
+                    `;
+                    break;
+                case 'tagline':
+                    html = `
+                        <p class="preview-component" style="${getStyleString()}">designing experiences</p>
+                    `;
+                    break;
+                case 'hover-title':
+                    html = `
+                        <span class="preview-component hover-title" style="${getStyleString()}; position: relative; opacity: 1; visibility: visible;">Works</span>
+                    `;
+                    break;
+                case 'nav-link':
+                    html = `
+                        <a class="preview-component nav-link" style="${getStyleString()}; text-decoration: none;">Archive</a>
+                    `;
+                    break;
+                case 'menu-bar':
+                    html = `
+                        <nav class="preview-component menu-bar" style="${getStyleString()}; width: 400px; position: relative;">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div style="width: 16px; height: 18px; background: rgb(227, 32, 32); border-radius: 2px;"></div>
+                                <span style="font-size: 11px; color: rgba(255,255,255,0.5);">Archive</span>
+                            </div>
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.76);">Mon Jan 15 9:04 AM</div>
+                        </nav>
+                    `;
+                    break;
+                default:
+                    html = `
+                        <div class="preview-component" style="${getStyleString()}; padding: 20px;">
+                            ${component.name}
+                        </div>
+                    `;
+            }
+
+            previewFrame.innerHTML = html;
+        }
+
+        // Get inline style string from current styles
+        function getStyleString() {
+            return Object.entries(currentStyles)
+                .map(([prop, value]) => `${prop}: ${value}`)
+                .join('; ');
+        }
+
+        // Load component styles from CSS
+        function loadComponentStyles(component) {
+            // Default styles based on component type
+            const defaults = {
+                'status-btn': {
+                    'padding': '8px 14px',
+                    'background-color': 'rgba(0, 0, 0, 0.7)',
+                    'border': '0.5px solid rgba(255, 255, 255, 0.15)',
+                    'border-radius': '10px',
+                    'color': '#ffffff',
+                    'font-size': '13px',
+                    'font-weight': '500',
+                    'backdrop-filter': 'blur(20px)',
+                    'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.25)'
+                },
+                'action-btn': {
+                    'padding': '8px',
+                    'background-color': 'rgba(0, 0, 0, 0.85)',
+                    'border': '0.5px solid rgba(255, 255, 255, 0.12)',
+                    'border-radius': '8px',
+                    'width': '36px',
+                    'height': '36px',
+                    'backdrop-filter': 'blur(20px)',
+                    'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.3)'
+                },
+                'guestbook-btn': {
+                    'padding': '0',
+                    'width': '47px',
+                    'height': '47px',
+                    'background-color': 'rgba(0, 0, 0, 0.7)',
+                    'border': '0.5px solid rgba(255, 255, 255, 0.15)',
+                    'border-radius': '12px',
+                    'backdrop-filter': 'blur(20px)',
+                    'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.25)',
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center'
+                },
+                'cards-toggle-btn': {
+                    'width': '44px',
+                    'height': '44px',
+                    'background': 'rgba(0, 0, 0, 0.7)',
+                    'border': '1px solid rgba(255, 255, 255, 0.15)',
+                    'border-radius': '12px',
+                    'backdrop-filter': 'blur(20px)',
+                    'box-shadow': '0 4px 16px rgba(0, 0, 0, 0.3)',
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center'
+                },
+                'project-card': {
+                    'background': 'rgba(255, 255, 255, 0.98)',
+                    'border-radius': '8px',
+                    'overflow': 'hidden',
+                    'box-shadow': '0 4px 16px rgba(0, 0, 0, 0.2)',
+                    'border': '1px solid rgba(0, 0, 0, 0.08)'
+                },
+                'notification-card': {
+                    'background': 'transparent',
+                    'border-radius': '12px'
+                },
+                'sticky-note': {
+                    'padding': '20px 24px',
+                    'border-radius': '3px',
+                    'box-shadow': '4px 4px 12px rgba(0, 0, 0, 0.15)'
+                },
+                'ipod-nano': {},
+                'ipod-screen': {
+                    'border-radius': '4px',
+                    'box-shadow': 'inset 0 2px 6px rgba(0, 0, 0, 0.3)'
+                },
+                'guestbook-input': {
+                    'padding': '8px 10px',
+                    'background': 'rgba(255, 255, 255, 0.04)',
+                    'border': '1px solid rgba(255, 255, 255, 0.08)',
+                    'border-radius': '5px',
+                    'color': 'rgba(255, 255, 255, 0.9)',
+                    'font-size': '10px'
+                },
+                'guestbook-textarea': {
+                    'padding': '8px 10px',
+                    'background': 'rgba(255, 255, 255, 0.04)',
+                    'border': '1px solid rgba(255, 255, 255, 0.08)',
+                    'border-radius': '5px',
+                    'color': 'rgba(255, 255, 255, 0.9)',
+                    'font-size': '10px'
+                },
+                'name-title': {
+                    'font-size': '14px',
+                    'font-weight': '700',
+                    'color': '#ffffff',
+                    'opacity': '0.7'
+                },
+                'tagline': {
+                    'font-size': '11px',
+                    'font-weight': '500',
+                    'color': 'rgba(255, 255, 255, 0.5)'
+                },
+                'hover-title': {
+                    'background': '#0d0201',
+                    'border': '1px solid #474040',
+                    'color': '#ffffff',
+                    'font-size': '12px',
+                    'font-weight': '400',
+                    'padding': '13px 31px',
+                    'border-radius': '11px'
+                },
+                'nav-link': {
+                    'color': 'rgba(57, 57, 57, 1)',
+                    'font-size': '11px',
+                    'font-weight': '600'
+                },
+                'menu-bar': {
+                    'height': '28px',
+                    'background-color': 'rgba(0, 0, 0, 0.8)',
+                    'backdrop-filter': 'blur(20px)',
+                    'border-bottom': '1px solid rgba(255, 255, 255, 0.08)',
+                    'display': 'flex',
+                    'justify-content': 'space-between',
+                    'align-items': 'center',
+                    'padding': '0 12px',
+                    'font-size': '11px'
+                }
+            };
+
+            currentStyles = defaults[component.preview] || {};
+            updateControlsFromStyles();
+        }
+
+        // Update control values from current styles
+        function updateControlsFromStyles() {
+            // Parse padding
+            const padding = parseFloat(currentStyles['padding']) || 8;
+            document.getElementById('paddingSlider').value = padding;
+            document.getElementById('paddingValue').value = padding + 'px';
+
+            // Parse border-radius
+            const radius = parseFloat(currentStyles['border-radius']) || 10;
+            document.getElementById('radiusSlider').value = radius;
+            document.getElementById('radiusValue').value = radius + 'px';
+
+            // Parse font-size
+            const fontSize = parseFloat(currentStyles['font-size']) || 13;
+            document.getElementById('fontSizeSlider').value = fontSize;
+            document.getElementById('fontSizeValue').value = fontSize + 'px';
+
+            // Parse font-weight
+            const fontWeight = parseInt(currentStyles['font-weight']) || 500;
+            document.getElementById('fontWeightSlider').value = fontWeight;
+            document.getElementById('fontWeightValue').value = fontWeight;
+
+            // Parse backdrop blur
+            const blur = currentStyles['backdrop-filter'] ? parseFloat(currentStyles['backdrop-filter'].match(/\d+/)?.[0]) || 20 : 20;
+            document.getElementById('blurSlider').value = blur;
+            document.getElementById('blurValue').value = blur + 'px';
+
+            // Colors
+            document.getElementById('bgColorInput').value = currentStyles['background-color'] || currentStyles['background'] || 'rgba(0, 0, 0, 0.7)';
+            document.getElementById('textColorInput').value = currentStyles['color'] || '#ffffff';
+            document.getElementById('borderColorInput').value = extractBorderColor(currentStyles['border']) || 'rgba(255, 255, 255, 0.15)';
+
+            // Box shadow
+            document.getElementById('boxShadowInput').value = currentStyles['box-shadow'] || '0 2px 8px rgba(0, 0, 0, 0.25)';
+        }
+
+        // Extract border color from border shorthand
+        function extractBorderColor(border) {
+            if (!border) return null;
+            const match = border.match(/rgba?\([^)]+\)|#[a-fA-F0-9]{3,8}|[a-zA-Z]+$/);
+            return match ? match[0] : null;
+        }
+
+        // Update CSS output
+        function updateCSSOutput() {
+            if (!currentComponent) return;
+
+            const css = `${currentComponent.selector} {\n${Object.entries(currentStyles)
+                .map(([prop, value]) => `    ${prop}: ${value};`)
+                .join('\n')}\n}`;
+
+            cssCode.innerHTML = css.replace(/([a-z-]+):/g, '<span class="property-name">$1</span>:')
+                                   .replace(/: ([^;]+);/g, ': <span class="property-value-code">$1</span>;');
+        }
+
+        // Set up slider event listeners
+        function setupSliders() {
+            Object.entries(styleControls).forEach(([key, config]) => {
+                const slider = document.getElementById(config.slider);
+                const valueInput = document.getElementById(config.value);
+
+                if (slider && valueInput) {
+                    slider.addEventListener('input', () => {
+                        const val = slider.value;
+                        valueInput.value = val + config.unit;
+
+                        if (config.transform) {
+                            currentStyles[config.prop] = config.transform(val);
+                        } else {
+                            currentStyles[config.prop] = val + config.unit;
+                        }
+
+                        updatePreview();
+                        updateCSSOutput();
+                    });
+
+                    valueInput.addEventListener('change', () => {
+                        const val = parseFloat(valueInput.value) || 0;
+                        slider.value = val;
+
+                        if (config.transform) {
+                            currentStyles[config.prop] = config.transform(val);
+                        } else {
+                            currentStyles[config.prop] = val + config.unit;
+                        }
+
+                        updatePreview();
+                        updateCSSOutput();
+                    });
+                }
+            });
+        }
+
+        // Set up color pickers
+        function setupColorPickers() {
+            const bgColorPicker = document.getElementById('bgColorPicker');
+            const bgColorInput = document.getElementById('bgColorInput');
+            const textColorPicker = document.getElementById('textColorPicker');
+            const textColorInput = document.getElementById('textColorInput');
+            const borderColorPicker = document.getElementById('borderColorPicker');
+            const borderColorInput = document.getElementById('borderColorInput');
+            const boxShadowInput = document.getElementById('boxShadowInput');
+
+            bgColorPicker.addEventListener('input', () => {
+                bgColorInput.value = bgColorPicker.value;
+                currentStyles['background-color'] = bgColorPicker.value;
+                updatePreview();
+                updateCSSOutput();
+            });
+
+            bgColorInput.addEventListener('change', () => {
+                currentStyles['background-color'] = bgColorInput.value;
+                updatePreview();
+                updateCSSOutput();
+            });
+
+            textColorPicker.addEventListener('input', () => {
+                textColorInput.value = textColorPicker.value;
+                currentStyles['color'] = textColorPicker.value;
+                updatePreview();
+                updateCSSOutput();
+            });
+
+            textColorInput.addEventListener('change', () => {
+                currentStyles['color'] = textColorInput.value;
+                updatePreview();
+                updateCSSOutput();
+            });
+
+            borderColorPicker.addEventListener('input', () => {
+                borderColorInput.value = borderColorPicker.value;
+                const borderWidth = currentStyles['border']?.match(/^[\d.]+\w*/)?.[0] || '1px';
+                currentStyles['border'] = `${borderWidth} solid ${borderColorPicker.value}`;
+                updatePreview();
+                updateCSSOutput();
+            });
+
+            borderColorInput.addEventListener('change', () => {
+                const borderWidth = currentStyles['border']?.match(/^[\d.]+\w*/)?.[0] || '1px';
+                currentStyles['border'] = `${borderWidth} solid ${borderColorInput.value}`;
+                updatePreview();
+                updateCSSOutput();
+            });
+
+            boxShadowInput.addEventListener('change', () => {
+                currentStyles['box-shadow'] = boxShadowInput.value;
+                updatePreview();
+                updateCSSOutput();
+            });
+        }
+
+        // Update preview
+        function updatePreview() {
+            if (!currentComponent) return;
+            renderPreview(currentComponent);
+        }
+
+        // Background toggle
+        function setupBackgroundToggle() {
+            document.querySelectorAll('.preview-bg-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.preview-bg-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    if (btn.dataset.bg === 'light') {
+                        previewContainer.classList.add('light-bg');
+                    } else {
+                        previewContainer.classList.remove('light-bg');
+                    }
+                });
+            });
+        }
+
+        // Tab switching
+        function setupTabs() {
+            document.querySelectorAll('.header-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.header-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const tabName = tab.dataset.tab;
+                    document.getElementById('editPanel').style.display = tabName === 'edit' ? 'block' : 'none';
+                    document.getElementById('createPanel').classList.toggle('active', tabName === 'create');
+                });
+            });
+        }
+
+        // Template cards
+        function setupTemplates() {
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const template = card.dataset.template;
+                    createFromTemplate(template);
+                });
+            });
+        }
+
+        // Create component from template
+        function createFromTemplate(template) {
+            const templates = {
+                button: {
+                    name: 'New Button',
+                    selector: '.my-button',
+                    preview: 'status-btn',
+                    styles: {
+                        'padding': '8px 16px',
+                        'background-color': 'rgba(0, 0, 0, 0.7)',
+                        'border': '1px solid rgba(255, 255, 255, 0.15)',
+                        'border-radius': '8px',
+                        'color': '#ffffff',
+                        'font-size': '13px',
+                        'font-weight': '500',
+                        'backdrop-filter': 'blur(20px)'
+                    }
+                },
+                card: {
+                    name: 'New Card',
+                    selector: '.my-card',
+                    preview: 'project-card',
+                    styles: {
+                        'background': 'rgba(255, 255, 255, 0.98)',
+                        'border-radius': '12px',
+                        'padding': '16px',
+                        'box-shadow': '0 4px 16px rgba(0, 0, 0, 0.2)'
+                    }
+                },
+                badge: {
+                    name: 'New Badge',
+                    selector: '.my-badge',
+                    preview: 'hover-title',
+                    styles: {
+                        'padding': '4px 12px',
+                        'background-color': 'rgba(59, 130, 246, 0.2)',
+                        'border': '1px solid rgba(59, 130, 246, 0.4)',
+                        'border-radius': '20px',
+                        'color': '#60a5fa',
+                        'font-size': '12px',
+                        'font-weight': '500'
+                    }
+                },
+                input: {
+                    name: 'New Input',
+                    selector: '.my-input',
+                    preview: 'guestbook-input',
+                    styles: {
+                        'padding': '10px 14px',
+                        'background': 'rgba(255, 255, 255, 0.04)',
+                        'border': '1px solid rgba(255, 255, 255, 0.1)',
+                        'border-radius': '8px',
+                        'color': '#ffffff',
+                        'font-size': '14px'
+                    }
+                }
+            };
+
+            const newComponent = templates[template];
+            if (newComponent) {
+                currentComponent = newComponent;
+                currentStyles = { ...newComponent.styles };
+                previewTitle.textContent = newComponent.name;
+                renderPreview(currentComponent);
+                updateControlsFromStyles();
+                updateCSSOutput();
+
+                // Switch to edit tab
+                document.querySelector('.header-tab[data-tab="edit"]').click();
+
+                showToast('Component created! Customize it in the panel.');
+            }
+        }
+
+        // Figma paste
+        function setupFigmaPaste() {
+            const figmaPasteArea = document.getElementById('figmaPasteArea');
+
+            figmaPasteArea.addEventListener('click', () => {
+                navigator.clipboard.readText().then(text => {
+                    parseFigmaCSS(text);
+                }).catch(() => {
+                    showToast('Unable to read clipboard. Try Cmd+V.');
+                });
+            });
+
+            document.addEventListener('paste', (e) => {
+                if (document.getElementById('createPanel').classList.contains('active')) {
+                    const text = e.clipboardData.getData('text');
+                    parseFigmaCSS(text);
+                }
+            });
+        }
+
+        // Parse Figma CSS
+        function parseFigmaCSS(css) {
+            if (!css.includes(':') || !css.includes(';')) {
+                showToast('Invalid CSS format');
+                return;
+            }
+
+            const styles = {};
+            const lines = css.split(';').filter(l => l.trim());
+
+            lines.forEach(line => {
+                const [prop, value] = line.split(':').map(s => s.trim());
+                if (prop && value) {
+                    styles[prop] = value;
+                }
+            });
+
+            if (Object.keys(styles).length > 0) {
+                currentComponent = {
+                    name: 'Figma Import',
+                    selector: '.figma-component',
+                    preview: 'status-btn'
+                };
+                currentStyles = styles;
+                previewTitle.textContent = 'Figma Import';
+                renderPreview(currentComponent);
+                updateControlsFromStyles();
+                updateCSSOutput();
+
+                document.querySelector('.header-tab[data-tab="edit"]').click();
+                showToast('Figma styles imported!');
+            }
+        }
+
+        // Copy CSS
+        copyBtn.addEventListener('click', () => {
+            if (!currentComponent) {
+                showToast('Select a component first');
+                return;
+            }
+
+            const css = `${currentComponent.selector} {\n${Object.entries(currentStyles)
+                .map(([prop, value]) => `    ${prop}: ${value};`)
+                .join('\n')}\n}`;
+
+            navigator.clipboard.writeText(css).then(() => {
+                showToast('CSS copied to clipboard!');
+            });
+        });
+
+        // Reset
+        resetBtn.addEventListener('click', () => {
+            if (currentComponent) {
+                loadComponentStyles(currentComponent);
+                updatePreview();
+                updateCSSOutput();
+                showToast('Styles reset to defaults');
+            }
+        });
+
+        // Export all
+        exportBtn.addEventListener('click', () => {
+            showToast('Export feature coming soon!');
+        });
+
+        // Toast
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show', 'success');
+            setTimeout(() => {
+                toast.classList.remove('show', 'success');
+            }, 3000);
+        }
+
+        // Initialize
+        initComponentList();
+        setupSliders();
+        setupColorPickers();
+        setupBackgroundToggle();
+        setupTabs();
+        setupTemplates();
+        setupFigmaPaste();
+    </script>
+</body>
+</html>
