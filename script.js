@@ -164,9 +164,9 @@ if (statusBtn) {
         const statusDot = statusBtn.querySelector('.status-dot');
 
         if (isWorking) {
-            statusText.textContent = 'working rn';
-            statusDot.style.backgroundColor = '#ff8c00';
-            statusDot.style.boxShadow = '0 0 8px rgba(255, 140, 0, 0.6)';
+            statusText.textContent = 'free for pitchdeck design';
+            statusDot.style.backgroundColor = '#ffd700';
+            statusDot.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4)';
         } else {
             statusText.textContent = 'available';
             statusDot.style.backgroundColor = '#4ade80';

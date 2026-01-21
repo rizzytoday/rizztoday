@@ -392,8 +392,8 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #ff8c00;
-    box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+    background-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -1691,7 +1691,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 1px;
     padding-right: 4px;
 }
 
@@ -1711,7 +1711,7 @@ body {
 
 /* iMessage-style bubble */
 .guest-message-wrapper {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .guest-header {
