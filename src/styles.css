@@ -883,13 +883,6 @@ body {
 .status-btn.actions-visible .action-btn:nth-child(2) { transition-delay: 0.05s !important; }
 .status-btn.actions-visible .action-btn:nth-child(3) { transition-delay: 0.08s !important; }
 
-/* Show labels when actions are visible (mobile first click) */
-.status-btn.actions-visible .action-btn .btn-label {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-    pointer-events: none;
-}
 
 /* Remove tap highlight on touch devices */
 .status-btn,
