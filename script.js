@@ -200,9 +200,9 @@ if (statusBtn) {
         // Don't toggle if clicking on action buttons
         if (e.target.closest('.action-btn')) return;
 
-        // On touch devices, toggle action buttons visibility AND animate text
+        // On touch devices, always show popups (don't toggle off)
         if (isTouchDevice) {
-            statusBtn.classList.toggle('actions-visible');
+            statusBtn.classList.add('actions-visible');
             animateStatusChange();
             return;
         }
