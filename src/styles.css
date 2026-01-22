@@ -678,35 +678,16 @@ body {
     border-radius: 10px;
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.92) translateY(8px);
+    transform: scale(0.85) translateY(-10px);
     transform-origin: bottom left;
-    transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
-                visibility 0s linear 0.4s;
+    transition: all 0.35s var(--bounce-ease);
     z-index: 101;
 }
 
 .guestbook-input-panel { left: 20px; bottom: 70px; width: 200px; padding: 12px; }
-.guestbook-comments-panel {
-    left: 240px;
-    bottom: 70px;
-    width: 130px;
-    max-height: 110px;
-    padding: 8px;
-    overflow: hidden;
-    background: rgba(28, 28, 30, 0.95);
-    border: 1px solid var(--divider);
-    transition-delay: 0.05s;
-}
+.guestbook-comments-panel { left: 240px; bottom: 70px; width: 130px; max-height: 110px; padding: 8px; transition-delay: 0.08s; overflow: hidden; background: rgba(28, 28, 30, 0.95); border: 1px solid var(--divider); }
 
-.guestbook-input-panel.active, .guestbook-comments-panel.active {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1) translateY(0);
-    transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
-                visibility 0s linear 0s;
-}
+.guestbook-input-panel.active, .guestbook-comments-panel.active { opacity: 1; visibility: visible; transform: scale(1) translateY(0); }
 
 .comments-title, .input-panel-title { font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.9); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
 .input-panel-title { margin-bottom: 3px; }
