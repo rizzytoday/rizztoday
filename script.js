@@ -164,37 +164,27 @@ if (statusBtn) {
             return; // Don't change status on mobile - just toggle buttons
         }
 
-        // Desktop behavior - change status text with smooth elastic animation
+        // Desktop behavior - change status text with smooth animation
         isWorking = !isWorking;
         const statusText = statusBtn.querySelector('.status-text');
         const statusDot = statusBtn.querySelector('.status-dot');
 
-        // Animate out (slide up + fade + blur)
-        statusText.classList.add('changing-out');
+        // Fade out
+        statusText.classList.add('fade');
 
         setTimeout(() => {
-            // Change text while hidden
+            // Change text
             if (isWorking) {
                 statusText.textContent = 'free for pitchdeck design';
-                statusDot.style.backgroundColor = '#4ade80';
-                statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
             } else {
                 statusText.textContent = 'available';
-                statusDot.style.backgroundColor = '#4ade80';
-                statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
             }
+            statusDot.style.backgroundColor = '#4ade80';
+            statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
 
-            // Prep for animate in (position below)
-            statusText.classList.remove('changing-out');
-            statusText.classList.add('changing-in');
-
-            // Animate in with elastic bounce
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    statusText.classList.remove('changing-in');
-                });
-            });
-        }, 250);
+            // Fade in with bounce
+            statusText.classList.remove('fade');
+        }, 200);
     });
 
     // Close action buttons when clicking outside (touch devices)
