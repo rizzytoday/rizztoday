@@ -184,7 +184,7 @@ if (statusBtn) {
 
             // Fade in with bounce
             statusText.classList.remove('fade');
-        }, 200);
+        }, 120);
     });
 
     // Close action buttons when clicking outside (touch devices)
