@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" href="favicon.png">
 
     <!-- Preload critical resources for faster FCP -->
-    <link rel="preload" href="styles.css?v=8" as="style">
+    <link rel="preload" href="styles.css?v=9" as="style">
     <link rel="preload" href="newpfp.png" as="image">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Urbanist:ital,wght@0,700;1,700&family=Fragment+Mono&display=swap" as="style">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
     <meta name="twitter:description" content="translating ideas into visuals">
     <meta name="twitter:image" content="https://rizzy.today/riz-sharecard.png">
 
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Urbanist:ital,wght@0,700;1,700&family=Fragment+Mono&display=swap" rel="stylesheet">
@@ -167,20 +167,20 @@
 
         <!-- Menu Buttons Container -->
         <div class="menu-buttons" id="menuButtons">
-            <button class="menu-btn" id="cardsToggleBtn" data-panel="cards" data-original="0">
+            <button class="menu-btn" id="aboutToggleBtn" data-panel="about" data-original="0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="8" r="4" stroke="white" stroke-width="2"/>
+                    <path d="M4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V21H4V20Z" stroke="white" stroke-width="2"/>
+                </svg>
+                <span class="menu-btn-label">About</span>
+            </button>
+            <button class="menu-btn" id="cardsToggleBtn" data-panel="cards" data-original="1">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <rect x="3" y="5" width="18" height="14" rx="2" stroke="white" stroke-width="2"/>
                     <rect x="7" y="9" width="10" height="2" fill="white"/>
                     <rect x="7" y="13" width="6" height="2" fill="white"/>
                 </svg>
                 <span class="menu-btn-label">Works</span>
-            </button>
-            <button class="menu-btn" id="aboutToggleBtn" data-panel="about" data-original="1">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="8" r="4" stroke="white" stroke-width="2"/>
-                    <path d="M4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V21H4V20Z" stroke="white" stroke-width="2"/>
-                </svg>
-                <span class="menu-btn-label">About</span>
             </button>
             <button class="menu-btn" id="testimonialsToggleBtn" data-panel="testimonials" data-original="2">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
