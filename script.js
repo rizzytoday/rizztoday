@@ -164,27 +164,19 @@ if (statusBtn) {
             return; // Don't change status on mobile - just toggle buttons
         }
 
-        // Desktop behavior - change status text with smooth animation
+        // Desktop behavior - change status text, pill stretches smoothly
         isWorking = !isWorking;
         const statusText = statusBtn.querySelector('.status-text');
         const statusDot = statusBtn.querySelector('.status-dot');
 
-        // Fade out
-        statusText.classList.add('fade');
-
-        setTimeout(() => {
-            // Change text
-            if (isWorking) {
-                statusText.textContent = 'free for pitchdeck design';
-            } else {
-                statusText.textContent = 'available';
-            }
-            statusDot.style.backgroundColor = '#4ade80';
-            statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
-
-            // Fade in with bounce
-            statusText.classList.remove('fade');
-        }, 120);
+        // Change text instantly - button width animates via CSS
+        if (isWorking) {
+            statusText.textContent = 'free for pitchdeck design';
+        } else {
+            statusText.textContent = 'available';
+        }
+        statusDot.style.backgroundColor = '#4ade80';
+        statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
     });
 
     // Close action buttons when clicking outside (touch devices)
