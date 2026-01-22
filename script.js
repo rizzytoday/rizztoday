@@ -466,6 +466,7 @@ projectCards.forEach(card => {
     });
 });
 
+
 // Play videos when cards stack becomes visible
 if (cardsToggleBtn && cardsStack) {
     const cardVideos = cardsStack.querySelectorAll('video');
