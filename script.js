@@ -39,8 +39,11 @@ if (asciiCanvas && asciiRose && imageCanvas) {
     let imageData = null;
 
     // Configuration
-    const asciiWidth = 120;
-    const asciiHeight = 80;
+    const asciiWidth = 140;
+    const asciiHeight = 95;
+    const padding = 10; // Padding around image for wave overflow
+    const imageWidth = asciiWidth - (padding * 2);
+    const imageHeight = asciiHeight - (padding * 2);
 
     // Show placeholder immediately on load
     let placeholder = '';
@@ -59,12 +62,15 @@ if (asciiCanvas && asciiRose && imageCanvas) {
     img.src = 'rizzyrose.png';
 
     img.onload = () => {
-        // Set canvas size
+        // Set canvas size (full size with padding)
         imageCanvas.width = asciiWidth;
         imageCanvas.height = asciiHeight;
 
-        // Draw image to canvas
-        ctx.drawImage(img, 0, 0, asciiWidth, asciiHeight);
+        // Clear canvas (transparent/black padding area)
+        ctx.clearRect(0, 0, asciiWidth, asciiHeight);
+
+        // Draw image centered with padding offset
+        ctx.drawImage(img, padding, padding, imageWidth, imageHeight);
 
         // Get image data
         imageData = ctx.getImageData(0, 0, asciiWidth, asciiHeight);

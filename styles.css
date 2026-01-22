@@ -3,6 +3,7 @@
     src: url('content/font/Kids-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 * {
@@ -1929,6 +1930,43 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Menu buttons - thinner on mobile */
+    .menu-buttons {
+        top: 50px;
+        left: 10px;
+        gap: 4px;
+    }
+
+    .menu-btn {
+        width: auto;
+        height: auto;
+        padding: 8px 10px;
+        gap: 6px;
+        justify-content: flex-start;
+    }
+
+    .menu-btn-label {
+        position: static;
+        transform: none;
+        background: none;
+        border: none;
+        padding: 0;
+        opacity: 1;
+        font-size: 12px;
+    }
+
+    .menu-btn:hover .menu-btn-label {
+        transform: none;
+    }
+
+    .menu-btn.active[data-original="1"] {
+        transform: translateY(-40px) !important;
+    }
+
+    .menu-btn.active[data-original="2"] {
+        transform: translateY(-80px) !important;
+    }
+
     /* Menu bar */
     .menu-bar {
         padding: 0 8px;
@@ -2229,14 +2267,14 @@ body {
     .menu-buttons {
         top: 50px;
         left: 10px;
-        gap: 6px;
+        gap: 4px;
     }
 
     .menu-btn {
         width: auto;
         height: auto;
-        padding: 10px 14px;
-        gap: 8px;
+        padding: 8px 10px;
+        gap: 6px;
         justify-content: flex-start;
     }
 
@@ -2254,11 +2292,13 @@ body {
         transform: none;
     }
 
-    /* Disable button rearrangement on mobile - just hide/show */
-    .menu-btn.active,
-    .menu-btn.active[data-original="1"],
+    /* Allow active button to slide up on mobile */
+    .menu-btn.active[data-original="1"] {
+        transform: translateY(-40px) !important;
+    }
+
     .menu-btn.active[data-original="2"] {
-        transform: none !important;
+        transform: translateY(-80px) !important;
     }
 
     .menu-btn.hidden {
@@ -2351,7 +2391,8 @@ body {
     }
 
     .guestbook-icon {
-        font-size: 18px;
+        width: 18px;
+        height: 18px;
     }
 
     .guestbook-input-panel {
@@ -2401,19 +2442,6 @@ body {
 
 /* Touch device interaction behavior - hover:none handles touch, NOT layout */
 @media (hover: none) {
-    /* Disable button rearrangement animation on touch - just hide/show */
-    .menu-btn.active,
-    .menu-btn.active[data-original="1"],
-    .menu-btn.active[data-original="2"] {
-        transform: none !important;
-    }
-
-    .menu-btn.active:hover,
-    .menu-btn.active[data-original="1"]:hover,
-    .menu-btn.active[data-original="2"]:hover {
-        transform: none !important;
-    }
-
     .menu-btn.hidden {
         opacity: 0 !important;
         visibility: hidden !important;
@@ -2503,6 +2531,14 @@ body {
         justify-content: center;
     }
 
+    .menu-btn.active[data-original="1"] {
+        transform: translateY(-52px) !important;
+    }
+
+    .menu-btn.active[data-original="2"] {
+        transform: translateY(-104px) !important;
+    }
+
     .menu-btn-label {
         position: absolute;
         left: calc(100% + 10px);
@@ -2575,8 +2611,8 @@ body {
 }
 
 .guestbook-icon {
-    font-size: 26px;
-    line-height: 1;
+    width: 26px;
+    height: 26px;
     display: block;
 }
 
