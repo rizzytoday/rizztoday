@@ -164,32 +164,19 @@ if (statusBtn) {
             return; // Don't change status on mobile - just toggle buttons
         }
 
-        // Desktop behavior - elastic slide animation like menu buttons
+        // Desktop behavior - text changes, pill width animates with elastic bounce
         isWorking = !isWorking;
         const statusText = statusBtn.querySelector('.status-text');
         const statusDot = statusBtn.querySelector('.status-dot');
 
-        // Slide out upward
-        statusText.classList.add('slide-out');
-
-        setTimeout(() => {
-            // Change text while hidden
-            if (isWorking) {
-                statusText.textContent = 'free for pitchdeck design';
-            } else {
-                statusText.textContent = 'available';
-            }
-            statusDot.style.backgroundColor = '#4ade80';
-            statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
-
-            // Position below, then slide in with elastic bounce
-            statusText.classList.remove('slide-out');
-            statusText.classList.add('slide-in');
-
-            // Trigger reflow then animate in
-            statusText.offsetHeight;
-            statusText.classList.remove('slide-in');
-        }, 200);
+        // Change text instantly - button width stretches smoothly
+        if (isWorking) {
+            statusText.textContent = 'free for pitchdeck design';
+        } else {
+            statusText.textContent = 'available';
+        }
+        statusDot.style.backgroundColor = '#4ade80';
+        statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
     });
 
     // Close action buttons when clicking outside (touch devices)
