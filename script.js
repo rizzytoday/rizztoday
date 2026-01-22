@@ -202,6 +202,7 @@ if (statusBtn) {
 
         // On touch devices, always show popups (don't toggle off)
         if (isTouchDevice) {
+            e.stopPropagation(); // Prevent document click from immediately hiding
             statusBtn.classList.add('actions-visible');
             animateStatusChange();
             return;

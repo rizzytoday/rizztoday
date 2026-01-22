@@ -936,7 +936,10 @@ body {
 /* Mobile sticky note */
 @media (max-width: 768px) {
     .sticky-note {
-        right: 15px;
+        right: auto;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-2deg);
         padding: 14px 18px;
         min-width: 130px;
     }
