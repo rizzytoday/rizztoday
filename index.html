@@ -16,15 +16,21 @@
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
     <!-- Preload critical resources for faster FCP -->
-    <link rel="preload" href="styles.css?v=11" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&display=swap" as="style" crossorigin>
+    <link rel="preload" href="styles.css?v=12" as="style">
 
     <!-- Critical inline CSS for instant first paint -->
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        html,body{height:100%;overflow:clip;background:#000;color:#fff}
-        body{font-family:'Inter Tight',sans-serif;display:flex;flex-direction:column}
+        html,body{height:100%;overflow:clip;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Inter Tight',sans-serif}
+        body{display:flex;flex-direction:column}
         .menu-bar{height:28px;background:rgba(0,0,0,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+        .menu-bar-left,.menu-bar-right{display:flex;align-items:center;gap:12px}
+        .framer-logo{width:22px;height:24px}
+        .name-tagline{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);text-align:center;z-index:10}
+        .name{font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:4px;justify-content:center}
+        .tagline{font-size:11px;color:rgba(255,255,255,.5)}
+        .menu-buttons{position:fixed;top:80px;left:40px;display:flex;flex-direction:column;z-index:60}
+        .menu-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15);border-radius:12px;margin-bottom:8px}
     </style>
 
     <!-- Open Graph / Social Banner -->
@@ -43,8 +49,12 @@
     <meta name="twitter:description" content="translating ideas into visuals">
     <meta name="twitter:image" content="https://rizzy.today/riz-sharecard.png">
 
-    <link rel="stylesheet" href="styles.css?v=11">
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Urbanist:ital,wght@0,700;1,700&family=Fragment+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=12">
+    <!-- Async font loading - non-render-blocking -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&display=swap"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap"></noscript>
 </head>
 <body>
     <!-- Notification overlay for mobile -->

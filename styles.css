@@ -669,7 +669,7 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 180px;
+    width: 160px;
     height: 1px;
     background: rgba(255, 255, 255, 0.15);
 }
@@ -2022,7 +2022,7 @@ body {
     }
 
     .project-stats::before {
-        width: 140px;
+        width: 130px;
     }
 
     /* iPod - scale down */
@@ -2219,7 +2219,7 @@ body {
     }
 
     .project-stats::before {
-        width: 115px;
+        width: 110px;
     }
 
     /* iPod - smaller on phone */
