@@ -1934,14 +1934,14 @@ body {
     .menu-buttons {
         top: 50px;
         left: 10px;
-        gap: 4px;
+        gap: 2px;
     }
 
     .menu-btn {
-        width: auto;
+        width: fit-content;
         height: auto;
-        padding: 8px 10px;
-        gap: 6px;
+        padding: 6px 10px;
+        gap: 5px;
         justify-content: flex-start;
     }
 
@@ -1960,11 +1960,11 @@ body {
     }
 
     .menu-btn.active[data-original="1"] {
-        transform: translateY(-40px) !important;
+        transform: translateY(-32px) !important;
     }
 
     .menu-btn.active[data-original="2"] {
-        transform: translateY(-80px) !important;
+        transform: translateY(-64px) !important;
     }
 
     /* Menu bar */
@@ -2267,14 +2267,14 @@ body {
     .menu-buttons {
         top: 50px;
         left: 10px;
-        gap: 4px;
+        gap: 2px;
     }
 
     .menu-btn {
-        width: auto;
+        width: fit-content;
         height: auto;
-        padding: 8px 10px;
-        gap: 6px;
+        padding: 6px 10px;
+        gap: 5px;
         justify-content: flex-start;
     }
 
@@ -2294,11 +2294,11 @@ body {
 
     /* Allow active button to slide up on mobile */
     .menu-btn.active[data-original="1"] {
-        transform: translateY(-40px) !important;
+        transform: translateY(-32px) !important;
     }
 
     .menu-btn.active[data-original="2"] {
-        transform: translateY(-80px) !important;
+        transform: translateY(-64px) !important;
     }
 
     .menu-btn.hidden {
