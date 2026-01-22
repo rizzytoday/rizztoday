@@ -182,9 +182,18 @@ if (statusBtn) {
         // Calculate scale ratio
         const scaleX = startWidth / endWidth;
 
+        // Get action buttons container to counter-scale (prevent popup stretching)
+        const actionButtons = statusBtn.querySelector('.action-buttons');
+
         // Apply inverse transform instantly (no transition)
         statusBtn.style.transition = 'none';
         statusBtn.style.transform = `translate(-50%, -50%) scaleX(${scaleX})`;
+
+        // Counter-scale action buttons so they don't stretch
+        if (actionButtons) {
+            actionButtons.style.transition = 'none';
+            actionButtons.style.transform = `translateX(-50%) scaleX(${1 / scaleX})`;
+        }
 
         // Force reflow
         statusBtn.offsetHeight;
@@ -193,10 +202,20 @@ if (statusBtn) {
         statusBtn.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
         statusBtn.style.transform = 'translate(-50%, -50%) scaleX(1)';
 
+        // Animate action buttons back to normal
+        if (actionButtons) {
+            actionButtons.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            actionButtons.style.transform = 'translateX(-50%) scaleX(1)';
+        }
+
         // Reset inline styles after animation completes so hover effects work
         setTimeout(() => {
             statusBtn.style.transition = '';
             statusBtn.style.transform = '';
+            if (actionButtons) {
+                actionButtons.style.transition = '';
+                actionButtons.style.transform = '';
+            }
         }, 350);
 
         statusDot.style.backgroundColor = '#4ade80';
