@@ -1934,7 +1934,6 @@ body {
     .menu-buttons {
         top: 50px;
         left: 10px;
-        gap: 6px;
     }
 
     .menu-btn {
@@ -1943,6 +1942,7 @@ body {
         padding: 6px 10px;
         gap: 3px;
         justify-content: flex-start;
+        margin-bottom: 4px;
     }
 
     .menu-btn-label {
@@ -1960,11 +1960,11 @@ body {
     }
 
     .menu-btn.active[data-original="1"] {
-        transform: translateY(-36px) !important;
+        transform: translateY(-34px) !important;
     }
 
     .menu-btn.active[data-original="2"] {
-        transform: translateY(-72px) !important;
+        transform: translateY(-68px) !important;
     }
 
     /* Menu bar */
@@ -2267,7 +2267,6 @@ body {
     .menu-buttons {
         top: 50px;
         left: 10px;
-        gap: 2px;
     }
 
     .menu-btn {
@@ -2276,6 +2275,7 @@ body {
         padding: 6px 10px;
         gap: 3px;
         justify-content: flex-start;
+        margin-bottom: 4px;
     }
 
     .menu-btn-label {
@@ -2294,11 +2294,11 @@ body {
 
     /* Allow active button to slide up on mobile */
     .menu-btn.active[data-original="1"] {
-        transform: translateY(-32px) !important;
+        transform: translateY(-34px) !important;
     }
 
     .menu-btn.active[data-original="2"] {
-        transform: translateY(-64px) !important;
+        transform: translateY(-68px) !important;
     }
 
     .menu-btn.hidden {
