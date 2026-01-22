@@ -838,6 +838,27 @@ body {
     .status-btn.actions-visible .action-buttons { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
     .status-btn.actions-visible .action-btn { opacity: 1; transform: scale(1) translateY(0) !important; }
 
+    /* Show labels when actions-visible is set (works regardless of hover capability) */
+    .status-btn.actions-visible .action-btn .btn-label {
+        display: block !important;
+        position: absolute;
+        bottom: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        padding: 5px 10px;
+        border-radius: 50px;
+        font-size: 9px;
+        font-weight: 500;
+        color: white;
+        white-space: nowrap;
+        z-index: 100;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
     .notification-btn:hover .notification-card { opacity: 0; visibility: hidden; }
     .notification-card { position: fixed; top: 44px; left: 50%; right: auto; transform: translateX(-50%) scale(0.85) translateY(-10px); transform-origin: top center; width: min(320px, 90vw); z-index: 10000; transition: all 0.35s var(--bounce-ease); }
     .notification-card.active { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1) translateY(0); }

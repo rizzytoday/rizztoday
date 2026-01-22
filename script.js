@@ -202,7 +202,8 @@ if (statusBtn) {
 
         // On touch devices, always show popups (don't toggle off)
         if (isTouchDevice) {
-            e.stopPropagation(); // Prevent document click from immediately hiding
+            e.stopPropagation();
+            e.preventDefault();
             statusBtn.classList.add('actions-visible');
             animateStatusChange();
             return;
@@ -213,11 +214,14 @@ if (statusBtn) {
     });
 
     // Close action buttons when clicking outside (touch devices)
+    // Use setTimeout to avoid race condition with button click handler
     if (isTouchDevice) {
         document.addEventListener('click', (e) => {
-            if (!statusBtn.contains(e.target)) {
-                statusBtn.classList.remove('actions-visible');
-            }
+            setTimeout(() => {
+                if (!statusBtn.contains(e.target)) {
+                    statusBtn.classList.remove('actions-visible');
+                }
+            }, 0);
         });
     }
 }
