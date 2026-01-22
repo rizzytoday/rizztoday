@@ -164,13 +164,13 @@ if (statusBtn) {
             return; // Don't change status on mobile - just toggle buttons
         }
 
-        // Desktop behavior - change status text with smooth animation
+        // Desktop behavior - change status text with smooth elastic animation
         isWorking = !isWorking;
         const statusText = statusBtn.querySelector('.status-text');
         const statusDot = statusBtn.querySelector('.status-dot');
 
-        // Animate out
-        statusText.classList.add('changing');
+        // Animate out (slide up + fade + blur)
+        statusText.classList.add('changing-out');
 
         setTimeout(() => {
             // Change text while hidden
@@ -184,11 +184,17 @@ if (statusBtn) {
                 statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
             }
 
-            // Animate in
-            setTimeout(() => {
-                statusText.classList.remove('changing');
-            }, 50);
-        }, 200);
+            // Prep for animate in (position below)
+            statusText.classList.remove('changing-out');
+            statusText.classList.add('changing-in');
+
+            // Animate in with elastic bounce
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    statusText.classList.remove('changing-in');
+                });
+            });
+        }, 250);
     });
 
     // Close action buttons when clicking outside (touch devices)
