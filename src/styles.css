@@ -678,16 +678,35 @@ body {
     border-radius: 10px;
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.85) translateY(-10px);
+    transform: scale(0.92) translateY(8px);
     transform-origin: bottom left;
-    transition: all 0.35s var(--bounce-ease);
+    transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                visibility 0s linear 0.4s;
     z-index: 101;
 }
 
 .guestbook-input-panel { left: 20px; bottom: 70px; width: 200px; padding: 12px; }
-.guestbook-comments-panel { left: 240px; bottom: 70px; width: 130px; max-height: 110px; padding: 8px; transition-delay: 0.08s; overflow: hidden; background: rgba(28, 28, 30, 0.95); border: 1px solid var(--divider); }
+.guestbook-comments-panel {
+    left: 240px;
+    bottom: 70px;
+    width: 130px;
+    max-height: 110px;
+    padding: 8px;
+    overflow: hidden;
+    background: rgba(28, 28, 30, 0.95);
+    border: 1px solid var(--divider);
+    transition-delay: 0.05s;
+}
 
-.guestbook-input-panel.active, .guestbook-comments-panel.active { opacity: 1; visibility: visible; transform: scale(1) translateY(0); }
+.guestbook-input-panel.active, .guestbook-comments-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                visibility 0s linear 0s;
+}
 
 .comments-title, .input-panel-title { font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.9); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
 .input-panel-title { margin-bottom: 3px; }
@@ -773,10 +792,22 @@ body {
     .piano-container { bottom: 10px; right: 10px; transform: scale(0.8); }
 
     .guestbook-btn { left: 15px; bottom: 15px; }
-    .guestbook-input-panel { width: 200px !important; left: 15px !important; bottom: 75px !important; transform-origin: bottom left !important; }
-    .guestbook-input-panel.active { transform: scale(1) translateY(0) !important; }
-    .guestbook-comments-panel { left: 15px !important; right: auto !important; bottom: 280px !important; top: auto !important; width: 130px !important; max-height: 100px !important; padding: 8px !important; transform-origin: bottom left !important; }
-    .guestbook-comments-panel.active { transform: scale(1) translateY(0) !important; }
+    .guestbook-input-panel {
+        width: 200px !important;
+        left: 15px !important;
+        bottom: 75px !important;
+        transform-origin: bottom left !important;
+    }
+    .guestbook-comments-panel {
+        left: 15px !important;
+        right: auto !important;
+        bottom: 280px !important;
+        top: auto !important;
+        width: 130px !important;
+        max-height: 100px !important;
+        padding: 8px !important;
+        transform-origin: bottom left !important;
+    }
     .guestbook-comments-panel .comments-title { font-size: 10px; margin-bottom: 6px; padding-bottom: 4px; }
     .guestbook-comments-panel .guest-message { padding: 5px 8px; border-radius: 10px 10px 10px 2px; }
     .guestbook-comments-panel .guest-name { font-size: 8px; }
@@ -837,8 +868,19 @@ body {
 
     .guestbook-btn { left: 12px; bottom: 12px; width: 42px; height: 42px; }
     .guestbook-icon { width: 18px; height: 18px; }
-    .guestbook-input-panel { width: min(180px, 48vw) !important; left: 12px !important; bottom: 65px !important; }
-    .guestbook-comments-panel { left: 12px !important; bottom: 260px !important; top: auto !important; width: 130px !important; max-height: 90px !important; padding: 6px !important; }
+    .guestbook-input-panel {
+        width: min(180px, 48vw) !important;
+        left: 12px !important;
+        bottom: 65px !important;
+    }
+    .guestbook-comments-panel {
+        left: 12px !important;
+        bottom: 260px !important;
+        top: auto !important;
+        width: 130px !important;
+        max-height: 90px !important;
+        padding: 6px !important;
+    }
     .guestbook-comments-panel .comments-title { font-size: 9px; margin-bottom: 5px; padding-bottom: 3px; }
     .guestbook-comments-panel .guest-message { padding: 4px 6px; border-radius: 8px 8px 8px 2px; }
     .guestbook-comments-panel .guest-name { font-size: 7px; }
