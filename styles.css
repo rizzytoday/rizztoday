@@ -1092,6 +1092,14 @@ body {
     font-size: 10px;
 }
 
+.job-brand-logo {
+    height: 18px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
 .job-done-tag .job-text {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.7);
