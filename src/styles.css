@@ -704,6 +704,17 @@ body {
 .guestbook-submit:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); transform: translateY(-1px); }
 .guestbook-submit:active { transform: scale(0.95); }
 
+.guestbook-comments-panel .comments-title,
+.guestbook-comments-panel .guestbook-messages {
+    opacity: 0;
+    transition: opacity 0.3s ease 0.15s;
+}
+
+.guestbook-comments-panel.active .comments-title,
+.guestbook-comments-panel.active .guestbook-messages {
+    opacity: 1;
+}
+
 .guestbook-messages { display: flex; flex-direction: column; gap: 4px; max-height: 65px; overflow-y: auto; }
 .guestbook-messages::-webkit-scrollbar { width: 2px; }
 .guestbook-messages::-webkit-scrollbar-track { background: transparent; }
