@@ -1941,7 +1941,7 @@ body {
         width: fit-content;
         height: auto;
         padding: 6px 10px;
-        gap: 5px;
+        gap: 3px;
         justify-content: flex-start;
     }
 
@@ -2274,7 +2274,7 @@ body {
         width: fit-content;
         height: auto;
         padding: 6px 10px;
-        gap: 5px;
+        gap: 3px;
         justify-content: flex-start;
     }
 
