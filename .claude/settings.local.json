@@ -45,7 +45,8 @@
       "WebFetch(domain:www.rizzy.today)",
       "Bash(npx http-server:*)",
       "WebFetch(domain:kostya.sh)",
-      "Bash(npm i:*)"
+      "Bash(npm i:*)",
+      "Bash(cat:*)"
     ]
   }
 }
