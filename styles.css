@@ -2021,6 +2021,10 @@ body {
         font-size: 10px;
     }
 
+    .project-stats::before {
+        width: 120px;
+    }
+
     /* iPod - scale down */
     .ipod-nano {
         transform: scale(0.85);
@@ -2212,6 +2216,10 @@ body {
 
     .tagline {
         font-size: 9px;
+    }
+
+    .project-stats::before {
+        width: 100px;
     }
 
     /* iPod - smaller on phone */

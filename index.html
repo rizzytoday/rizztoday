@@ -10,13 +10,22 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
 
+    <!-- Preconnect first for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
     <!-- Preload critical resources for faster FCP -->
-    <link rel="preload" href="styles.css?v=9" as="style">
-    <link rel="preload" href="newpfp.png" as="image">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Urbanist:ital,wght@0,700;1,700&family=Fragment+Mono&display=swap" as="style">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <link rel="preload" href="styles.css?v=10" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&display=swap" as="style" crossorigin>
+
+    <!-- Critical inline CSS for instant first paint -->
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;overflow:clip;background:#000;color:#fff}
+        body{font-family:'Inter Tight',sans-serif;display:flex;flex-direction:column}
+        .menu-bar{height:28px;background:rgba(0,0,0,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+    </style>
 
     <!-- Open Graph / Social Banner -->
     <meta property="og:type" content="website">
@@ -34,9 +43,7 @@
     <meta name="twitter:description" content="translating ideas into visuals">
     <meta name="twitter:image" content="https://rizzy.today/riz-sharecard.png">
 
-    <link rel="stylesheet" href="styles.css?v=9">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css?v=10">
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Urbanist:ital,wght@0,700;1,700&family=Fragment+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -78,7 +85,7 @@
                     <div class="notification-content">
                         <div class="notification-header">
                             <img src="newpfp.png" alt="Profile" class="notification-pfp">
-                            <span class="notification-app">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></span>
+                            <span class="notification-app">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img loading="lazy" src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></span>
                             <span class="notification-time">now</span>
                         </div>
                         <div class="notification-title">website v.1 is live</div>
@@ -87,7 +94,7 @@
                     <div class="notification-content">
                         <div class="notification-header">
                             <img src="newpfp.png" alt="Profile" class="notification-pfp">
-                            <span class="notification-app">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></span>
+                            <span class="notification-app">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img loading="lazy" src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></span>
                             <span class="notification-time">1d ago</span>
                         </div>
                         <div class="notification-title">I Just Build My Website in 3 prompt</div>
@@ -145,7 +152,7 @@
 
                 <!-- Name and Tagline at Bottom -->
                 <div class="name-tagline">
-                    <h1 class="name">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></h1>
+                    <h1 class="name">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img loading="lazy" src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></h1>
                     <p class="tagline">translating ideas into visuals</p>
 
                     <!-- Project Stats -->
@@ -157,9 +164,9 @@
 
                     <!-- Client Logos -->
                     <div class="client-logos">
-                        <img src="content/logos/hydex logo.png" alt="Hydex" class="logo-hydex">
-                        <img src="content/logos/rad-BLACK.png" alt="Radiants" class="logo-radiants">
-                        <img src="content/logos/Solana Logomark - Color.svg" alt="Solana" class="logo-solana">
+                        <img loading="lazy" src="content/logos/hydex logo.png" alt="Hydex" class="logo-hydex">
+                        <img loading="lazy" src="content/logos/rad-BLACK.png" alt="Radiants" class="logo-radiants">
+                        <img loading="lazy" src="content/logos/Solana Logomark - Color.svg" alt="Solana" class="logo-solana">
                     </div>
                 </div>
             </div>
@@ -204,12 +211,12 @@
             </button>
             <div class="testimonial-slide active" data-index="0">
                 <div class="testimonial-header">
-                    <img src="testimonial/DEVOUR.jpg" alt="DEVOUR" class="testimonial-pfp">
+                    <img loading="lazy" src="testimonial/DEVOUR.jpg" alt="DEVOUR" class="testimonial-pfp">
                     <div class="testimonial-info">
-                        <h3 class="testimonial-name">DEVOUR<svg class="verified-check orange" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img src="content/logos/phase-badge.jpg" alt="Phase" class="company-badge"></h3>
+                        <h3 class="testimonial-name">DEVOUR<svg class="verified-check orange" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img loading="lazy" src="content/logos/phase-badge.jpg" alt="Phase" class="company-badge"></h3>
                         <span class="testimonial-title">CEO at Phase</span>
                     </div>
-                    <img src="content/logos/radiant logo.png" alt="RadiantsDAO" class="testimonial-company-logo">
+                    <img loading="lazy" src="content/logos/radiant logo.png" alt="RadiantsDAO" class="testimonial-company-logo">
                 </div>
                 <div class="testimonial-quote">
                     <p>"Rizzy has been a core creative force behind Radiants' public presence. He consistently translates abstract ideas, fast-moving narratives, and evolving brand direction into content that actually resonates with people. What stands out most is his creativity. In an attention-driven environment, Rizzy understands how to balance speed, creativity, and brand integrity. He's not just a designer or content creator, he's someone who actively helps shape how a project is perceived in the market."</p>
@@ -222,12 +229,12 @@
             </div>
             <div class="testimonial-slide" data-index="1">
                 <div class="testimonial-header">
-                    <img src="testimonial/JerkTerror.jpg" alt="Jerk Terror" class="testimonial-pfp">
+                    <img loading="lazy" src="testimonial/JerkTerror.jpg" alt="Jerk Terror" class="testimonial-pfp">
                     <div class="testimonial-info">
-                        <h3 class="testimonial-name">Jerk Terror<svg class="verified-check orange" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img src="content/logos/hydex-badge.jpg" alt="Hydex" class="company-badge"></h3>
+                        <h3 class="testimonial-name">Jerk Terror<svg class="verified-check orange" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img loading="lazy" src="content/logos/hydex-badge.jpg" alt="Hydex" class="company-badge"></h3>
                         <span class="testimonial-title">CEO at Hydex</span>
                     </div>
-                    <img src="content/hydex-logo-white.png" alt="Hydex" class="testimonial-company-logo">
+                    <img loading="lazy" src="content/hydex-logo-white.png" alt="Hydex" class="testimonial-company-logo">
                 </div>
                 <div class="testimonial-quote">
                     <p>"Rizzy has an incredibly keen eye for design. Whether I have a strong idea of what I need or just a rough concept, he always delivers a professional grade product that often exceeds my expectations."</p>
@@ -243,7 +250,7 @@
             <div class="about-header">
                 <img src="newpfp.png" alt="Riz Rose" class="about-pfp">
                 <div class="about-info">
-                    <h3 class="about-name">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></h3>
+                    <h3 class="about-name">Riz Rose<svg class="verified-check red" width="14" height="14" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg><img loading="lazy" src="content/logos/radiant logo.png" alt="Radiants" class="company-badge"></h3>
                     <span class="about-location">Visual Designer</span>
                 </div>
             </div>
@@ -278,15 +285,15 @@
             <div class="project-card" data-index="0">
                 <div class="card-content">
                     <div class="card-grid-horizontal">
-                        <img src="content/PITCHDECK-2.jpeg" alt="Hydex 1">
-                        <img src="content/PITCHDECK-3.jpeg" alt="Hydex 2">
-                        <img src="content/PITCHDECK-6.jpeg" alt="Hydex 3">
-                        <img src="content/PITCHDECK-8.jpeg" alt="Hydex 4">
+                        <img loading="lazy" src="content/PITCHDECK-2.jpeg" alt="Hydex 1">
+                        <img loading="lazy" src="content/PITCHDECK-3.jpeg" alt="Hydex 2">
+                        <img loading="lazy" src="content/PITCHDECK-6.jpeg" alt="Hydex 3">
+                        <img loading="lazy" src="content/PITCHDECK-8.jpeg" alt="Hydex 4">
                     </div>
                 </div>
                 <div class="card-caption">
                     <a href="https://x.com/rizzytoday/status/1999124944668553387?s=20" target="_blank" rel="noopener" class="card-title">Pitchdeck Design</a>
-                    <img src="content/logos/hydex logo.png" alt="Hydex" class="card-logo">
+                    <img loading="lazy" src="content/logos/hydex logo.png" alt="Hydex" class="card-logo">
                 </div>
             </div>
 
@@ -297,7 +304,7 @@
                 </div>
                 <div class="card-caption">
                     <a href="https://x.com/rizzytoday/status/1985022653652955614?s=20" target="_blank" rel="noopener" class="card-title">Motion Design</a>
-                    <img src="content/logos/radiant logo.png" alt="Radiants" class="card-logo">
+                    <img loading="lazy" src="content/logos/radiant logo.png" alt="Radiants" class="card-logo">
                 </div>
             </div>
 
@@ -308,7 +315,7 @@
                 </div>
                 <div class="card-caption">
                     <a href="https://x.com/rizzytoday/status/1984049190822146067?s=20" target="_blank" rel="noopener" class="card-title">Solana in Wall Street</a>
-                    <img src="content/logos/Solana Logomark - Color.svg" alt="Solana" class="card-logo">
+                    <img loading="lazy" src="content/logos/Solana Logomark - Color.svg" alt="Solana" class="card-logo">
                 </div>
             </div>
 
