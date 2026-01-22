@@ -154,17 +154,8 @@ if (statusBtn) {
     let isWorking = true;
     const isTouchDevice = window.matchMedia('(hover: none)').matches;
 
-    statusBtn.addEventListener('click', (e) => {
-        // Don't toggle if clicking on action buttons
-        if (e.target.closest('.action-btn')) return;
-
-        // On touch devices, only toggle action buttons visibility (don't change status text)
-        if (isTouchDevice) {
-            statusBtn.classList.toggle('actions-visible');
-            return; // Don't change status on mobile - just toggle buttons
-        }
-
-        // Desktop behavior - text changes, pill width animates with elastic bounce using FLIP
+    // Animate status text change with elastic width animation
+    function animateStatusChange() {
         isWorking = !isWorking;
         const statusText = statusBtn.querySelector('.status-text');
         const statusDot = statusBtn.querySelector('.status-dot');
@@ -172,6 +163,9 @@ if (statusBtn) {
 
         // Animate width directly (no scale transform) so popups aren't affected
         const startWidth = statusBtn.offsetWidth;
+
+        // Hide overflow during animation so text doesn't spill out
+        statusBtn.style.overflow = 'hidden';
 
         // Change text
         statusText.textContent = newText;
@@ -194,10 +188,26 @@ if (statusBtn) {
         setTimeout(() => {
             statusBtn.style.transition = '';
             statusBtn.style.width = '';
+            statusBtn.style.overflow = '';
         }, 350);
 
         statusDot.style.backgroundColor = '#4ade80';
         statusDot.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.8), 0 0 20px rgba(74, 222, 128, 0.4)';
+    }
+
+    statusBtn.addEventListener('click', (e) => {
+        // Don't toggle if clicking on action buttons
+        if (e.target.closest('.action-btn')) return;
+
+        // On touch devices, toggle action buttons visibility AND animate text
+        if (isTouchDevice) {
+            statusBtn.classList.toggle('actions-visible');
+            animateStatusChange();
+            return;
+        }
+
+        // Desktop behavior - same animation
+        animateStatusChange();
     });
 
     // Close action buttons when clicking outside (touch devices)
