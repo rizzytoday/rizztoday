@@ -884,8 +884,10 @@ body {
 .status-btn.actions-visible .action-btn:nth-child(3) { transition-delay: 0.08s !important; }
 
 /* Show labels when actions are visible (mobile first click) */
-.status-btn.actions-visible .btn-label {
+.status-btn.actions-visible .action-btn .btn-label {
     opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
     pointer-events: none;
 }
 
