@@ -553,6 +553,47 @@ const guestMessageInput = document.getElementById('guestMessage');
 const guestSubmitBtn = document.getElementById('guestSubmit');
 const charCountEl = document.getElementById('charCount');
 const messagesContainer = document.getElementById('guestbookMessages');
+const guestbookBadge = document.getElementById('guestbookBadge');
+
+// Check for new guestbook entries
+async function checkNewGuestbookEntries() {
+    if (!db || !guestbookBadge) return;
+
+    try {
+        const snapshot = await db.collection('guestbook')
+            .orderBy('timestamp', 'desc')
+            .limit(1)
+            .get();
+
+        if (snapshot.empty) return;
+
+        const latestDoc = snapshot.docs[0];
+        const latestData = latestDoc.data();
+        if (!latestData.timestamp) return;
+
+        const latestTimestamp = latestData.timestamp.toMillis();
+        const lastSeen = parseInt(localStorage.getItem('guestbookLastSeen') || '0');
+
+        if (latestTimestamp > lastSeen) {
+            guestbookBadge.style.display = 'block';
+        } else {
+            guestbookBadge.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error checking new entries:', error);
+    }
+}
+
+// Mark guestbook as seen
+function markGuestbookAsSeen() {
+    localStorage.setItem('guestbookLastSeen', Date.now().toString());
+    if (guestbookBadge) {
+        guestbookBadge.style.display = 'none';
+    }
+}
+
+// Check for new entries on page load
+checkNewGuestbookEntries();
 
 if (guestbookBtn && guestbookInputPanel && guestbookShoutoutsPanel) {
     // Toggle panels
@@ -563,6 +604,7 @@ if (guestbookBtn && guestbookInputPanel && guestbookShoutoutsPanel) {
         if (guestbookOverlay) guestbookOverlay.classList.toggle('active');
         if (guestbookInputPanel.classList.contains('active')) {
             loadGuestbookMessages();
+            markGuestbookAsSeen();
         }
     });
 

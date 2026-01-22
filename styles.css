@@ -2670,6 +2670,20 @@ body {
     transform: translateY(-50%) translateX(0);
 }
 
+/* Guestbook Notification Badge */
+.guestbook-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    background-color: #E0115F;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(224, 17, 95, 0.4);
+    pointer-events: none;
+    animation: badge-jump 3s ease-in-out infinite;
+}
+
 /* Guestbook Overlay */
 .guestbook-overlay {
     display: none;
