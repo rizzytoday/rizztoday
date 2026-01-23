@@ -45,7 +45,7 @@ export function MenuBar() {
         <div className="menu-bar-right">
           <div className="menu-bar-icons">
             <a
-              href="https://calendar.app.google/VDEgALuod7HRaJnk6"
+              href="https://calendar.app.google/mpTJKMqZ8cTz5KD79"
               target="_blank"
               rel="noopener noreferrer"
               className="calendar-icon-link"
