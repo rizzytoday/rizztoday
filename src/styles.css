@@ -1396,6 +1396,7 @@ body {
         transform: translate(-50%, -50%) scale(0.85);
         transform-origin: center center;
         width: min(280px, 85vw);
+        z-index: 200;
     }
 
     .service-card.active {
@@ -1429,6 +1430,7 @@ body {
     .service-card {
         width: min(260px, 90vw);
         padding: 14px;
+        z-index: 200;
     }
 
     .service-card-preview {
