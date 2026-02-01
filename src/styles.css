@@ -343,6 +343,7 @@ body {
 .status-btn:hover .action-btn:nth-child(1) { transition-delay: 0.03s; }
 .status-btn:hover .action-btn:nth-child(2) { transition-delay: 0.06s; }
 .status-btn:hover .action-btn:nth-child(3) { transition-delay: 0.09s; }
+.status-btn:hover .action-btn:nth-child(4) { transition-delay: 0.12s; }
 
 .action-btn:hover { background: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.5); transform: scale(1.05) translateY(0) !important; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); }
 
