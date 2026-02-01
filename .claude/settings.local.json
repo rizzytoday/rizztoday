@@ -70,7 +70,16 @@
       "Bash(npm run dev:*)",
       "Bash(git pull:*)",
       "Bash(git revert:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(claude config:*)",
+      "Bash(chmod:*)",
+      "Bash(./notify-deploy.sh:*)",
+      "WebFetch(domain:radshader.vercel.app)",
+      "Bash(npx remotion studio)",
+      "Bash(npm run remotionstudio:*)",
+      "Bash(npm run)",
+      "Skill(agent-browser)",
+      "Bash(npx:*)"
     ]
   }
 }

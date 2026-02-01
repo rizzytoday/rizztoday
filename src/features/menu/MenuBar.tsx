@@ -88,7 +88,7 @@ export function MenuBar() {
             <svg width="14" height="16" viewBox="0 0 14 16" fill="none">
               <path d="M7 16C8.1 16 9 15.1 9 14H5C5 15.1 5.9 16 7 16ZM12 11V7C12 4.51 10.64 2.39 8.5 1.87V1C8.5 0.17 7.83 -0.5 7 -0.5C6.17 -0.5 5.5 0.17 5.5 1V1.87C3.35 2.39 2 4.51 2 7V11L0 13V14H14V13L12 11Z" fill="rgb(255, 255, 255)"/>
             </svg>
-            <span className="notification-badge">3</span>
+            <span className="notification-badge">4</span>
             <div className={`notification-card ${notificationActive ? 'active' : ''}`} onClick={handleNotificationClick}>
               <div className="notification-section-title">Recently</div>
               <div className="notification-content">
@@ -101,6 +101,19 @@ export function MenuBar() {
                   </span>
                   <span className="notification-time">now</span>
                 </div>
+                <div className="notification-title">first time filling github as a designer</div>
+                <div className="notification-message">already have 207 contribution in 2026 and its January, vibin'! check my <a href="https://github.com/rizzytoday" target="_blank" rel="noopener noreferrer" className="notification-link" onClick={(e) => e.stopPropagation()}>github</a></div>
+              </div>
+              <div className="notification-content">
+                <div className="notification-header">
+                  <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                  <span className="notification-app">
+                    Riz Rose
+                    <VerifiedBadge color="red" />
+                    <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                  </span>
+                  <span className="notification-time">1h ago</span>
+                </div>
                 <div className="notification-title">OH i just built a web shader</div>
                 <div className="notification-message">introducing <a href="https://radshader.vercel.app/" target="_blank" rel="noopener noreferrer" className="notification-link" onClick={(e) => e.stopPropagation()}>radshader</a> v.2</div>
               </div>
@@ -112,7 +125,7 @@ export function MenuBar() {
                     <VerifiedBadge color="red" />
                     <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
                   </span>
-                  <span className="notification-time">1d ago</span>
+                  <span className="notification-time">2d ago</span>
                 </div>
                 <div className="notification-title">website v.1 is live</div>
                 <div className="notification-message">i kinda like this version so far, let's take this version as a base line to work on. more to go!</div>
@@ -125,7 +138,7 @@ export function MenuBar() {
                     <VerifiedBadge color="red" />
                     <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
                   </span>
-                  <span className="notification-time">2d ago</span>
+                  <span className="notification-time">3d ago</span>
                 </div>
                 <div className="notification-title">I Just Build My Website in 3 prompt</div>
                 <div className="notification-message">It took 1 month to make the original on Framer btw</div>
