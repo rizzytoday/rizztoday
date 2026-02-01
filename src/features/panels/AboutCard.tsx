@@ -129,6 +129,7 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
         </div>
         <div className="about-bio">
           <p className="about-intro">hi, i'm riz.</p>
+          <p>i turn ideas into visuals — pitch decks, brand identities, motion graphics. mostly for web3 people and indie creators who need to stand out.</p>
           <p>creative direction mostly for web3...</p>
           <p className="about-vibes">same suffering as you...</p>
         </div>
