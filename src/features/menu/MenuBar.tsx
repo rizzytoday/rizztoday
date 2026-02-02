@@ -10,9 +10,23 @@ export function MenuBar() {
   const [spinnerFrame, setSpinnerFrame] = useState(0)
 
   useEffect(() => {
-    const spinnerInterval = setInterval(() => {
-      setSpinnerFrame(f => (f + 1) % SPINNER_FRAMES.length)
-    }, 80)
+    // Defer spinner animation until after page load to not block INP
+    const startSpinner = () => {
+      const spinnerInterval = setInterval(() => {
+        setSpinnerFrame(f => (f + 1) % SPINNER_FRAMES.length)
+      }, 120) // Slower interval (was 80ms)
+      return spinnerInterval
+    }
+
+    let spinnerInterval: NodeJS.Timeout
+    if (document.readyState === 'complete') {
+      spinnerInterval = startSpinner()
+    } else {
+      window.addEventListener('load', () => {
+        spinnerInterval = startSpinner()
+      }, { once: true })
+    }
+
     return () => clearInterval(spinnerInterval)
   }, [])
 

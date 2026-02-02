@@ -22,7 +22,7 @@ export function Hero() {
   const imageWidth = ASCII_IMAGE_CONFIG.width
   const imageHeight = ASCII_IMAGE_CONFIG.height
 
-  // ASCII animation
+  // ASCII animation - deferred until after page load to not block LCP
   useEffect(() => {
     const img = new Image()
     img.src = '/rizzyrose.png'
@@ -38,9 +38,34 @@ export function Hero() {
       ctx.clearRect(0, 0, asciiWidth, asciiHeight)
       ctx.drawImage(img, padding, padding, imageWidth, imageHeight)
       imageDataRef.current = ctx.getImageData(0, 0, asciiWidth, asciiHeight)
+
+      // Render initial static frame immediately
+      renderStaticFrame()
+    }
+
+    const renderStaticFrame = () => {
+      if (!canvasRef.current || !imageDataRef.current) return
+      const imageData = imageDataRef.current
+      let output = ''
+      for (let y = 0; y < asciiHeight; y++) {
+        for (let x = 0; x < asciiWidth; x++) {
+          const index = (y * asciiWidth + x) * 4
+          const r = imageData.data[index]
+          const g = imageData.data[index + 1]
+          const b = imageData.data[index + 2]
+          const a = imageData.data[index + 3]
+          const brightness = ((r + g + b) / 3) * (a / 255)
+          const charIndex = Math.floor((brightness / 255) * (asciiChars.length - 1))
+          output += asciiChars[charIndex]
+        }
+        output += '\n'
+      }
+      canvasRef.current.textContent = output
     }
 
     let animationId: number
+    let isAnimating = false
+
     const animate = () => {
       if (!canvasRef.current || !imageDataRef.current) {
         animationId = requestAnimationFrame(animate)
@@ -83,7 +108,22 @@ export function Hero() {
       animationId = requestAnimationFrame(animate)
     }
 
-    animate()
+    const startAnimation = () => {
+      if (!isAnimating) {
+        isAnimating = true
+        animate()
+      }
+    }
+
+    // Defer animation start until after page is fully loaded
+    if (document.readyState === 'complete') {
+      requestIdleCallback?.(() => startAnimation()) || setTimeout(startAnimation, 100)
+    } else {
+      window.addEventListener('load', () => {
+        requestIdleCallback?.(() => startAnimation()) || setTimeout(startAnimation, 100)
+      }, { once: true })
+    }
+
     return () => cancelAnimationFrame(animationId)
   }, [])
 

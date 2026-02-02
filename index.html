@@ -33,10 +33,9 @@
     <meta name="twitter:description" content="translating ideas into visuals">
     <meta name="twitter:image" content="https://rizzy.today/riz-sharecard.png">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Fonts - non-blocking load -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Fragment+Mono&family=Urbanist:ital,wght@1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Fragment+Mono&family=Urbanist:ital,wght@1,700&display=swap" rel="stylesheet"></noscript>
 </head>
 <body>
     <div id="root"></div>

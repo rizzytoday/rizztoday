@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { initializeApp } from 'firebase/app'
-import { getFirestore, Firestore } from 'firebase/firestore'
+import type { Firestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAnQKWdREyUYXZKlVweg5HBZx0-vcMZs0g",
@@ -16,13 +15,27 @@ export function useFirebase() {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    try {
-      const app = initializeApp(firebaseConfig)
-      const firestore = getFirestore(app)
-      setDb(firestore)
-      setIsReady(true)
-    } catch (error) {
-      console.error('Firebase initialization error:', error)
+    // Lazy-load Firebase after page load to reduce initial bundle
+    const loadFirebase = async () => {
+      try {
+        const [{ initializeApp }, { getFirestore }] = await Promise.all([
+          import('firebase/app'),
+          import('firebase/firestore')
+        ])
+        const app = initializeApp(firebaseConfig)
+        const firestore = getFirestore(app)
+        setDb(firestore)
+        setIsReady(true)
+      } catch (error) {
+        console.error('Firebase initialization error:', error)
+      }
+    }
+
+    // Defer until after page is interactive
+    if (document.readyState === 'complete') {
+      loadFirebase()
+    } else {
+      window.addEventListener('load', loadFirebase, { once: true })
     }
   }, [])
 
