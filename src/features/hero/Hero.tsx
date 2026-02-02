@@ -118,12 +118,12 @@ export function Hero() {
     }
 
     // Defer animation start until after page is fully loaded
+    const deferStart = () => setTimeout(startAnimation, 50)
+
     if (document.readyState === 'complete') {
-      requestIdleCallback?.(() => startAnimation()) || setTimeout(startAnimation, 100)
+      deferStart()
     } else {
-      window.addEventListener('load', () => {
-        requestIdleCallback?.(() => startAnimation()) || setTimeout(startAnimation, 100)
-      }, { once: true })
+      window.addEventListener('load', deferStart, { once: true })
     }
 
     return () => cancelAnimationFrame(animationId)
