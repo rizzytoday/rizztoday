@@ -1,5 +1,89 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { VerifiedBadge } from '../../shared/components/VerifiedBadge'
+
+function OrbitersCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const size = 160 // logical size
+    const dpr = window.devicePixelRatio || 1
+    canvas.width = size * dpr
+    canvas.height = size * dpr
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+    const spacing = 20
+    const circleRadius = spacing * 0.82
+    const dotRadius = spacing * 0.115
+    const orbitRadius = circleRadius
+    const loopDuration = 2400
+
+    let animId: number
+
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, size, size)
+
+      const cols = Math.ceil(size / spacing) + 2
+      const rows = Math.ceil(size / spacing) + 2
+      const offsetX = (size - (cols - 1) * spacing) / 2
+      const offsetY = (size - (rows - 1) * spacing) / 2
+      const centerCol = (cols - 1) / 2
+      const centerRow = (rows - 1) / 2
+
+      const progress = (t % loopDuration) / loopDuration
+      const baseAngle = progress * Math.PI * 2
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.25)'
+      ctx.lineWidth = 0.8
+      ctx.beginPath()
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = offsetX + col * spacing
+          const cy = offsetY + row * spacing
+          ctx.moveTo(cx + circleRadius, cy)
+          ctx.arc(cx, cy, circleRadius, 0, Math.PI * 2)
+        }
+      }
+      ctx.stroke()
+
+      ctx.fillStyle = 'rgba(255,255,255,0.9)'
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = offsetX + col * spacing
+          const cy = offsetY + row * spacing
+          const dx = col - centerCol
+          const dy = row - centerRow
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          const phase = dist * 0.45
+          const angle = baseAngle + phase
+          const dotX = cx + Math.cos(angle) * orbitRadius
+          const dotY = cy + Math.sin(angle) * orbitRadius
+
+          ctx.beginPath()
+          ctx.arc(dotX, dotY, dotRadius, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
+
+      animId = requestAnimationFrame(draw)
+    }
+
+    animId = requestAnimationFrame(draw)
+    return () => cancelAnimationFrame(animId)
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="orbiters-canvas"
+      style={{ width: 80, height: 80 }}
+    />
+  )
+}
 
 const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
 
@@ -102,9 +186,27 @@ export function MenuBar() {
             <svg width="14" height="16" viewBox="0 0 14 16" fill="none">
               <path d="M7 16C8.1 16 9 15.1 9 14H5C5 15.1 5.9 16 7 16ZM12 11V7C12 4.51 10.64 2.39 8.5 1.87V1C8.5 0.17 7.83 -0.5 7 -0.5C6.17 -0.5 5.5 0.17 5.5 1V1.87C3.35 2.39 2 4.51 2 7V11L0 13V14H14V13L12 11Z" fill="rgb(255, 255, 255)"/>
             </svg>
-            <span className="notification-badge">4</span>
+            <span className="notification-badge">5</span>
             <div className={`notification-card ${notificationActive ? 'active' : ''}`} onClick={handleNotificationClick}>
               <div className="notification-section-title">Recently</div>
+              <div className="notification-content notification-art" onClick={(e) => { e.stopPropagation(); window.open('https://rizzytoday.com/archive', '_blank', 'noopener,noreferrer') }}>
+                <div className="notification-art-layout">
+                  <div className="notification-art-text">
+                    <div className="notification-header">
+                      <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                      <span className="notification-app">
+                        Riz Rose
+                        <VerifiedBadge color="red" />
+                        <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                      </span>
+                      <span className="notification-time">now</span>
+                    </div>
+                    <div className="notification-title">nothing will ever be the same</div>
+                    <div className="notification-message">started experimenting w code visuals & math loops</div>
+                  </div>
+                  <OrbitersCanvas />
+                </div>
+              </div>
               <div className="notification-content">
                 <div className="notification-header">
                   <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
@@ -113,7 +215,7 @@ export function MenuBar() {
                     <VerifiedBadge color="red" />
                     <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
                   </span>
-                  <span className="notification-time">now</span>
+                  <span className="notification-time">1h ago</span>
                 </div>
                 <div className="notification-title">first time filling github as a designer</div>
                 <div className="notification-message">already have 207 contribution in 2026 and its January, vibin'! check my <a href="https://github.com/rizzytoday" target="_blank" rel="noopener noreferrer" className="notification-link" onClick={(e) => e.stopPropagation()}>github</a></div>
@@ -126,7 +228,7 @@ export function MenuBar() {
                     <VerifiedBadge color="red" />
                     <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
                   </span>
-                  <span className="notification-time">1h ago</span>
+                  <span className="notification-time">2h ago</span>
                 </div>
                 <div className="notification-title">OH i just built a web shader</div>
                 <div className="notification-message">introducing <a href="https://radshader.vercel.app/" target="_blank" rel="noopener noreferrer" className="notification-link" onClick={(e) => e.stopPropagation()}>radshader</a> v.2</div>

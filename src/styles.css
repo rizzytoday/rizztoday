@@ -191,6 +191,12 @@ body {
 .notification-link { color: #95BAD2; text-decoration: none; font-weight: 600; transition: color 0.2s var(--smooth-ease); }
 .notification-link:hover { color: #FCE184; text-decoration: underline; }
 
+.notification-art { cursor: pointer; }
+.notification-art-layout { display: flex; align-items: center; gap: 12px; }
+.notification-art-text { flex: 1; min-width: 0; }
+.orbiters-canvas { width: 80px; height: 80px; border-radius: 8px; flex-shrink: 0; background: transparent; }
+.notification-art:hover .orbiters-canvas { box-shadow: 0 0 16px rgba(255, 255, 255, 0.15); }
+
 .date, .time { font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: -0.2px; }
 
 /* Main Container */
