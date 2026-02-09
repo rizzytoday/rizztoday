@@ -427,7 +427,7 @@ body {
 .client-logos:hover { opacity: 0.6; }
 .client-logos img { height: 16px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.7; transition: filter 0.4s var(--smooth-ease), opacity 0.4s var(--smooth-ease), transform 0.4s var(--smooth-ease); }
 .client-logos img.logo-hydex { height: 14px; }
-.client-logos img.logo-radiants { height: 17px; }
+.client-logos img.logo-radiants { height: 16px; }
 .client-logos img.logo-soladex { height: 16px; }
 .client-logos img.logo-skr { height: 18px; }
 .client-logos img:hover { filter: none; opacity: 1; transform: scale(1.15); }
