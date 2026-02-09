@@ -433,6 +433,8 @@ body {
 .client-logos img.logo-solana:hover { filter: drop-shadow(0 0 8px rgba(153, 69, 255, 0.7)); }
 .client-logos img.logo-soladex { height: 18px; }
 .client-logos img.logo-soladex:hover { filter: drop-shadow(0 0 8px rgba(0, 200, 255, 0.7)); }
+.client-logos img.logo-skr { height: 18px; }
+.client-logos img.logo-skr:hover { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); }
 
 /* Project Stats */
 .project-stats { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 6px; padding-top: 6px; font-family: 'Inter Tight', sans-serif; font-size: 8px; color: rgba(255, 255, 255, 0.4); position: relative; }

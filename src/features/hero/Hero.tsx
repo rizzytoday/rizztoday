@@ -219,6 +219,7 @@ export function Hero() {
           <img loading="lazy" src="/content/logos/rad-BLACK.png" alt="Radiants" className="logo-radiants" />
           <img loading="lazy" src="/content/logos/Solana Logomark - Color.svg" alt="Solana" className="logo-solana" />
           <img loading="lazy" src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" />
+          <img loading="lazy" src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" />
         </div>
       </div>
     </div>
