@@ -3,15 +3,15 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import { MenuBar } from './features/menu/MenuBar'
 import { Hero } from './features/hero/Hero'
-import { MenuButtons } from './features/panels/MenuButtons'
-import { CardsStack } from './features/panels/CardsStack'
-import { TestimonialsCard } from './features/panels/TestimonialsCard'
-import { IpodPlayer } from './features/music/IpodPlayer'
-import { StickyNote } from './shared/components/StickyNote'
 import { ClickWave } from './shared/components/ClickWave'
 import { useFirebase } from './services/firebase'
 
-// Lazy-load Firebase-dependent components to reduce initial bundle
+// Lazy-load offscreen panels and decorative elements (not visible at first paint)
+const MenuButtons = lazy(() => import('./features/panels/MenuButtons').then(m => ({ default: m.MenuButtons })))
+const CardsStack = lazy(() => import('./features/panels/CardsStack').then(m => ({ default: m.CardsStack })))
+const TestimonialsCard = lazy(() => import('./features/panels/TestimonialsCard').then(m => ({ default: m.TestimonialsCard })))
+const IpodPlayer = lazy(() => import('./features/music/IpodPlayer').then(m => ({ default: m.IpodPlayer })))
+const StickyNote = lazy(() => import('./shared/components/StickyNote').then(m => ({ default: m.StickyNote })))
 const AboutCard = lazy(() => import('./features/panels/AboutCard').then(m => ({ default: m.AboutCard })))
 const Guestbook = lazy(() => import('./features/guestbook/Guestbook').then(m => ({ default: m.Guestbook })))
 
@@ -25,14 +25,14 @@ function App() {
         <main className="main-content">
           <Hero />
         </main>
-        <MenuButtons />
         <Suspense fallback={null}>
+          <MenuButtons />
           <AboutCard db={db} isFirebaseReady={isReady} />
+          <CardsStack />
+          <TestimonialsCard />
+          <IpodPlayer />
+          <StickyNote />
         </Suspense>
-        <CardsStack />
-        <TestimonialsCard />
-        <IpodPlayer />
-        <StickyNote />
       </div>
       <Suspense fallback={null}>
         <Guestbook db={db} isFirebaseReady={isReady} />

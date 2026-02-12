@@ -8,6 +8,14 @@ export default defineConfig({
     open: true
   },
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          vercel: ['@vercel/analytics', '@vercel/speed-insights']
+        }
+      }
+    }
   }
 })

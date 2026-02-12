@@ -12,6 +12,7 @@
 
     <!-- Preload LCP image for faster paint -->
     <link rel="preload" as="image" href="/newpfp.png" fetchpriority="high">
+    <link rel="preload" as="image" href="/rizzyrose.png">
 
     <!-- Preconnect for faster resource loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,6 +33,14 @@
     <meta name="twitter:title" content="Riz Rose">
     <meta name="twitter:description" content="translating ideas into visuals">
     <meta name="twitter:image" content="https://rizzy.today/riz-sharecard.png">
+
+    <!-- Critical CSS: paint dark bg + layout before JS loads -->
+    <style>
+      body{margin:0;font-family:'Inter Tight',sans-serif;background-color:rgb(0,0,0);color:#fff;display:flex;flex-direction:column}
+      .menu-bar{height:28px;background-color:rgba(0,0,0,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 12px}
+      .container{flex:1;display:flex;overflow:visible;margin-top:28px;height:calc(100vh - 28px)}
+      .hero{position:relative;width:100%;height:100%;background-color:rgb(59,3,3);overflow:visible}
+    </style>
 
     <!-- Fonts - non-blocking load -->
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Fragment+Mono&family=Urbanist:ital,wght@1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">

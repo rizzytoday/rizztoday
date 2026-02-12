@@ -1,37 +1,19 @@
-import { useEffect, useState } from 'react'
-
-interface Wave {
-  id: number
-  x: number
-  y: number
-}
+import { useEffect } from 'react'
 
 export function ClickWave() {
-  const [waves, setWaves] = useState<Wave[]>([])
-
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      const id = Date.now()
-      setWaves(prev => [...prev, { id, x: e.clientX, y: e.clientY }])
-
-      setTimeout(() => {
-        setWaves(prev => prev.filter(w => w.id !== id))
-      }, 600)
+      const wave = document.createElement('div')
+      wave.className = 'click-wave'
+      wave.style.left = e.clientX + 'px'
+      wave.style.top = e.clientY + 'px'
+      document.body.appendChild(wave)
+      wave.addEventListener('animationend', () => wave.remove())
     }
 
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
   }, [])
 
-  return (
-    <>
-      {waves.map(wave => (
-        <div
-          key={wave.id}
-          className="click-wave"
-          style={{ left: wave.x, top: wave.y }}
-        />
-      ))}
-    </>
-  )
+  return null
 }

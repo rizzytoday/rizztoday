@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { VerifiedBadge } from '../../shared/components/VerifiedBadge'
 
-function OrbitersCanvas() {
+function OrbitersCanvas({ isActive }: { isActive: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    if (!isActive) return // Skip RAF when notification panel is closed
+
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -74,7 +76,7 @@ function OrbitersCanvas() {
 
     animId = requestAnimationFrame(draw)
     return () => cancelAnimationFrame(animId)
-  }, [])
+  }, [isActive])
 
   return (
     <canvas
@@ -91,14 +93,15 @@ export function MenuBar() {
   const [dateStr, setDateStr] = useState('')
   const [timeStr, setTimeStr] = useState('')
   const [notificationActive, setNotificationActive] = useState(false)
-  const [spinnerFrame, setSpinnerFrame] = useState(0)
+  const spinnerRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    // Defer spinner animation until after page load to not block INP
+    let frame = 0
     const startSpinner = () => {
       const spinnerInterval = setInterval(() => {
-        setSpinnerFrame(f => (f + 1) % SPINNER_FRAMES.length)
-      }, 120) // Slower interval (was 80ms)
+        frame = (frame + 1) % SPINNER_FRAMES.length
+        if (spinnerRef.current) spinnerRef.current.textContent = SPINNER_FRAMES[frame]
+      }, 120)
       return spinnerInterval
     }
 
@@ -145,7 +148,7 @@ export function MenuBar() {
                 <path d="M 22 4 L 22 6.667 L 22 9.333 L 16.5 9.333 L 11 9.333 L 11 4 Z M 11 9.333 L 15.469 9.333 L 22 20 L 22 20 L 19.25 20 L 15.469 14.667 L 15.469 20 L 11 20 Z" fill="rgb(227, 32, 32)"/>
               </svg>
             </div>
-            <span className="braille-spinner">{SPINNER_FRAMES[spinnerFrame]}</span>
+            <span className="braille-spinner" ref={spinnerRef}>{SPINNER_FRAMES[0]}</span>
           </div>
           <div className="nav-links">
             <a href="./archive" className="nav-link archive">Archive</a>
@@ -204,7 +207,7 @@ export function MenuBar() {
                     <div className="notification-title">nothing will ever be the same</div>
                     <div className="notification-message">started experimenting w code visuals & math loops</div>
                   </div>
-                  <OrbitersCanvas />
+                  <OrbitersCanvas isActive={notificationActive} />
                 </div>
               </div>
               <div className="notification-content">

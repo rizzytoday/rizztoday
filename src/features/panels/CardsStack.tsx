@@ -20,10 +20,12 @@ export function CardsStack() {
   }, [isActive])
 
   useEffect(() => {
+    if (!isActive) return
+
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       if (!target.closest('.cards-stack') && !target.closest('[data-panel="cards"]')) {
-        if (isActive) panelStore.close()
+        panelStore.close()
       }
     }
 

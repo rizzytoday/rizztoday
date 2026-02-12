@@ -23,7 +23,12 @@ function getUserReactions(): string[] {
 }
 
 function setUserReactions(reactions: string[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(reactions))
+  const cb = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(reactions))
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(cb)
+  } else {
+    setTimeout(cb, 0)
+  }
 }
 
 export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
@@ -93,10 +98,12 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
   }
 
   useEffect(() => {
+    if (!isActive) return
+
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       if (!target.closest('.about-card') && !target.closest('[data-panel="about"]')) {
-        if (isActive) panelStore.close()
+        panelStore.close()
       }
     }
 

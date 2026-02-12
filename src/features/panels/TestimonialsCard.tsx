@@ -9,10 +9,12 @@ export function TestimonialsCard() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
+    if (!isActive) return
+
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       if (!target.closest('.testimonials-card') && !target.closest('[data-panel="testimonials"]')) {
-        if (isActive) panelStore.close()
+        panelStore.close()
       }
     }
 
