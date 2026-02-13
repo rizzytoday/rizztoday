@@ -18,6 +18,26 @@ interface GuestbookProps {
   isFirebaseReady: boolean
 }
 
+async function fetchMessages(db: Firestore): Promise<GuestbookMessage[]> {
+  const q = query(
+    collection(db, 'guestbook'),
+    orderBy('timestamp', 'desc'),
+    limit(20)
+  )
+  const snapshot = await getDocs(q)
+  const loaded: GuestbookMessage[] = []
+  snapshot.forEach(doc => {
+    const data = doc.data()
+    loaded.push({
+      id: doc.id,
+      name: data.name,
+      message: data.message,
+      timestamp: data.timestamp
+    })
+  })
+  return loaded
+}
+
 export function Guestbook({ db, isFirebaseReady }: GuestbookProps) {
   const { isOpen, close, markAsSeen, setHasNewEntries } = useGuestbookStore()
   const [name, setName] = useState('')
@@ -65,25 +85,7 @@ export function Guestbook({ db, isFirebaseReady }: GuestbookProps) {
     const loadMessages = async () => {
       setLoading(true)
       try {
-        const q = query(
-          collection(db, 'guestbook'),
-          orderBy('timestamp', 'desc'),
-          limit(20)
-        )
-        const snapshot = await getDocs(q)
-
-        const loadedMessages: GuestbookMessage[] = []
-        snapshot.forEach(doc => {
-          const data = doc.data()
-          loadedMessages.push({
-            id: doc.id,
-            name: data.name,
-            message: data.message,
-            timestamp: data.timestamp
-          })
-        })
-
-        setMessages(loadedMessages)
+        setMessages(await fetchMessages(db))
         markAsSeen()
       } catch (error) {
         console.error('Error loading guestbook messages:', error)
@@ -110,26 +112,7 @@ export function Guestbook({ db, isFirebaseReady }: GuestbookProps) {
       setName('')
       setMessage('')
 
-      // Reload messages
-      const q = query(
-        collection(db, 'guestbook'),
-        orderBy('timestamp', 'desc'),
-        limit(20)
-      )
-      const snapshot = await getDocs(q)
-
-      const loadedMessages: GuestbookMessage[] = []
-      snapshot.forEach(doc => {
-        const data = doc.data()
-        loadedMessages.push({
-          id: doc.id,
-          name: data.name,
-          message: data.message,
-          timestamp: data.timestamp
-        })
-      })
-
-      setMessages(loadedMessages)
+      setMessages(await fetchMessages(db))
     } catch (error) {
       console.error('Error adding guestbook message:', error)
     }

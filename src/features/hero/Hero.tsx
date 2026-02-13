@@ -25,31 +25,30 @@ export function Hero() {
 
   const animationIdRef = useRef<number>(0)
 
+  const renderStaticFrame = () => {
+    if (!canvasRef.current || !imageDataRef.current) return
+    const imageData = imageDataRef.current
+    let output = ''
+    for (let y = 0; y < asciiHeight; y++) {
+      for (let x = 0; x < asciiWidth; x++) {
+        const index = (y * asciiWidth + x) * 4
+        const r = imageData.data[index]
+        const g = imageData.data[index + 1]
+        const b = imageData.data[index + 2]
+        const a = imageData.data[index + 3]
+        const brightness = ((r + g + b) / 3) * (a / 255)
+        const charIndex = Math.floor((brightness / 255) * (asciiChars.length - 1))
+        output += asciiChars[charIndex]
+      }
+      output += '\n'
+    }
+    canvasRef.current.textContent = output
+  }
+
   // ASCII animation - hover-gated, only runs RAF when mouse is over the area
   useEffect(() => {
     const img = new Image()
     img.src = '/rizzyrose.png'
-
-    const renderStaticFrame = () => {
-      if (!canvasRef.current || !imageDataRef.current) return
-      const imageData = imageDataRef.current
-      let output = ''
-      for (let y = 0; y < asciiHeight; y++) {
-        for (let x = 0; x < asciiWidth; x++) {
-          const index = (y * asciiWidth + x) * 4
-          const r = imageData.data[index]
-          const g = imageData.data[index + 1]
-          const b = imageData.data[index + 2]
-          const a = imageData.data[index + 3]
-          const brightness = ((r + g + b) / 3) * (a / 255)
-          const charIndex = Math.floor((brightness / 255) * (asciiChars.length - 1))
-          output += asciiChars[charIndex]
-        }
-        output += '\n'
-      }
-      canvasRef.current.textContent = output
-      setAsciiReady(true)
-    }
 
     img.onload = () => {
       const canvas = imageCanvasRef.current
@@ -64,6 +63,7 @@ export function Hero() {
       imageDataRef.current = ctx.getImageData(0, 0, asciiWidth, asciiHeight)
 
       renderStaticFrame()
+      setAsciiReady(true)
     }
 
     return () => cancelAnimationFrame(animationIdRef.current)
@@ -114,24 +114,7 @@ export function Hero() {
 
   const stopAnimation = () => {
     cancelAnimationFrame(animationIdRef.current)
-    // Re-render static frame
-    if (!canvasRef.current || !imageDataRef.current) return
-    const imageData = imageDataRef.current
-    let output = ''
-    for (let y = 0; y < asciiHeight; y++) {
-      for (let x = 0; x < asciiWidth; x++) {
-        const index = (y * asciiWidth + x) * 4
-        const r = imageData.data[index]
-        const g = imageData.data[index + 1]
-        const b = imageData.data[index + 2]
-        const a = imageData.data[index + 3]
-        const brightness = ((r + g + b) / 3) * (a / 255)
-        const charIndex = Math.floor((brightness / 255) * (asciiChars.length - 1))
-        output += asciiChars[charIndex]
-      }
-      output += '\n'
-    }
-    canvasRef.current.textContent = output
+    renderStaticFrame()
   }
 
   // Project counter animation — limited to 3 glitch cycles
