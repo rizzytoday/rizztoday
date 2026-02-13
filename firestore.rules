@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /guestbook/{entry} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['name', 'message', 'timestamp'])
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() <= 30
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() <= 240;
+    }
+    match /reactions/{doc} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
