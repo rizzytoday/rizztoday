@@ -106,15 +106,17 @@ export function MenuBar() {
     }
 
     let spinnerInterval: NodeJS.Timeout
+    const loadHandler = () => { spinnerInterval = startSpinner() }
     if (document.readyState === 'complete') {
       spinnerInterval = startSpinner()
     } else {
-      window.addEventListener('load', () => {
-        spinnerInterval = startSpinner()
-      }, { once: true })
+      window.addEventListener('load', loadHandler, { once: true })
     }
 
-    return () => clearInterval(spinnerInterval)
+    return () => {
+      clearInterval(spinnerInterval)
+      window.removeEventListener('load', loadHandler)
+    }
   }, [])
 
   useEffect(() => {
@@ -181,10 +183,14 @@ export function MenuBar() {
           </div>
           <div
             className="notification-btn"
+            role="button"
+            tabIndex={0}
+            aria-label="Notifications"
             onClick={(e) => {
               e.stopPropagation()
               setNotificationActive(!notificationActive)
             }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setNotificationActive(!notificationActive) } }}
           >
             <svg width="14" height="16" viewBox="0 0 14 16" fill="none">
               <path d="M7 16C8.1 16 9 15.1 9 14H5C5 15.1 5.9 16 7 16ZM12 11V7C12 4.51 10.64 2.39 8.5 1.87V1C8.5 0.17 7.83 -0.5 7 -0.5C6.17 -0.5 5.5 0.17 5.5 1V1.87C3.35 2.39 2 4.51 2 7V11L0 13V14H14V13L12 11Z" fill="rgb(255, 255, 255)"/>

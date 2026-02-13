@@ -29,12 +29,12 @@ export function TestimonialsCard() {
 
   return (
     <div className={`testimonials-card ${isActive ? 'active' : ''}`}>
-      <button className="testimonial-arrow prev" onClick={() => showTestimonial(currentIndex - 1)}>
+      <button className="testimonial-arrow prev" aria-label="Previous testimonial" onClick={() => showTestimonial(currentIndex - 1)}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
           <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
-      <button className="testimonial-arrow next" onClick={() => showTestimonial(currentIndex + 1)}>
+      <button className="testimonial-arrow next" aria-label="Next testimonial" onClick={() => showTestimonial(currentIndex + 1)}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
           <path d="M9 18L15 12L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>

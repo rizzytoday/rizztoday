@@ -75,17 +75,17 @@ export function IpodPlayer() {
         <div className="click-wheel">
           <div className="wheel-ring">
             <button className="wheel-btn menu">MENU</button>
-            <button className="wheel-btn prev" onClick={prevTrack}>
+            <button className="wheel-btn prev" aria-label="Previous track" onClick={prevTrack}>
               <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
                 <path d="M0 0H3V12H0V0ZM3 6L16 12V0L3 6Z"/>
               </svg>
             </button>
-            <button className="wheel-btn next" onClick={nextTrack}>
+            <button className="wheel-btn next" aria-label="Next track" onClick={nextTrack}>
               <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
                 <path d="M16 0H13V12H16V0ZM13 6L0 12V0L13 6Z"/>
               </svg>
             </button>
-            <button className="wheel-btn playpause" onClick={togglePlay}>
+            <button className="wheel-btn playpause" aria-label={isPlaying ? 'Pause' : 'Play'} onClick={togglePlay}>
               {isPlaying ? (
                 <svg className="pause-icon" width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
                   <rect x="0" y="0" width="3" height="12"/>

@@ -194,7 +194,7 @@ export function Hero() {
         onMouseMove={handleMouseMove}
         onMouseLeave={() => { mouseRef.current.isHovering = false; stopAnimation() }}
       >
-        <pre ref={canvasRef}></pre>
+        <pre ref={canvasRef} aria-hidden="true"></pre>
       </div>
       <canvas ref={imageCanvasRef} style={{ display: 'none' }} />
 
