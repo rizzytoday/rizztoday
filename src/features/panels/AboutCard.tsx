@@ -124,12 +124,12 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
     <>
       <div className={`about-card ${isActive ? 'active' : ''}`}>
         <div className="about-header">
-          <img src="/newpfp.png" alt="Riz Rose" className="about-pfp" />
+          <img src="/newpfp.png" width={48} height={48} alt="Riz Rose" className="about-pfp" />
           <div className="about-info">
             <h3 className="about-name">
               Riz Rose
               <VerifiedBadge color="red" />
-              <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+              <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
             </h3>
             <span className="about-location">Full-Stack Creative</span>
           </div>

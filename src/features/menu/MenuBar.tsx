@@ -196,11 +196,11 @@ export function MenuBar() {
                 <div className="notification-art-layout">
                   <div className="notification-art-text">
                     <div className="notification-header">
-                      <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                      <img src="/newpfp.png" width={24} height={24} alt="Profile" className="notification-pfp" />
                       <span className="notification-app">
                         Riz Rose
                         <VerifiedBadge color="red" />
-                        <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                        <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                       </span>
                       <span className="notification-time">now</span>
                     </div>
@@ -212,11 +212,11 @@ export function MenuBar() {
               </div>
               <div className="notification-content">
                 <div className="notification-header">
-                  <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                  <img src="/newpfp.png" width={24} height={24} alt="Profile" className="notification-pfp" />
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">1h ago</span>
                 </div>
@@ -225,11 +225,11 @@ export function MenuBar() {
               </div>
               <div className="notification-content">
                 <div className="notification-header">
-                  <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                  <img src="/newpfp.png" width={24} height={24} alt="Profile" className="notification-pfp" />
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">2h ago</span>
                 </div>
@@ -238,11 +238,11 @@ export function MenuBar() {
               </div>
               <div className="notification-content">
                 <div className="notification-header">
-                  <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                  <img src="/newpfp.png" width={24} height={24} alt="Profile" className="notification-pfp" />
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">2d ago</span>
                 </div>
@@ -251,11 +251,11 @@ export function MenuBar() {
               </div>
               <div className="notification-content">
                 <div className="notification-header">
-                  <img src="/newpfp.png" alt="Profile" className="notification-pfp" />
+                  <img src="/newpfp.png" width={24} height={24} alt="Profile" className="notification-pfp" />
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">3d ago</span>
                 </div>

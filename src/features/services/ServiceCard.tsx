@@ -23,7 +23,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         {isVideo ? (
           <video src={service.preview} autoPlay loop muted playsInline />
         ) : (
-          <img src={service.preview} alt={service.title} />
+          <img src={service.preview} width={300} height={169} alt={service.title} />
         )}
       </div>
       <h3 className="service-card-title">{service.title}</h3>

@@ -6,16 +6,16 @@ export const PROJECTS = [
     logoAlt: 'Hydex',
     type: 'grid' as const,
     images: [
-      '/content/PITCHDECK-2.jpeg',
-      '/content/PITCHDECK-3.jpeg',
-      '/content/PITCHDECK-6.jpeg',
-      '/content/PITCHDECK-8.jpeg'
+      '/content/PITCHDECK-2.webp',
+      '/content/PITCHDECK-3.webp',
+      '/content/PITCHDECK-6.webp',
+      '/content/PITCHDECK-8.webp'
     ]
   },
   {
     title: 'Motion Design',
     link: 'https://x.com/rizzytoday/status/1985022653652955614?s=20',
-    logo: '/content/logos/radiant logo.png',
+    logo: '/content/logos/radiant-logo.webp',
     logoAlt: 'Radiants',
     type: 'video' as const,
     video: '/content/radiants-web.mp4'

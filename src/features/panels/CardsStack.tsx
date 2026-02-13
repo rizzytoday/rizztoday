@@ -72,16 +72,18 @@ export function CardsStack() {
               onClick={(e) => handleCardClick(displayIndex, e)}
             >
               <div className="card-content">
-                {project.type === 'grid' ? (
-                  <div className="card-grid-horizontal">
-                    {project.type === 'grid' && project.images && project.images.map((img, i) => (
-                      <img key={i} loading="lazy" src={img} alt={`${project.title} ${i + 1}`} />
-                    ))}
-                  </div>
+                {isActive ? (
+                  project.type === 'grid' ? (
+                    <div className="card-grid-horizontal">
+                      {project.images && project.images.map((img, i) => (
+                        <img key={i} src={img} width={300} height={169} alt={`${project.title} ${i + 1}`} />
+                      ))}
+                    </div>
+                  ) : (
+                    <video src={project.video} autoPlay loop muted playsInline />
+                  )
                 ) : (
-                  isActive
-                    ? <video src={project.video} autoPlay loop muted playsInline />
-                    : <div className="card-video-placeholder" />
+                  <div className="card-video-placeholder" />
                 )}
               </div>
               <div className="card-caption">
@@ -89,7 +91,7 @@ export function CardsStack() {
                   {project.title}
                 </a>
                 {project.logo && (
-                  <img loading="lazy" src={project.logo} alt={project.logoAlt} className="card-logo" />
+                  <img loading="lazy" width={20} height={20} src={project.logo} alt={project.logoAlt} className="card-logo" />
                 )}
               </div>
             </div>

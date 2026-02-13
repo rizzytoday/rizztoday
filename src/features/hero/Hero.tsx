@@ -218,7 +218,7 @@ export function Hero() {
         <h1 className="name">
           Riz Rose
           <VerifiedBadge color="red" />
-          <img loading="lazy" src="/content/logos/radiant logo.png" alt="Radiants" className="company-badge" />
+          <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
         </h1>
         <p className="tagline">translating ideas into visuals</p>
 
@@ -229,12 +229,12 @@ export function Hero() {
         </div>
 
         <div className="client-logos">
-          <img loading="lazy" src="/content/logos/hydex logo.png" alt="Hydex" className="logo-hydex" />
-          <img loading="lazy" src="/content/logos/rad-BLACK.png" alt="Radiants" className="logo-radiants" />
-          <img loading="lazy" src="/content/logos/Solana Logomark - Color.svg" alt="Solana" className="logo-solana" />
-          <img loading="lazy" src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" />
-          <img loading="lazy" src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" />
-          <img loading="lazy" src="/content/logos/solana-mobile.svg" alt="Solana Mobile" className="logo-solana-mobile" />
+          <img loading="lazy" width={20} height={14} src="/content/logos/hydex logo.png" alt="Hydex" className="logo-hydex" />
+          <img loading="lazy" width={16} height={16} src="/content/logos/rad-BLACK.webp" alt="Radiants" className="logo-radiants" />
+          <img loading="lazy" width={16} height={14} src="/content/logos/Solana Logomark - Color.svg" alt="Solana" className="logo-solana" />
+          <img loading="lazy" width={16} height={16} src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" />
+          <img loading="lazy" width={14} height={18} src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" />
+          <img loading="lazy" width={132} height={22} src="/content/logos/solana-mobile.svg" alt="Solana Mobile" className="logo-solana-mobile" />
         </div>
       </div>
     </div>

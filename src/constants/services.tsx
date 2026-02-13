@@ -75,7 +75,7 @@ export const SERVICES: Service[] = [
     id: 'pitch',
     title: 'Pitchdecks',
     icon: PitchIcon,
-    preview: '/content/PITCHDECK-2.jpeg',
+    preview: '/content/PITCHDECK-2.webp',
     description: "i'm free for a pitchdeck design, let's make sure you're getting that raise.",
     cta: "let's talk",
     ctaLink: 'https://calendar.app.google/mpTJKMqZ8cTz5KD79',

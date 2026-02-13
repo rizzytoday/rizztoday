@@ -8,7 +8,7 @@ export const TESTIMONIALS = [
     quote: `"Rizzy has been a core creative force behind Radiants' public presence. He consistently translates abstract ideas, fast-moving narratives, and evolving brand direction into content that actually resonates with people. What stands out most is his creativity. In an attention-driven environment, Rizzy understands how to balance speed, creativity, and brand integrity. He's not just a designer or content creator, he's someone who actively helps shape how a project is perceived in the market."`,
     job: {
       type: 'radiants',
-      logo: '/content/logos/radiant logo.png',
+      logo: '/content/logos/radiant-logo.webp',
       text: 'Creative Direction',
       duration: '3 years — and still',
       ongoing: true

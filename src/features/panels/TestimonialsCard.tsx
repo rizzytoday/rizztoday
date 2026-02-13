@@ -47,12 +47,12 @@ export function TestimonialsCard() {
           data-index={index}
         >
           <div className="testimonial-header">
-            <img loading="lazy" src={testimonial.pfp} alt={testimonial.name} className="testimonial-pfp" />
+            <img loading="lazy" width={36} height={36} src={testimonial.pfp} alt={testimonial.name} className="testimonial-pfp" />
             <div className="testimonial-info">
               <h3 className="testimonial-name">
                 {testimonial.name}
                 <VerifiedBadge color="orange" />
-                <img loading="lazy" src={testimonial.badge} alt={testimonial.title} className="company-badge" />
+                <img loading="lazy" width={14} height={14} src={testimonial.badge} alt={testimonial.title} className="company-badge" />
               </h3>
               <span className="testimonial-title">{testimonial.title}</span>
             </div>
@@ -61,7 +61,7 @@ export function TestimonialsCard() {
             <p>{testimonial.quote}</p>
           </div>
           <div className={`job-done-tag ${testimonial.job.type}`}>
-            <img loading="lazy" src={testimonial.job.logo} alt={testimonial.job.type} className="job-brand-logo" />
+            <img loading="lazy" width={16} height={16} src={testimonial.job.logo} alt={testimonial.job.type} className="job-brand-logo" />
             <span className="job-text">{testimonial.job.text}</span>
             {testimonial.job.duration && (
               <span className="job-duration">{testimonial.job.duration}</span>
