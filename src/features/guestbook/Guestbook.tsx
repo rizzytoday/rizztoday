@@ -157,12 +157,18 @@ export function Guestbook({ db, isFirebaseReady }: GuestbookProps) {
         <div className="input-panel-title">Leave a Note</div>
         <input
           type="text"
+          id="guestbook-name"
+          name="name"
+          autoComplete="name"
           placeholder="your name"
           maxLength={30}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <textarea
+          id="guestbook-message"
+          name="message"
+          autoComplete="off"
           placeholder="your message..."
           maxLength={240}
           value={message}
