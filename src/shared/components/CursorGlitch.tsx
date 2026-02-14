@@ -79,6 +79,7 @@ export function CursorGlitch() {
             width: '20px',
             height: '20px',
             willChange: 'transform',
+            zIndex: TRAIL_COUNT - i,
             opacity: 0.85 - i * 0.15,
             // furthest trails get slight color shift for glitch feel
             filter: i > 2 ? `hue-rotate(${i * 30}deg)` : undefined,
