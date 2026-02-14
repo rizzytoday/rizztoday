@@ -217,7 +217,7 @@ export function Hero() {
           <a href="https://x.com/Soladex_io" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={16} src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" /></a>
           <a href="https://x.com/RadiantsDAO" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={16} src="/content/logos/rad-BLACK.webp" alt="Radiants" className="logo-radiants" /></a>
           <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={14} height={18} src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" /></a>
-          <a href="https://x.com/bonk_inu" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={30} height={30} src="/content/logos/bonk.svg" alt="Bonk" className="logo-bonk" /></a>
+          <a href="https://x.com/bonk_inu" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={40} height={40} src="/content/logos/bonk.svg" alt="Bonk" className="logo-bonk" style={{ verticalAlign: 'middle' }} /></a>
           <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={132} height={22} src="/content/logos/solana-mobile.svg" alt="Solana Mobile" className="logo-solana-mobile" /></a>
         </div>
       </div>
