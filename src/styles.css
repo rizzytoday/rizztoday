@@ -430,8 +430,10 @@ body {
 .tagline { font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 500; color: rgba(255, 255, 255, 0.5); letter-spacing: -0.01em; }
 
 /* Client Logos */
-.client-logos { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; opacity: 0.4; transition: opacity 0.35s var(--smooth-ease); }
+.client-logos { display: flex; align-items: center; justify-content: center; margin-top: 8px; opacity: 0.4; transition: opacity 0.35s var(--smooth-ease); overflow: hidden; }
 .client-logos:hover { opacity: 0.6; }
+.client-logos-track { display: flex; align-items: center; gap: 10px; }
+.client-logos .ticker-dupe { display: none; }
 .client-logos img { height: 16px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.7; transition: filter 0.4s var(--smooth-ease), opacity 0.4s var(--smooth-ease), transform 0.4s var(--smooth-ease); }
 .client-logos img.logo-hydex { height: 14px; }
 .client-logos img.logo-radiants { height: 16px; }
@@ -459,6 +461,11 @@ body {
     0%, 100% { opacity: 1; transform: translateX(0); }
     25% { opacity: 0.5; transform: translateX(-2px); }
     75% { opacity: 0.5; transform: translateX(2px); }
+}
+
+@keyframes logo-ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* Shared Panel Button Styles */
@@ -901,7 +908,9 @@ body {
     .name-tagline { bottom: 12px; }
     .name { font-size: 10px; margin-bottom: 1px; }
     .tagline { font-size: 9px; }
-    .client-logos { margin-top: 6px; gap: 10px; }
+    .client-logos { margin-top: 6px; width: 220px; mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent); }
+    .client-logos .ticker-dupe { display: inline-flex; }
+    .client-logos-track { gap: 14px; animation: logo-ticker 12s linear infinite; width: max-content; }
     .client-logos img { height: 12px; }
     .project-stats { font-size: 7px; margin-top: 5px; padding-top: 5px; }
     .project-stats::before { width: 125px; }
@@ -966,6 +975,8 @@ body {
 
 /* Touch Devices */
 @media (hover: none) {
+    *, *::before, *::after { cursor: auto !important; }
+
     .menu-btn.hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transform: scale(0.8) translateY(10px) !important; }
 
     /* Touch active press feedback */

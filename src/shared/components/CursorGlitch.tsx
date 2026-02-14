@@ -15,8 +15,10 @@ export function CursorGlitch() {
   const pressing = useRef(false)
   const rafId = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
 
   useEffect(() => {
+    if (isTouch) return
     const showAll = () => {
       if (visible.current) return
       visible.current = true
@@ -103,6 +105,8 @@ export function CursorGlitch() {
       cancelAnimationFrame(rafId.current)
     }
   }, [])
+
+  if (isTouch) return null
 
   return (
     <div

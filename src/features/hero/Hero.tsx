@@ -117,12 +117,10 @@ export function Hero() {
     renderStaticFrame()
   }
 
-  // Project counter animation — limited to 3 glitch cycles
+  // Project counter animation — infinite +1 glitch loop
   useEffect(() => {
     const targetCount = 20
-    const maxGlitchCycles = 3
     let current = 0
-    let glitchCycle = 0
     const stepTime = 2800 / targetCount
     let countUpInterval: NodeJS.Timeout | null = null
     let glitchTimeout1: NodeJS.Timeout | null = null
@@ -139,8 +137,6 @@ export function Hero() {
     }, stepTime)
 
     const startGlitchLoop = () => {
-      if (glitchCycle >= maxGlitchCycles) return
-      glitchCycle++
       setProjectCount(21)
       setIsGlitching(true)
       glitchTimeout2 = setTimeout(() => {
@@ -212,13 +208,23 @@ export function Hero() {
         </div>
 
         <div className="client-logos">
-          <a href="https://x.com/hydex_io" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={20} height={14} src="/content/logos/hydex logo.png" alt="Hydex" className="logo-hydex" /></a>
-          <a href="https://x.com/solana" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={14} src="/content/logos/Solana Logomark - Color.svg" alt="Solana" className="logo-solana" /></a>
-          <a href="https://x.com/Soladex_io" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={16} src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" /></a>
-          <a href="https://x.com/RadiantsDAO" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={16} src="/content/logos/rad-BLACK.webp" alt="Radiants" className="logo-radiants" /></a>
-          <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={14} height={18} src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" /></a>
-          <a href="https://x.com/bonk_inu" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={18} height={18} src="/content/logos/bonk.svg" alt="Bonk" className="logo-bonk" /></a>
-          <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={132} height={22} src="/content/logos/solana-mobile.svg" alt="Solana Mobile" className="logo-solana-mobile" /></a>
+          <div className="client-logos-track">
+            <a href="https://x.com/hydex_io" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={20} height={14} src="/content/logos/hydex logo.png" alt="Hydex" className="logo-hydex" /></a>
+            <a href="https://x.com/solana" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={14} src="/content/logos/Solana Logomark - Color.svg" alt="Solana" className="logo-solana" /></a>
+            <a href="https://x.com/Soladex_io" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={16} src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" /></a>
+            <a href="https://x.com/RadiantsDAO" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={16} height={16} src="/content/logos/rad-BLACK.webp" alt="Radiants" className="logo-radiants" /></a>
+            <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={14} height={18} src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" /></a>
+            <a href="https://x.com/bonk_inu" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={18} height={18} src="/content/logos/bonk.svg" alt="Bonk" className="logo-bonk" /></a>
+            <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer"><img loading="lazy" width={132} height={22} src="/content/logos/solana-mobile.svg" alt="Solana Mobile" className="logo-solana-mobile" /></a>
+            {/* Duplicate set for seamless ticker loop on mobile */}
+            <a href="https://x.com/hydex_io" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={20} height={14} src="/content/logos/hydex logo.png" alt="" className="logo-hydex" /></a>
+            <a href="https://x.com/solana" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={16} height={14} src="/content/logos/Solana Logomark - Color.svg" alt="" className="logo-solana" /></a>
+            <a href="https://x.com/Soladex_io" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={16} height={16} src="/content/logos/soladex.svg" alt="" className="logo-soladex" /></a>
+            <a href="https://x.com/RadiantsDAO" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={16} height={16} src="/content/logos/rad-BLACK.webp" alt="" className="logo-radiants" /></a>
+            <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={14} height={18} src="/content/logos/skr-seeker.png" alt="" className="logo-skr" /></a>
+            <a href="https://x.com/bonk_inu" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={18} height={18} src="/content/logos/bonk.svg" alt="" className="logo-bonk" /></a>
+            <a href="https://x.com/solanamobile" target="_blank" rel="noopener noreferrer" aria-hidden="true" className="ticker-dupe"><img loading="lazy" width={132} height={22} src="/content/logos/solana-mobile.svg" alt="" className="logo-solana-mobile" /></a>
+          </div>
         </div>
       </div>
     </div>
