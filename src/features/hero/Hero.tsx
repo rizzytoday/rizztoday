@@ -119,7 +119,7 @@ export function Hero() {
 
   // Project counter animation — limited to 3 glitch cycles
   useEffect(() => {
-    const targetCount = 19
+    const targetCount = 20
     const maxGlitchCycles = 3
     let current = 0
     let glitchCycle = 0
@@ -141,10 +141,10 @@ export function Hero() {
     const startGlitchLoop = () => {
       if (glitchCycle >= maxGlitchCycles) return
       glitchCycle++
-      setProjectCount(20)
+      setProjectCount(21)
       setIsGlitching(true)
       glitchTimeout2 = setTimeout(() => {
-        setProjectCount(19)
+        setProjectCount(20)
         setIsGlitching(false)
         glitchLoopTimeout = setTimeout(startGlitchLoop, 1500)
       }, 200)
