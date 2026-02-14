@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 
 const TRAIL_COUNT = 4
+// SVG arrow tip offset — must match the CSS cursor hotspot (3 2)
+const TIP_X = 3
+const TIP_Y = 2
 
 export function CursorGlitch() {
   const trailsRef = useRef<HTMLDivElement[]>([])
@@ -11,6 +14,7 @@ export function CursorGlitch() {
   const visible = useRef(false)
   const pressing = useRef(false)
   const rafId = useRef(0)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const showAll = () => {
@@ -22,6 +26,10 @@ export function CursorGlitch() {
       }
     }
 
+    const setTransform = (el: HTMLElement, x: number, y: number) => {
+      el.style.transform = `translate(${x - TIP_X}px, ${y - TIP_Y}px)`
+    }
+
     const onMove = (e: MouseEvent) => {
       mouse.current.x = e.clientX
       mouse.current.y = e.clientY
@@ -30,7 +38,7 @@ export function CursorGlitch() {
           positions.current[i].x = e.clientX
           positions.current[i].y = e.clientY
           const el = trailsRef.current[i]
-          if (el) el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+          if (el) setTransform(el, e.clientX, e.clientY)
         }
         showAll()
       }
@@ -44,7 +52,18 @@ export function CursorGlitch() {
         positions.current[i].x = e.clientX
         positions.current[i].y = e.clientY
         const el = trailsRef.current[i]
-        if (el) el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+        if (el) setTransform(el, e.clientX, e.clientY)
+      }
+
+      // Click wave ripple
+      const container = containerRef.current
+      if (container) {
+        const wave = document.createElement('div')
+        wave.className = 'click-wave'
+        wave.style.left = e.clientX + 'px'
+        wave.style.top = e.clientY + 'px'
+        container.appendChild(wave)
+        wave.addEventListener('animationend', () => wave.remove())
       }
     }
 
@@ -69,7 +88,7 @@ export function CursorGlitch() {
 
         const el = trailsRef.current[i]
         if (el) {
-          el.style.transform = `translate(${positions.current[i].x}px, ${positions.current[i].y}px)`
+          setTransform(el, positions.current[i].x, positions.current[i].y)
         }
       }
       rafId.current = requestAnimationFrame(tick)
@@ -87,6 +106,7 @@ export function CursorGlitch() {
 
   return (
     <div
+      ref={containerRef}
       aria-hidden="true"
       style={{
         position: 'fixed',
