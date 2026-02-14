@@ -36,6 +36,7 @@
 
     <!-- Critical CSS: paint dark bg + layout before JS loads -->
     <style>
+      *,*::before,*::after,html,body{cursor:none!important}
       body{margin:0;font-family:'Inter Tight',sans-serif;background-color:rgb(0,0,0);color:#fff;display:flex;flex-direction:column}
       .menu-bar{height:28px;background-color:rgba(0,0,0,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 12px}
       .container{flex:1;display:flex;overflow:visible;margin-top:28px;height:calc(100vh - 28px)}
