@@ -217,7 +217,7 @@ export function Hero() {
           <img loading="lazy" width={16} height={16} src="/content/logos/soladex.svg" alt="Soladex" className="logo-soladex" />
           <img loading="lazy" width={16} height={16} src="/content/logos/rad-BLACK.webp" alt="Radiants" className="logo-radiants" />
           <img loading="lazy" width={14} height={18} src="/content/logos/skr-seeker.png" alt="Seeker" className="logo-skr" />
-          <img loading="lazy" width={20} height={20} src="/content/logos/bonk.svg" alt="Bonk" className="logo-bonk" />
+          <img loading="lazy" width={28} height={28} src="/content/logos/bonk.svg" alt="Bonk" className="logo-bonk" />
           <img loading="lazy" width={132} height={22} src="/content/logos/solana-mobile.svg" alt="Solana Mobile" className="logo-solana-mobile" />
         </div>
       </div>
