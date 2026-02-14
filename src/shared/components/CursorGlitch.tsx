@@ -9,6 +9,7 @@ export function CursorGlitch() {
     Array.from({ length: TRAIL_COUNT }, () => ({ x: -100, y: -100 }))
   )
   const mouse = useRef({ x: -100, y: -100 })
+  const pressing = useRef(false)
   const rafId = useRef(0)
 
   useEffect(() => {
@@ -16,13 +17,34 @@ export function CursorGlitch() {
       mouse.current.x = e.clientX
       mouse.current.y = e.clientY
     }
+
+    const onDown = () => {
+      pressing.current = true
+      // Snap all ghosts to cursor position — kills the wobble
+      for (let i = 0; i < TRAIL_COUNT; i++) {
+        positions.current[i].x = mouse.current.x
+        positions.current[i].y = mouse.current.y
+      }
+      // Press-down scale on lead cursor
+      const lead = trailsRef.current[0]
+      if (lead) lead.style.scale = '0.85'
+    }
+
+    const onUp = () => {
+      pressing.current = false
+      const lead = trailsRef.current[0]
+      if (lead) lead.style.scale = '1'
+    }
+
     window.addEventListener('mousemove', onMove, { passive: true })
+    window.addEventListener('mousedown', onDown)
+    window.addEventListener('mouseup', onUp)
 
     const tick = () => {
-      // Each trail chases the one before it with lerp
       for (let i = TRAIL_COUNT - 1; i >= 0; i--) {
         const target = i === 0 ? mouse.current : positions.current[i - 1]
-        const lerp = 0.15 + i * 0.08 // slower for further ghosts
+        // When pressing, snap hard (high lerp) so ghosts stay locked
+        const lerp = pressing.current ? 0.8 : 0.15 + i * 0.08
         positions.current[i].x += (target.x - positions.current[i].x) * lerp
         positions.current[i].y += (target.y - positions.current[i].y) * lerp
 
@@ -39,7 +61,6 @@ export function CursorGlitch() {
     for (let i = 0; i < TRAIL_COUNT; i++) {
       timeouts.push(
         window.setTimeout(() => {
-          // Initialize position to current mouse
           positions.current[i] = { ...mouse.current }
         }, i * TRAIL_DELAY)
       )
@@ -49,6 +70,8 @@ export function CursorGlitch() {
 
     return () => {
       window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('mouseup', onUp)
       cancelAnimationFrame(rafId.current)
       timeouts.forEach(clearTimeout)
     }
@@ -81,11 +104,10 @@ export function CursorGlitch() {
             willChange: 'transform',
             zIndex: TRAIL_COUNT - i,
             opacity: 0.85 - i * 0.15,
-            // furthest trails get slight color shift for glitch feel
+            transition: 'scale 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
             filter: i > 2 ? `hue-rotate(${i * 30}deg)` : undefined,
           }}
         >
-          {/* Windows-style arrow cursor SVG */}
           <svg
             width="20"
             height="20"
