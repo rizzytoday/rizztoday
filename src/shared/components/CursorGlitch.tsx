@@ -21,12 +21,17 @@ export function CursorGlitch() {
       mouse.current.y = e.clientY
     }
 
-    const onDown = () => {
+    const onDown = (e: MouseEvent) => {
       pressing.current = true
-      // Snap all ghosts to cursor position — kills the wobble
+      // Snap all ghosts to exact click position AND update transforms immediately
+      // (don't wait for rAF — prevents 1-frame stale position flash)
+      const x = e.clientX
+      const y = e.clientY
       for (let i = 0; i < TRAIL_COUNT; i++) {
-        positions.current[i].x = mouse.current.x
-        positions.current[i].y = mouse.current.y
+        positions.current[i].x = x
+        positions.current[i].y = y
+        const el = trailsRef.current[i]
+        if (el) el.style.transform = `translate(${x}px, ${y}px)`
       }
       // Press-down scale on lead cursor
       const lead = trailsRef.current[0]
@@ -94,7 +99,7 @@ export function CursorGlitch() {
         position: 'fixed',
         inset: 0,
         pointerEvents: 'none',
-        zIndex: 9999,
+        zIndex: 2147483647,
       }}
     >
       {Array.from({ length: TRAIL_COUNT }, (_, i) => (
