@@ -6,7 +6,7 @@
     font-display: swap;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
 
 :root {
     --bg-primary: rgb(0, 0, 0);
