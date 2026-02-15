@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import type { Firestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnQKWdREyUYXZKlVweg5HBZx0-vcMZs0g",
-  authDomain: "rizztoday.firebaseapp.com",
-  projectId: "rizztoday",
-  storageBucket: "rizztoday.firebasestorage.app",
-  messagingSenderId: "806144736906",
-  appId: "1:806144736906:web:5074b4e0bc78e39a7cb773"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 }
 
 export function useFirebase() {
