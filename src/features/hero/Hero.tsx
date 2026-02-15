@@ -53,7 +53,7 @@ export function Hero() {
     img.onload = () => {
       const canvas = imageCanvasRef.current
       if (!canvas) return
-      const ctx = canvas.getContext('2d')
+      const ctx = canvas.getContext('2d', { willReadFrequently: true })
       if (!ctx) return
 
       canvas.width = asciiWidth
@@ -188,7 +188,8 @@ export function Hero() {
           width={64}
           height={64}
           className={`hero-pfp ${isPfpSpinning ? 'spin' : ''}`}
-          fetchPriority="high"
+          /* @ts-expect-error React 18 doesn't type fetchpriority */
+          fetchpriority="high"
           onClick={() => {
             setIsPfpSpinning(true)
             setTimeout(() => setIsPfpSpinning(false), 600)
