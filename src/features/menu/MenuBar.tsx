@@ -3,38 +3,39 @@ import { VerifiedBadge } from '../../shared/components/VerifiedBadge'
 
 function OrbitersCanvas({ isActive }: { isActive: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const initRef = useRef(false)
 
   useEffect(() => {
-    if (!isActive) return // Skip RAF when notification panel is closed
-
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
     const size = 160 // logical size
-    const dpr = window.devicePixelRatio || 1
-    canvas.width = size * dpr
-    canvas.height = size * dpr
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-
     const spacing = 20
     const circleRadius = spacing * 0.82
     const dotRadius = spacing * 0.115
     const orbitRadius = circleRadius
     const loopDuration = 2400
 
-    let animId: number
+    // Only set canvas dimensions once
+    if (!initRef.current) {
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = size * dpr
+      canvas.height = size * dpr
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      initRef.current = true
+    }
+
+    const cols = Math.ceil(size / spacing) + 2
+    const rows = Math.ceil(size / spacing) + 2
+    const offsetX = (size - (cols - 1) * spacing) / 2
+    const offsetY = (size - (rows - 1) * spacing) / 2
+    const centerCol = (cols - 1) / 2
+    const centerRow = (rows - 1) / 2
 
     const draw = (t: number) => {
       ctx.clearRect(0, 0, size, size)
-
-      const cols = Math.ceil(size / spacing) + 2
-      const rows = Math.ceil(size / spacing) + 2
-      const offsetX = (size - (cols - 1) * spacing) / 2
-      const offsetY = (size - (rows - 1) * spacing) / 2
-      const centerCol = (cols - 1) / 2
-      const centerRow = (rows - 1) / 2
 
       const progress = (t % loopDuration) / loopDuration
       const baseAngle = progress * Math.PI * 2
@@ -71,10 +72,21 @@ function OrbitersCanvas({ isActive }: { isActive: boolean }) {
         }
       }
 
-      animId = requestAnimationFrame(draw)
+      return t
     }
 
-    animId = requestAnimationFrame(draw)
+    // Always draw one static frame so canvas is never blank
+    draw(0)
+
+    // Only animate when notification panel is open
+    if (!isActive) return
+
+    let animId: number
+    const animate = (t: number) => {
+      draw(t)
+      animId = requestAnimationFrame(animate)
+    }
+    animId = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animId)
   }, [isActive])
 
@@ -206,7 +218,7 @@ export function MenuBar() {
                       <span className="notification-app">
                         Riz Rose
                         <VerifiedBadge color="red" />
-                        <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
+                        <img width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                       </span>
                       <span className="notification-time">now</span>
                     </div>
@@ -222,7 +234,7 @@ export function MenuBar() {
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
+                    <img width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">1h ago</span>
                 </div>
@@ -235,7 +247,7 @@ export function MenuBar() {
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
+                    <img width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">2h ago</span>
                 </div>
@@ -248,7 +260,7 @@ export function MenuBar() {
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
+                    <img width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">2d ago</span>
                 </div>
@@ -261,7 +273,7 @@ export function MenuBar() {
                   <span className="notification-app">
                     Riz Rose
                     <VerifiedBadge color="red" />
-                    <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
+                    <img width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
                   </span>
                   <span className="notification-time">3d ago</span>
                 </div>

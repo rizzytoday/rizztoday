@@ -36,6 +36,7 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
   const isActive = activePanel === 'about'
 
   const [counts, setCounts] = useState<Record<string, number>>({})
+  const [countsLoaded, setCountsLoaded] = useState(false)
   const [selected, setSelected] = useState<string[]>(getUserReactions())
   const [clicked, setClicked] = useState<string | null>(null)
   const [particles, setParticles] = useState<{ id: number; emoji: string; x: number; y: number }[]>([])
@@ -52,6 +53,7 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
         if (docSnap.exists()) {
           setCounts(docSnap.data() as Record<string, number>)
         }
+        setCountsLoaded(true)
       } catch (error) {
         console.error('Error loading emoji counts from Firebase:', error)
       }
@@ -129,7 +131,7 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
             <h3 className="about-name">
               Riz Rose
               <VerifiedBadge color="red" />
-              <img loading="lazy" width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
+              <img width={14} height={14} src="/content/logos/radiant-logo.webp" alt="Radiants" className="company-badge" />
             </h3>
             <span className="about-location">Full-Stack Creative</span>
           </div>
@@ -148,7 +150,7 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
               onClick={(e) => handleEmojiClick(key, emoji, e)}
             >
               <span className="emoji">{emoji}</span>
-              <span className="emoji-count">{counts[key] || 0}</span>
+              <span className="emoji-count">{countsLoaded ? (counts[key] || 0) : '·'}</span>
             </button>
           ))}
         </div>
