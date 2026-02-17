@@ -40,8 +40,10 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
   const [selected, setSelected] = useState<string[]>(getUserReactions())
   const [clicked, setClicked] = useState<string | null>(null)
   const [particles, setParticles] = useState<{ id: number; emoji: string; x: number; y: number }[]>([])
+  const [spinning, setSpinning] = useState<Record<string, { prev: number; next: number; direction: 'up' | 'down' }>>({})
   const particleTimeoutsRef = useRef<Set<NodeJS.Timeout>>(new Set())
   const clickedTimeoutsRef = useRef<Set<NodeJS.Timeout>>(new Set())
+  const spinTimeoutsRef = useRef<Set<NodeJS.Timeout>>(new Set())
 
   useEffect(() => {
     if (!db || !isFirebaseReady) return
@@ -82,6 +84,17 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
       particleTimeoutsRef.current.add(particleTimeout)
     }
 
+    const currentCount = counts[key] || 0
+    const nextCount = Math.max(0, currentCount + (wasSelected ? -1 : 1))
+    setSpinning(prev => ({ ...prev, [key]: { prev: currentCount, next: nextCount, direction: wasSelected ? 'down' : 'up' } }))
+    const spinTimeout = setTimeout(() => {
+      setSpinning(prev => {
+        const { [key]: _, ...rest } = prev
+        return rest
+      })
+    }, 350)
+    spinTimeoutsRef.current.add(spinTimeout)
+
     setCounts(prev => ({
       ...prev,
       [key]: Math.max(0, (prev[key] || 0) + (wasSelected ? -1 : 1))
@@ -119,6 +132,8 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
       particleTimeoutsRef.current.clear()
       clickedTimeoutsRef.current.forEach(timeout => clearTimeout(timeout))
       clickedTimeoutsRef.current.clear()
+      spinTimeoutsRef.current.forEach(timeout => clearTimeout(timeout))
+      spinTimeoutsRef.current.clear()
     }
   }, [])
 
@@ -150,7 +165,16 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
               onClick={(e) => handleEmojiClick(key, emoji, e)}
             >
               <span className="emoji">{emoji}</span>
-              <span className="emoji-count">{countsLoaded ? (counts[key] || 0) : '·'}</span>
+              <span className="emoji-count-wrapper">
+                {spinning[key] ? (
+                  <>
+                    <span className={`emoji-count-slot slot-exit-${spinning[key].direction}`}>{spinning[key].prev}</span>
+                    <span className={`emoji-count-slot slot-enter-${spinning[key].direction}`}>{spinning[key].next}</span>
+                  </>
+                ) : (
+                  <span className="emoji-count-static">{countsLoaded ? (counts[key] || 0) : '·'}</span>
+                )}
+              </span>
             </button>
           ))}
         </div>
