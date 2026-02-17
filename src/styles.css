@@ -792,8 +792,8 @@ body {
     z-index: 101;
 }
 
-.guestbook-input-panel { left: 20px; bottom: 70px; width: 200px; padding: 12px; }
-.guestbook-comments-panel { left: 240px; bottom: 70px; width: 200px; max-height: 220px; padding: 12px; transition-delay: 0.08s; overflow: hidden; background: rgba(28, 28, 30, 0.95); border: 1px solid var(--divider); }
+.guestbook-input-panel { left: 20px; bottom: 70px; width: 200px; height: 200px; padding: 12px; overflow: hidden; }
+.guestbook-comments-panel { left: 240px; bottom: 70px; width: 200px; height: 200px; padding: 12px; transition-delay: 0.08s; overflow: hidden; background: rgba(28, 28, 30, 0.95); border: 1px solid var(--divider); }
 
 .guestbook-input-panel.active, .guestbook-comments-panel.active { opacity: 1; visibility: visible; transform: scale(1) translateY(0); }
 
@@ -823,7 +823,7 @@ body {
     opacity: 1;
 }
 
-.guestbook-messages { display: flex; flex-direction: column; gap: 6px; max-height: 155px; overflow-y: auto; }
+.guestbook-messages { display: flex; flex-direction: column; gap: 6px; max-height: 148px; overflow-y: auto; }
 .guestbook-messages::-webkit-scrollbar { width: 2px; }
 .guestbook-messages::-webkit-scrollbar-track { background: transparent; }
 .guestbook-messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 2px; }
