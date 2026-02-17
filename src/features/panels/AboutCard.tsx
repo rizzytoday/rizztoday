@@ -31,12 +31,24 @@ function setUserReactions(reactions: string[]) {
   }
 }
 
+const COUNTS_CACHE_KEY = 'riz_emoji_counts'
+
+function getCachedCounts(): Record<string, number> {
+  try {
+    const stored = localStorage.getItem(COUNTS_CACHE_KEY)
+    return stored ? JSON.parse(stored) : {}
+  } catch { return {} }
+}
+
+function cacheCounts(counts: Record<string, number>) {
+  localStorage.setItem(COUNTS_CACHE_KEY, JSON.stringify(counts))
+}
+
 export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
   const activePanel = usePanelStore()
   const isActive = activePanel === 'about'
 
-  const [counts, setCounts] = useState<Record<string, number>>({})
-  const [countsLoaded, setCountsLoaded] = useState(false)
+  const [counts, setCounts] = useState<Record<string, number>>(getCachedCounts)
   const [selected, setSelected] = useState<string[]>(getUserReactions())
   const [clicked, setClicked] = useState<string | null>(null)
   const [particles, setParticles] = useState<{ id: number; emoji: string; x: number; y: number }[]>([])
@@ -53,9 +65,10 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
         const docRef = doc(db, 'reactions', 'counts')
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
-          setCounts(docSnap.data() as Record<string, number>)
+          const data = docSnap.data() as Record<string, number>
+          setCounts(data)
+          cacheCounts(data)
         }
-        setCountsLoaded(true)
       } catch (error) {
         console.error('Error loading emoji counts from Firebase:', error)
       }
@@ -172,7 +185,7 @@ export function AboutCard({ db, isFirebaseReady }: AboutCardProps) {
                     <span className={`emoji-count-slot slot-enter-${spinning[key].direction}`}>{spinning[key].next}</span>
                   </>
                 ) : (
-                  <span className="emoji-count-static">{countsLoaded ? (counts[key] || 0) : '·'}</span>
+                  <span className="emoji-count-static">{counts[key] || 0}</span>
                 )}
               </span>
             </button>
